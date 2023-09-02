@@ -1,0 +1,25 @@
+1. ขั้นแรกสร้าง React Project ตาม Shadcn/Ui แนะนำ
+โดยข้างในนั้นจะประกอบไปด้วย Typescript / Tailwind CSS / React / Shadcn-Ui / Vite
+ตาม Document Link นี้ https://ui.shadcn.com/docs/installation/vite
+
+2. ขั้นสอง Install lib ที่ต้องการจะใช้งานเพิ่มเติมเช่น Axios / React-router-dom
+
+3. ขั้นสาม Install Component ของ Shadcn-UI ตามที่จะใช้งาน เช่น 
+  อยากได้ Component
+    Button -- npx shadcn-ui@latest add button
+    Card -- npx shadcn-ui@latest add card
+  *ดูได้ในไฟล์ Document ของ Component นั้นๆ
+
+4. (Optional) Setup Axios-Instance ใน core/config เป็น Config กลาง แค่ Import มาใช้อย่างเดียวไม่ต้องเขียนหลายรอบ
+ก่อนจะใช้งานต้องสร้างไฟล์ .env ขึ้นมาเหมือนในตัวอย่างของไฟล์ .env.example 
+(อย่าลืมไปที่ไฟล์ .gitignore แล้วเพิ่ม .env เข้าไปต่อบรรทัดล่างสุด)
+
+วิธีใช้ Axios-Instance
+
+import instance from "@/core/config/axios-instance" 
+instance.get("/")
+
+วิธีใช้ Axios ดั้งเดิม(เอาไว้เทียบ)
+
+import axios from "axios"
+axios.get("http://localhost:4000/")
