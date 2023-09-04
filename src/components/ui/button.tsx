@@ -20,6 +20,8 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         "outline-primary":
           "border border-[#336DF2] text-[#336DF2] hover:bg-[#336DF2] hover:text-white",
+        myPrimary:
+          "text-white bg-blue-600 hover:bg-blue-500 active:bg-blue-800 disabled:bg-gray-300 disabled:text-gray-100",
       },
       size: {
         default: "h-10 px-4 py-2",

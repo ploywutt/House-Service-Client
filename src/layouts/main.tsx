@@ -4,14 +4,17 @@ import Footer from "@/components/layout/footer";
 
 function MainLayout() {
   return (
-    <>
+    <div className="min-h-screen">
       <Navbar></Navbar>
-      <div className="bg-[#F3F4F6]">
+      <div
+        className="bg-[#F3F4F6]"
+        style={{ minHeight: "calc(100vh - 240px)" }}
+      >
         <Outlet />
       </div>
 
       <Footer></Footer>
-    </>
+    </div>
   );
 }
 

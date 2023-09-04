@@ -1,0 +1,5 @@
+.banner {
+  background: url("/Homepage-Human.png") no-repeat;
+  background-position: right 30% bottom -12rem;
+  @apply bg-blue-100;
+}

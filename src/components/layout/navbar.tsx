@@ -1,7 +1,28 @@
 import AppIcon from "@/assets/icon/AppIcon.png";
 import { Button } from "../ui/button";
+import { User } from "@/core/types/user";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Bell, User2, ClipboardList, History, LogOut } from "lucide-react";
+import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 function Navbar() {
+  let userstr = localStorage.getItem("user");
+  const parse: User | undefined = userstr ? JSON.parse(userstr) : undefined;
+  const [user, setUser] = useState<User | undefined>(parse);
+  const logout = () => {
+    setUser(undefined);
+  };
+  const login = () => {
+    setUser({ name: "mhing", image: "https://picsum.photos/200/300" });
+  };
   return (
     <>
       <nav className="px-52 flex justify-between shadow-lg shadow-black-200 py-3">
@@ -10,10 +31,63 @@ function Navbar() {
             <img src={AppIcon} alt="Logo" />
             <div className="flex text-lg pl-3">HomeServices</div>
           </Button>
-          <Button variant="link">บริการของเรา</Button>
+          <Button
+            variant="link"
+            className="hover:no-underline hover:bg-gray-100  active:bg-gray-200 disabled:bg-white disabled:text-blue-700 disabled:opacity-100"
+          >
+            บริการของเรา
+          </Button>
         </div>
         <div className="flex items-center">
-          <Button variant="outline-primary">เข้าสู่ระบบ</Button>
+          {user == undefined ? (
+            <Button onClick={login} variant="outline-primary">
+              เข้าสู่ระบบ
+            </Button>
+          ) : (
+            <div className="flex items-center">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <div className="flex items-center cursor-pointer">
+                    <h1 className="pr-5 text-gray-700">{user.name}</h1>
+                    <Avatar>
+                      <AvatarImage src={user.image} />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer">
+                    <User2 className="pr-1 w-5" />
+                    ข้อมูลผู้ใช้
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer">
+                    <ClipboardList className="pr-1 w-5" />
+                    รายการคำสั่งซ่อม
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer">
+                    <History className="pr-1 w-5" />
+                    ประวัติการซ่อม
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={logout}
+                    className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer"
+                  >
+                    <LogOut className="pr-1 w-5" />
+                    ออกจากระบบ
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <Button
+                variant="secondary"
+                size="icon"
+                className="rounded-full ml-3"
+              >
+                <Bell className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
         </div>
       </nav>
     </>
