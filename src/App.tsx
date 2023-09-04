@@ -1,14 +1,15 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+// import UserLogin from "./components/userLogin.tsx";
 
 function App() {
   return (
-    <>
-      <div>
-        <Button className="bg-blue-500">Click me</Button>
-      </div>
-    </>
+    <Router>
+      <Routes>
+        {/* ลบตัวอย่างออกแล้วใส่เฉพาะ Route ที่ทำนะคับ เพื่อป้องกัน conflict คับ */}
+        {/* <Route path="/posts/:id" element={<PostDetail />} /> This is ตัวอย่างคับ*/}
+      </Routes>
+    </Router>
   );
 }
 
