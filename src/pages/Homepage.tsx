@@ -28,8 +28,17 @@ function Homepage() {
         </div>
       </div>
       <div>
-        บริการยอดฮิตของเรา
-        <ProductCard></ProductCard>
+        <div className="text-center text-blue-950 font-bold text-[2rem] pt-8 pb-6">
+          บริการยอดฮิตของเรา
+        </div>
+        <div className="grid grid-cols-3 gap-8 px-52">
+          <ProductCard></ProductCard>
+          <ProductCard></ProductCard>
+          <ProductCard></ProductCard>
+        </div>
+        <div className="text-center mt-[4rem]">
+          <Button variant="myPrimary">ดูบริการทั้งหมด</Button>
+        </div>
       </div>
     </>
   );
