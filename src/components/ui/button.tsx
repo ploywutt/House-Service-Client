@@ -10,15 +10,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "w-40 h-11 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground text-base text-medium font-medium leading-normal hover:bg-primary-hover active:primary-active",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "h-11 px-6 py-2.5 bg-blue-600 rounded-lg justify-center items-center inline-flex text-center text-white text-base font-medium leading-normal hover:bg-blue-500 active:bg-blue-800 disabled:bg-gray-300 disabled:text-gray-100",
+        // destructive:
+        //   "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        // outline:
+        //   "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         secondary:
-          "w-40 h-11 px-6 py-2.5 bg-none text-secondary border border-secondary hover:text-secondary-hover hover:border hover:border-secondary-hover active:text-secondary-active active:border active:border-secondary-active",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "w-40 h-11 px-6 py-2.5 text-primary underline-offset-4 hover:underline hover:text-secondary-hover active:text-secondary-active",
+          "h-11 px-6 py-2.5 rounded-lg border border-blue-600 justify-center items-center gap-2 inline-flex text-blue-600 text-base font-medium leading-normal hover:text-blue-400 hover:border-blue-400 active:text-blue-800 active:border-blue-800 disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-400",
+        // ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "h-7 px-2 py-0.5 rounded-lg justify-start items-start gap-2.5 inline-flex text-blue-600 text-base font-semibold underline leading-normal hover:text-blue-400 active:text-blue-800 disabled:text-gray-400",
         "outline-primary":
           "border border-[#336DF2] text-[#336DF2] hover:bg-[#336DF2] hover:text-white",
         myPrimary:

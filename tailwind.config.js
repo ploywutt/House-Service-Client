@@ -57,6 +57,10 @@ module.exports = {
           100: "#FFF3D4",
           900: "#6E5000",
         },
+        utility: {
+          red: "#C82438",
+          bg: "#F3F4F6",
+        },
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
