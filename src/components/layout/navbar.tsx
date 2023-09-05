@@ -48,7 +48,7 @@ function Navbar() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <div className="flex items-center cursor-pointer">
-                    <h1 className="pr-5 text-gray-700">{user.name}</h1>
+                    <div className="pr-5 text-gray-700">{user.name}</div>
                     <Avatar>
                       <AvatarImage src={user.image} />
                       <AvatarFallback>CN</AvatarFallback>

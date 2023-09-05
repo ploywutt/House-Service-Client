@@ -45,6 +45,18 @@ module.exports = {
           900: "#022B87",
           950: "#001C59",
         },
+        purple: {
+          100: "#ECE6FF",
+          900: "#4512B4",
+        },
+        green: {
+          100: "#DFF9F6",
+          900: "#00596C",
+        },
+        yellow: {
+          100: "#FFF3D4",
+          900: "#6E5000",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
