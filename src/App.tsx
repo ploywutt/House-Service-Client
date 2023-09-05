@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import MainLayout from "./layouts/main";
 import Homepage from "./pages/Homepage";
 

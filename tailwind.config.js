@@ -45,6 +45,7 @@ module.exports = {
           900: "#022B87",
           950: "#001C59",
         },
+        primary: "#336DF2",
         purple: {
           100: "#ECE6FF",
           900: "#4512B4",
