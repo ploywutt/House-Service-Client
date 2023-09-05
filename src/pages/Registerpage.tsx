@@ -42,15 +42,15 @@ const Registerpage = () => {
           <br />
           <input className="Rectangle7 w-[460px] h-[38px] bg-white rounded-[5px] border border-zinc-400" 
             type="text"
-            id="fullName"
+            id="fullName" 
             name="fullName"
-            value={formData.fullName}
+            value={formData.firstName}
             onChange={handleChange}
             required
           />
         </div>
         
-        <div className="Frame17 w-[460px] h-[73px] flex-col justify-center items-start gap-[19px] inline-flex">
+        <div >
           <label htmlFor="phoneNumber">เบอร์โทรศัพท์</label>
           <br />
           <input
@@ -63,7 +63,7 @@ const Registerpage = () => {
           />
         </div>
         <div>
-          <label htmlFor="email">อีเมลล์</label>
+          <label htmlFor="email">อีเมล</label>
           <br />
           <input
             type="email"
@@ -74,18 +74,7 @@ const Registerpage = () => {
             required
           />
         </div>
-        <div>
-          <label htmlFor="username">ชื่อผู้ใช้</label>
-          <br />
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        
         <div>
           <label htmlFor="password">รหัสผ่าน</label>
           <br />
@@ -106,18 +95,20 @@ const Registerpage = () => {
             required
           />
           <label htmlFor="acceptTerms">
-            คุณได้ยอมรับ ข้อตกลงและเงื่อนไข และ นโยบายความเป็นส่วนตัว
+            ยอมรับ  <a href="#">ข้อตกลงและเงื่อนไข</a> และ <a href="#">นโยบายความเป็นส่วนตัว</a>
           </label>
+      
         </p>
-
+        
         <button type="submit">ลงทะเบียน</button>
-        <button type="button">เข้าสู่ระบบ</button>
+        <br />
+        <button type="button" onClick={() =>("/login")}>
+      เข้าสู่ระบบ
+      </button>
         <p>หรือ</p>
       <button type="button">เข้าสู่ระบบด้วย Facebook</button>
       </form>
-      <button type="button" onClick={() => history.push("/login")}>
-      กลับเข้าสู่หน้าเข้าสู่ระบบ
-      </button>
+      
 
       
     </div>
