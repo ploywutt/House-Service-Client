@@ -42,8 +42,10 @@ function Homepage() {
         </div>
       </div>
       <div className="footerLogo">
-        <div className="opacity-image">
-          <img src={WorkerImageFooter} alt="Worker" className="opacity-image" />
+        <div className="relative">
+          <div className="opacity-image">
+            <img src={WorkerImageFooter} alt="Worker" />
+          </div>
         </div>
         <div className="pl-[10rem]">
           <div className="text-white text-[2.5rem] pb-[1.5rem] font-bold">
