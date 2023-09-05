@@ -8,7 +8,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -31,10 +30,7 @@ function Navbar() {
             <img src={AppIcon} alt="Logo" />
             <div className="flex text-lg pl-3">HomeServices</div>
           </Button>
-          <Button
-            variant="link"
-            className="hover:no-underline hover:bg-gray-100  active:bg-gray-200 disabled:bg-white disabled:text-blue-700 disabled:opacity-100"
-          >
+          <Button className="hover:no-underline hover:bg-gray-100  active:bg-gray-200 disabled:bg-white disabled:text-blue-700 disabled:opacity-100">
             บริการของเรา
           </Button>
         </div>

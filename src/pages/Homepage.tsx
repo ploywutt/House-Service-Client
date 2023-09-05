@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import WorkerImageFooter from "@/assets/image/WorkerImageFooter.jpg";
 import "@/assets/css/homepage.css";
 import ProductCard from "@/components/product-card";
 
@@ -27,7 +28,7 @@ function Homepage() {
           </div>
         </div>
       </div>
-      <div>
+      <div className="pb-[8rem]">
         <div className="text-center text-blue-950 font-bold text-[2rem] pt-8 pb-6">
           บริการยอดฮิตของเรา
         </div>
@@ -38,6 +39,25 @@ function Homepage() {
         </div>
         <div className="text-center mt-[4rem]">
           <Button variant="myPrimary">ดูบริการทั้งหมด</Button>
+        </div>
+      </div>
+      <div className="footerLogo">
+        <div className="relative">
+          <div className="opacity-image">
+            <img src={WorkerImageFooter} alt="Worker" />
+          </div>
+        </div>
+        <div className="pl-[10rem]">
+          <div className="text-white text-[2.5rem] pb-[1.5rem] font-bold">
+            มาร่วมเป็นพนักงานซ่อม <br /> กับ HomeServices
+          </div>
+          <div className="text-white text-[1.25rem] pb-[1.25rem]">
+            เข้ารับการฝึกอบรมที่ได้มาตรฐาน ฟรี! <br />
+            และยังได้รับค่าตอบแทนที่มากขึ้นกว่าเดิม
+          </div>
+          <div className="text-white text-[2rem]">
+            ติดต่อมาที่อีเมล: job@homeservices.co
+          </div>
         </div>
       </div>
     </>
