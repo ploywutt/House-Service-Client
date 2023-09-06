@@ -1,11 +1,32 @@
-// import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import faceBookLogo from "../assets/icon/facebook_logos.png";
+import supabase from "@/auth/supabaseauth";
 
 function UserLogin() {
   // const [input, setInput] = useState<string>();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    // e.preventDefault();
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (data.session) {
+        console.log(data);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="flex justify-center pt-12">
@@ -26,6 +47,9 @@ function UserLogin() {
               type="email"
               id="email"
               placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
             />
           </div>
           <div className="w-96 h-16 flex-col justify-start items-start gap-1 inline-flex">
@@ -42,11 +66,18 @@ function UserLogin() {
               type="password"
               id="password"
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
             />
           </div>
         </div>
         <div>
-          <Button className="w-96 h-11 px-6 py-2.5 no-underline marker:rounded-lg justify-center items-center gap-2 inline-flex m-8">
+          <Button
+            className="w-96 h-11 px-6 py-2.5 no-underline zmarker:rounded-lg justify-center items-center gap-2 inline-flex m-8"
+            type="submit"
+            onClick={handleLogin}
+          >
             เข้าสู่ระบบ
           </Button>
         </div>
