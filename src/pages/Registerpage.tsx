@@ -3,19 +3,18 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import faceBookLogo from "../assets/icon/facebook_logos.png";
 import { Input } from "@/components/ui/input"
-
-
+import { useNavigate } from "react-router";
 
 const Registerpage = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
-    fullName: "",
-    phoneNumber: "",
+    name: "",
+    phone: "",
     email: "",
-    username: "",
     password: "",
   });
-
-  const handleChange = (e: any) => {
+  
+  const handleChange = async (e: any) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -26,8 +25,9 @@ const Registerpage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/register', formData);
-      console.log(response.data);
+      const response = await axios.post('http://localhost:4000/register', formData);
+      console.log(response.data.message);
+      navigate("/")
     } catch (error) {
       console.error(error);
     }
@@ -46,9 +46,9 @@ const Registerpage = () => {
             <br />
             <Input
               type="text"
-              id="fullName" 
-              name="fullName"
-              value={formData.fullName}
+              id="name" 
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               required
             />
@@ -59,9 +59,9 @@ const Registerpage = () => {
             <br />
             <Input
               type="tel"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={formData.phoneNumber}
+              id="phone"
+              name="phone"
+              value={formData.phone}
               onChange={handleChange}
               required
             />
