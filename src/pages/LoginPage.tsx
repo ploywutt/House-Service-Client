@@ -101,7 +101,7 @@ function UserLogin() {
           <Button
             variant="secondary"
             onClick={signInWithGoogle}
-            className="w-96 h-11 px-6 py-2.5 no-underline rounded-lg border border-blue-600 text-blue-600  justify-center items-center gap-2 inline-flex m-8"
+            className="w-96 h-11 hover:opacity-50 border border-gray-300 text-gray-600 hover:text-gray-600 hover:border-gray-300 active:text-gray-900 active:border-gray-800 gap-2  m-8"
           >
             <img src={googleLogo} className="mr-2 h-4 w-4" />
             เข้าสู่ระบบด้วย Google
@@ -110,6 +110,7 @@ function UserLogin() {
         <div className="text-center text-gray-500 text-base font-normal leading-normal m-4">
           ยังไม่มีบัญชีผู้ใช้ HomeService?
           <Button
+            onClick={() => navigate("/register")}
             variant="link"
             className="text-center text-blue-600 text-base font-semibold underline leading-normal"
           >

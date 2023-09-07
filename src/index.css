@@ -102,9 +102,9 @@
 
 @layer components {
   .p1 {
-    @apply text-xl
+    @apply text-base
     font-normal
-    leading-loose;
+    leading-normal;
   }
   .p2 {
     @apply text-base
