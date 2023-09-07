@@ -1,24 +1,11 @@
 import { Button } from "@/components/ui/button";
 import googleLogo from "../assets/icon/google_logos.svg";
 import { Input } from "@/components/ui/input";
-import { useNavigate } from "react-router";
-// import { Label } from "@radix-ui/react-dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
-
-const Registerpage = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    password: "",
-  });
-
-
 import useRegister from "../hook/useRegister";
 
 const Registerpage = () => {
-  const { formData, handleChange, handleSubmit, signInWithGoogle } =
+  const { formData, handleChange, handleSubmit, navigate, signInWithGoogle } =
     useRegister();
 
   return (
@@ -97,7 +84,6 @@ const Registerpage = () => {
           <div className="mt-[30px]  flex justify-center items-center ">
             <Checkbox
               className="mr-4 w-6 h-6 rounded-[6px] border-gray-300 hover:border-blue-600"
-              type="checkbox"
               id="acceptTerms"
               name="acceptTerms"
               required
@@ -132,8 +118,7 @@ const Registerpage = () => {
 
           <Button
             variant="secondary"
-
-            className="w-96 h-11 hover:opacity-50 border border-gray-300 text-gray-600 hover:text-gray-600 hover:border-gray-300 active:text-gray-900 active:border-gray-800 gap-2 m-8"          
+            className="w-96 h-11 hover:opacity-50 border border-gray-300 text-gray-600 hover:text-gray-600 hover:border-gray-300 active:text-gray-900 active:border-gray-800 gap-2 m-8"
             onClick={signInWithGoogle}
           >
             <img src={googleLogo} className="mr-2 h-4 w-4" />
