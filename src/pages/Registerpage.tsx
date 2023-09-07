@@ -4,10 +4,19 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import useRegister from "../hook/useRegister";
 import { Modals } from "@/components/Modal";
+import { Loader2 } from "lucide-react";
+import error from "../assets/icon/error_icon.png";
 
 const Registerpage = () => {
-  const { formData, handleChange, handleSubmit, navigate, signInWithGoogle } =
-    useRegister();
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    navigate,
+    signInWithGoogle,
+    isValid,
+    isLoading,
+  } = useRegister();
 
   return (
     <div className="flex justify-center pt-12">
@@ -19,12 +28,15 @@ const Registerpage = () => {
           className="flex flex-col justify-center items-center"
         >
           <div className="inline-flex flex-col gap-[20px] m-2">
-            <div>
+            <div className="relative">
               <label className="mt-[16px] " htmlFor="fullName">
                 ชื่อ-นามสกุล <span className="text-utility-red">*</span>
               </label>
               <br />
               <Input
+                className={`${
+                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                }`}
                 type="text"
                 id="name"
                 name="name"
@@ -33,14 +45,24 @@ const Registerpage = () => {
                 onChange={handleChange}
                 required
               />
+              <img
+                src={error}
+                alt="error"
+                className={`${
+                  !isValid ? "absolute right-4 bottom-4" : "hidden"
+                }`}
+              />
             </div>
 
-            <div>
+            <div className="relative">
               <label htmlFor="phoneNumber">
                 เบอร์โทรศัพท์ <span className="text-utility-red">*</span>{" "}
               </label>
               <br />
               <Input
+                className={
+                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                }
                 type="tel"
                 id="phone"
                 name="phone"
@@ -49,13 +71,24 @@ const Registerpage = () => {
                 onChange={handleChange}
                 required
               />
+              <img
+                src={error}
+                alt="error"
+                className={`${
+                  !isValid ? "absolute right-4 bottom-4" : "hidden"
+                }`}
+              />
             </div>
-            <div>
+
+            <div className="relative">
               <label htmlFor="email">
                 อีเมล <span className="text-utility-red">*</span>{" "}
               </label>
               <br />
               <Input
+                className={
+                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                }
                 type="email"
                 id="email"
                 name="email"
@@ -64,14 +97,24 @@ const Registerpage = () => {
                 onChange={handleChange}
                 required
               />
+              <img
+                src={error}
+                alt="error"
+                className={`${
+                  !isValid ? "absolute right-4 bottom-4" : "hidden"
+                }`}
+              />
             </div>
 
-            <div>
+            <div className="relative">
               <label htmlFor="password">
                 รหัสผ่าน <span className="text-utility-red">*</span>
               </label>
               <br />
               <Input
+                className={
+                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                }
                 type="password"
                 id="password"
                 name="password"
@@ -80,12 +123,15 @@ const Registerpage = () => {
                 onChange={handleChange}
                 required
               />
+              <img
+                src={error}
+                alt="error"
+                className={`${
+                  !isValid ? "absolute right-4 bottom-4" : "hidden"
+                }`}
+              />
             </div>
           </div>
-
-
-
-
 
           <div className="mt-[30px]  flex justify-center items-center ">
             <Checkbox
@@ -97,22 +143,32 @@ const Registerpage = () => {
 
             <label htmlFor="acceptTerms">
               <span className="p3 mr-1">ยอมรับ</span>
-              <Modals variant="link" className="p-0 h-0 mr-1" button="ข้อตกลงและเงื่อนไข" title="ข้อตกลงและเงื่อนไข" description="นโยบายความเป็นส่วนตัว ยาวๆ"/>
+              <Modals
+                variant="link"
+                className="p-0 h-0 mr-1"
+                button="ข้อตกลงและเงื่อนไข"
+                title="ข้อตกลงและเงื่อนไข"
+                description="นโยบายความเป็นส่วนตัว ยาวๆ"
+              />
               <span className="p3 mr-1">และ</span>
-              <Modals variant="link" className="p-0 h-0 mr-1" button="นโยบายความเป็นส่วนตัว" title="นโยบายความเป็นส่วนตัว" description="นโยบายความเป็นส่วนตัว ยาวๆ" />
-              
+              <Modals
+                variant="link"
+                className="p-0 h-0 mr-1"
+                button="นโยบายความเป็นส่วนตัว"
+                title="นโยบายความเป็นส่วนตัว"
+                description="นโยบายความเป็นส่วนตัว ยาวๆ"
+              />
             </label>
           </div>
-
-
-
-
 
           <Button
             className="w-96 h-11 px-6 py-2.5 bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex m-8"
             type="submit"
           >
             ลงทะเบียน
+            {isLoading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : null}
           </Button>
 
           <div className="w-96 h-5 justify-center items-center gap-2 inline-flex">

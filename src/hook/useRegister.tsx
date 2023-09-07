@@ -11,6 +11,8 @@ const useRegister = () => {
     email: "",
     password: "",
   });
+  const [isValid, setIsValid] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleChange = async (e: any) => {
     const { name, value } = e.target;
@@ -21,17 +23,22 @@ const useRegister = () => {
   };
 
   const handleSubmit = async (e: any) => {
+    setIsLoading(true);
     e.preventDefault();
+
     try {
       const response = await axios.post(
         "http://localhost:4000/register",
         formData
       );
       console.log(response.data.message);
+      setIsValid(true);
       navigate("/");
     } catch (error) {
+      setIsValid(false);
       console.error(error);
     }
+    setIsLoading(false);
   };
 
   async function signInWithGoogle() {
@@ -52,6 +59,8 @@ const useRegister = () => {
     setFormData,
     signInWithGoogle,
     navigate,
+    isValid,
+    isLoading,
   };
 };
 
