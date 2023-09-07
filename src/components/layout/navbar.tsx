@@ -26,7 +26,10 @@ function Navbar() {
     <>
       <nav className="px-52 flex justify-between shadow-lg shadow-black-200 py-3">
         <div className="flex items-center col-span-3">
-          <Button variant="link" className="hover:no-underline text-blue-600">
+          <Button
+            variant="link"
+            className="no-underline hover:no-underline text-blue-600"
+          >
             <img src={AppIcon} alt="Logo" />
             <div className="flex text-lg pl-3">HomeServices</div>
           </Button>

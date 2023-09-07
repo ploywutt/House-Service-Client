@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import axios from "axios";
 import { Button } from "@/components/ui/button";
 import googleLogo from "../assets/icon/google_logos.svg";
 import { Input } from "@/components/ui/input";
@@ -16,27 +14,12 @@ const Registerpage = () => {
     password: "",
   });
 
-  const handleChange = async (e: any) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/register",
-        formData
-      );
-      console.log(response.data.message);
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+import useRegister from "../hook/useRegister";
+
+const Registerpage = () => {
+  const { formData, handleChange, handleSubmit, signInWithGoogle } =
+    useRegister();
 
   return (
     <div className="flex justify-center pt-12">
@@ -149,7 +132,9 @@ const Registerpage = () => {
 
           <Button
             variant="secondary"
-            className="w-96 h-11 hover:opacity-50 border border-gray-300 text-gray-600 hover:text-gray-600 hover:border-gray-300 active:text-gray-900 active:border-gray-800 gap-2 m-8"
+
+            className="w-96 h-11 hover:opacity-50 border border-gray-300 text-gray-600 hover:text-gray-600 hover:border-gray-300 active:text-gray-900 active:border-gray-800 gap-2 m-8"          
+            onClick={signInWithGoogle}
           >
             <img src={googleLogo} className="mr-2 h-4 w-4" />
             เข้าสู่ระบบด้วย Google
