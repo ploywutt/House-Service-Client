@@ -3,6 +3,7 @@ import googleLogo from "../assets/icon/google_logos.svg";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import useRegister from "../hook/useRegister";
+import { Modals } from "@/components/Modal";
 
 const Registerpage = () => {
   const { formData, handleChange, handleSubmit, navigate, signInWithGoogle } =
@@ -81,6 +82,11 @@ const Registerpage = () => {
               />
             </div>
           </div>
+
+
+
+
+
           <div className="mt-[30px]  flex justify-center items-center ">
             <Checkbox
               className="mr-4 w-6 h-6 rounded-[6px] border-gray-300 hover:border-blue-600"
@@ -91,15 +97,16 @@ const Registerpage = () => {
 
             <label htmlFor="acceptTerms">
               <span className="p3 mr-1">ยอมรับ</span>
-              <Button variant="link" className="p-0 h-0 mr-1">
-                <span className="p3 font-semibold">ข้อตกลงและเงื่อนไข</span>
-              </Button>
+              <Modals variant="link" className="p-0 h-0 mr-1" button="ข้อตกลงและเงื่อนไข" title="ข้อตกลงและเงื่อนไข" description="นโยบายความเป็นส่วนตัว ยาวๆ"/>
               <span className="p3 mr-1">และ</span>
-              <Button variant="link" className="p-0 h-0">
-                <span className="p3 font-semibold">นโยบายความเป็นส่วนตัว</span>
-              </Button>
+              <Modals variant="link" className="p-0 h-0 mr-1" button="นโยบายความเป็นส่วนตัว" title="นโยบายความเป็นส่วนตัว" description="นโยบายความเป็นส่วนตัว ยาวๆ" />
+              
             </label>
           </div>
+
+
+
+
 
           <Button
             className="w-96 h-11 px-6 py-2.5 bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex m-8"
