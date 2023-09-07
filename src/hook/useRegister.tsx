@@ -51,6 +51,7 @@ const useRegister = () => {
     formData,
     setFormData,
     signInWithGoogle,
+    navigate,
   };
 };
 
