@@ -1,40 +1,12 @@
-import React, { useState } from "react";
-import axios from "axios";
 import { Button } from "@/components/ui/button";
-import faceBookLogo from "../assets/icon/facebook_logos.png";
 import { Input } from "@/components/ui/input";
-import { useNavigate } from "react-router";
+import faceBookLogo from "../assets/icon/facebook_logos.png";
+
+import useRegister from "../hook/useRegister";
 
 const Registerpage = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = async (e: any) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/register",
-        formData
-      );
-      console.log(response.data.message);
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { formData, handleChange, handleSubmit, signInWithGoogle } =
+    useRegister();
 
   return (
     <div className="flex flex-col justify-start items-center">
@@ -109,7 +81,7 @@ const Registerpage = () => {
               />
             </div>
           </div>
-          <div className="mt-[42px] mb-[1px] flex justify-center items-center inline-flex">
+          <div className="mt-[42px] mb-[1px] flex justify-center items-center">
             <input
               className="mr-[16px] w-[24px] h-[24px]"
               type="checkbox"
@@ -148,6 +120,7 @@ const Registerpage = () => {
           <Button
             variant="secondary"
             className="w-96 h-11 px-6 py-2.5 no-underline rounded-lg border border-blue-600 text-blue-600  justify-center items-center gap-2 inline-flex m-8"
+            onClick={signInWithGoogle}
           >
             <img src={faceBookLogo} className="mr-2 h-4 w-4" />
             เข้าสู่ระบบด้วย Facebook
