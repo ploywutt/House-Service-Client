@@ -1,27 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-// import axios from "axios";
 import supabase from "@/auth/supabaseauth";
 
 function UserLogin() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isValid, setIsValid] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-      });
+    setIsLoading(true);
 
-      if (data.session) {
-        console.log(data);
-        navigate("/");
-      }
-    } catch (error) {
-      console.error(error);
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    if (data.session) {
+      console.log(data.session);
+      setIsValid(true);
+      navigate("/");
+    } else {
+      setIsValid(false);
+      console.error(error, "not valid");
     }
+    setIsLoading(false);
   };
 
   async function signInWithGoogle() {
@@ -43,6 +47,8 @@ function UserLogin() {
     setPassword,
     email,
     password,
+    isValid,
+    isLoading,
   };
 }
 
