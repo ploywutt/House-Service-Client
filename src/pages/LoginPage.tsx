@@ -1,41 +1,18 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import googleLogo from "../assets/icon/google_logos.svg";
-import supabase from "@/auth/supabaseauth";
+import useLogin from "../hook/useLogin";
 
-function UserLogin() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const navigate = useNavigate();
-
-  const handleLogin = async () => {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-      });
-
-      if (data.session) {
-        console.log(data);
-        navigate("/");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  async function signInWithGoogle() {
-    try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-      });
-      console.log("Bright-Bright", data, error);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+const UserLogin = () => {
+  const {
+    handleLogin,
+    signInWithGoogle,
+    navigate,
+    setEmail,
+    setPassword,
+    email,
+    password,
+  } = useLogin();
 
   return (
     <div className="flex justify-center pt-12">
@@ -120,6 +97,6 @@ function UserLogin() {
       </div>
     </div>
   );
-}
+};
 
 export default UserLogin;
