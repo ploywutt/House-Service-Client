@@ -6,13 +6,11 @@ import googleLogo from "../assets/icon/google_logos.svg";
 import supabase from "@/auth/supabaseauth";
 
 function UserLogin() {
-  // const [input, setInput] = useState<string>();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    // e.preventDefault();
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
@@ -27,6 +25,17 @@ function UserLogin() {
       console.error(error);
     }
   };
+
+  async function signInWithGoogle() {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+      });
+      console.log("Bright-Bright", data, error);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className="flex justify-center pt-12">
@@ -91,6 +100,7 @@ function UserLogin() {
         <div>
           <Button
             variant="secondary"
+            onClick={signInWithGoogle}
             className="w-96 h-11 px-6 py-2.5 no-underline rounded-lg border border-blue-600 text-blue-600  justify-center items-center gap-2 inline-flex m-8"
           >
             <img src={googleLogo} className="mr-2 h-4 w-4" />
