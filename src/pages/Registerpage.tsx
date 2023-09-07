@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import faceBookLogo from "../assets/icon/facebook_logos.png";
+import googleLogo from "../assets/icon/google_logos.svg";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router";
+// import { Label } from "@radix-ui/react-dropdown-menu";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const Registerpage = () => {
   const navigate = useNavigate();
@@ -37,15 +39,15 @@ const Registerpage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-start items-center">
-      <div className="w-[614px] h-auto py-[32px] px-[12px]  mt-[52px] mb-[82px] bg-white rounded-lg border border-gray-300 flex-col justify-center  items-center inline-flex">
-        <h1 className="mt-[32px]">ลงทะเบียน</h1>
+    <div className="flex justify-center pt-12">
+      <div className="w-[550px] h-auto py-[32px] px-[12px]  mt-[52px] mb-[82px] bg-white rounded-lg border border-gray-300 flex-col justify-center  items-center inline-flex">
+        <h1>ลงทะเบียน</h1>
 
         <form
           onSubmit={handleSubmit}
           className="flex flex-col justify-center items-center"
         >
-          <div className="inline-flex flex-col gap-[20px]">
+          <div className="inline-flex flex-col gap-[20px] m-2">
             <div>
               <label className="mt-[16px] " htmlFor="fullName">
                 ชื่อ-นามสกุล <span className="text-utility-red">*</span>
@@ -109,9 +111,9 @@ const Registerpage = () => {
               />
             </div>
           </div>
-          <div className="mt-[42px] mb-[1px] flex justify-center items-center inline-flex">
-            <input
-              className="mr-[16px] w-[24px] h-[24px]"
+          <div className="mt-[30px]  flex justify-center items-center ">
+            <Checkbox
+              className="mr-4 w-6 h-6 rounded-[6px] border-gray-300 hover:border-blue-600"
               type="checkbox"
               id="acceptTerms"
               name="acceptTerms"
@@ -119,13 +121,13 @@ const Registerpage = () => {
             />
 
             <label htmlFor="acceptTerms">
-              ยอมรับ{" "}
+              <span className="p3 mr-1">ยอมรับ</span>
+              <Button variant="link" className="p-0 h-0 mr-1">
+                <span className="p3 font-semibold">ข้อตกลงและเงื่อนไข</span>
+              </Button>
+              <span className="p3 mr-1">และ</span>
               <Button variant="link" className="p-0 h-0">
-                ข้อตกลงและเงื่อนไข
-              </Button>{" "}
-              และ{" "}
-              <Button variant="link" className="p-0 h-0">
-                นโยบายความเป็นส่วนตัว
+                <span className="p3 font-semibold">นโยบายความเป็นส่วนตัว</span>
               </Button>
             </label>
           </div>
@@ -137,7 +139,7 @@ const Registerpage = () => {
             ลงทะเบียน
           </Button>
 
-          <div className="mt-[32px] mb-[31px] w-96 h-5 justify-center items-center gap-2 inline-flex">
+          <div className="w-96 h-5 justify-center items-center gap-2 inline-flex">
             <div className="grow shrink basis-0 h-px bg-gray-400" />
             <div className="text-center text-gray-500 text-sm font-normal leading-tight">
               หรือลงชื่อเข้าใช้ผ่าน
@@ -147,13 +149,13 @@ const Registerpage = () => {
 
           <Button
             variant="secondary"
-            className="w-96 h-11 px-6 py-2.5 no-underline rounded-lg border border-blue-600 text-blue-600  justify-center items-center gap-2 inline-flex m-8"
+            className="w-96 h-11 hover:opacity-50 border border-gray-300 text-gray-600 hover:text-gray-600 hover:border-gray-300 active:text-gray-900 active:border-gray-800 gap-2 m-8"
           >
-            <img src={faceBookLogo} className="mr-2 h-4 w-4" />
-            เข้าสู่ระบบด้วย Facebook
+            <img src={googleLogo} className="mr-2 h-4 w-4" />
+            เข้าสู่ระบบด้วย Google
           </Button>
-          <br />
-          <Button variant="link" onClick={() => "/login"}>
+
+          <Button variant="link" onClick={() => navigate("/login")}>
             กลับไปหน้าเข้าสู่ระบบ
           </Button>
         </form>
