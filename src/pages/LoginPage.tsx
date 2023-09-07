@@ -55,7 +55,7 @@ function UserLogin() {
               className="w-96 h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex"
               type="email"
               id="email"
-              placeholder="Email"
+              placeholder="กรุณากรอกอีเมล"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               required
@@ -74,7 +74,7 @@ function UserLogin() {
               className="w-96 h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex"
               type="password"
               id="password"
-              placeholder="Password"
+              placeholder="กรอกรหัสผ่าน"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               required
