@@ -31,7 +31,7 @@ function UserLogin() {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
       });
-      console.log("เหมือนชอ", data, error);
+      console.log("Bright-Bright", data, error);
     } catch (error) {
       console.error(error);
     }
