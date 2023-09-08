@@ -27,10 +27,13 @@ const Registerpage = () => {
           onSubmit={handleSubmit}
           className="flex flex-col justify-center items-center"
         >
-          <div className="inline-flex flex-col gap-[20px] m-2">
+          <div className="inline-flex flex-col gap-[20px] m-2 w-96">
             <div className="relative">
-              <label className="mt-[16px] " htmlFor="fullName">
-                ชื่อ-นามสกุล <span className="text-utility-red">*</span>
+              <label
+                className="mt-[16px] text-gray-900 text-base font-medium leading-normal"
+                htmlFor="fullName"
+              >
+                ชื่อ - นามสกุล <span className="text-utility-red">*</span>
               </label>
               <br />
               <Input
@@ -54,8 +57,11 @@ const Registerpage = () => {
               />
             </div>
 
-            <div className="relative">
-              <label htmlFor="phoneNumber">
+            <div className="">
+              <label
+                htmlFor="phoneNumber"
+                className="text-gray-900 text-base font-medium leading-normal"
+              >
                 เบอร์โทรศัพท์ <span className="text-utility-red">*</span>{" "}
               </label>
               <br />
@@ -80,8 +86,11 @@ const Registerpage = () => {
               />
             </div>
 
-            <div className="relative">
-              <label htmlFor="email">
+            <div className="">
+              <label
+                htmlFor="email"
+                className="text-gray-900 text-base font-medium leading-normal"
+              >
                 อีเมล <span className="text-utility-red">*</span>{" "}
               </label>
               <br />
@@ -106,8 +115,11 @@ const Registerpage = () => {
               />
             </div>
 
-            <div className="relative">
-              <label htmlFor="password">
+            <div className="">
+              <label
+                htmlFor="password"
+                className="text-gray-900 text-base font-medium leading-normal"
+              >
                 รหัสผ่าน <span className="text-utility-red">*</span>
               </label>
               <br />
@@ -142,7 +154,7 @@ const Registerpage = () => {
             />
 
             <label htmlFor="acceptTerms">
-              <span className="p3 mr-1">ยอมรับ</span>
+              <span className="p3 mr-1 text-gray-900">ยอมรับ</span>
               <Modals
                 variant="link"
                 className="p-0 h-0 mr-1"
@@ -150,7 +162,7 @@ const Registerpage = () => {
                 title="ข้อตกลงและเงื่อนไข"
                 description="นโยบายความเป็นส่วนตัว ยาวๆ"
               />
-              <span className="p3 mr-1">และ</span>
+              <span className="p3 mr-1 text-gray-900">และ</span>
               <Modals
                 variant="link"
                 className="p-0 h-0 mr-1"
@@ -172,11 +184,11 @@ const Registerpage = () => {
           </Button>
 
           <div className="w-96 h-5 justify-center items-center gap-2 inline-flex">
-            <div className="grow shrink basis-0 h-px bg-gray-400" />
-            <div className="text-center text-gray-500 text-sm font-normal leading-tight">
+            <div className="grow shrink basis-0 h-px bg-gray-500" />
+            <div className="text-center text-gray-700 text-sm font-normal leading-tight">
               หรือลงชื่อเข้าใช้ผ่าน
             </div>
-            <div className="grow shrink basis-0 h-px bg-gray-400" />
+            <div className="grow shrink basis-0 h-px bg-gray-500" />
           </div>
 
           <Button

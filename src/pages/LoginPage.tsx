@@ -21,7 +21,9 @@ const UserLogin = () => {
   return (
     <div className="flex justify-center pt-12">
       <div className="w-300 h-300 pt-8 pb-8 px-12 bg-white rounded-lg border border-gray-300 flex-col justify-center items-center inline-flex">
-        <h1 className=" text-center text-blue-950 leading-10">เข้าสู่ระบบ</h1>
+        <h1 className=" text-center text-blue-950 leading-10 mb-4">
+          เข้าสู่ระบบ
+        </h1>
         <div className="w-96 h-40 flex-col justify-start items-start gap-5 inline-flex">
           <div className="w-96 h-16 flex-col justify-start items-start gap-1 inline-flex relative">
             <label htmlFor="email">
@@ -64,7 +66,7 @@ const UserLogin = () => {
               }`}
               type="password"
               id="password"
-              placeholder="กรอกรหัสผ่าน"
+              placeholder="กรุณากรอกรหัสผ่าน"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               required
@@ -89,11 +91,11 @@ const UserLogin = () => {
           </Button>
         </div>
         <div className="w-96 h-5 justify-center items-center gap-2 inline-flex">
-          <div className="grow shrink basis-0 h-px bg-gray-400" />
-          <div className="text-center text-gray-500 text-sm font-normal leading-tight">
+          <div className="grow shrink basis-0 h-px bg-gray-500" />
+          <div className="text-center text-gray-700 text-sm font-normal leading-tight">
             หรือลงชื่อเข้าใช้ผ่าน
           </div>
-          <div className="grow shrink basis-0 h-px bg-gray-400" />
+          <div className="grow shrink basis-0 h-px bg-gray-500" />
         </div>
         <div>
           <Button
@@ -105,7 +107,7 @@ const UserLogin = () => {
             เข้าสู่ระบบด้วย Google
           </Button>
         </div>
-        <div className="text-center text-gray-500 text-base font-normal leading-normal m-4">
+        <div className="text-center text-gray-700 text-base font-normal leading-normal m-4">
           ยังไม่มีบัญชีผู้ใช้ HomeService?
           <Button
             onClick={() => navigate("/register")}
