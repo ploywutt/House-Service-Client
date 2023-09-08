@@ -1,128 +1,209 @@
-import React, { useState } from "react";
-import axios from "axios";
-// import { Button } from "@/components/ui/button";
-// import faceBookLogo from "../assets/icon/facebook_logos.png";
+import { Button } from "@/components/ui/button";
+import googleLogo from "../assets/icon/google_logos.svg";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import useRegister from "../hook/useRegister";
+import { Modals } from "@/components/Modal";
+import { Loader2 } from "lucide-react";
+import error from "../assets/icon/error_icon.png";
 
 const Registerpage = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    email: "",
-    username: "",
-    password: "",
-  });
-
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("/api/register", formData);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    navigate,
+    signInWithGoogle,
+    isValid,
+    isLoading,
+  } = useRegister();
 
   return (
     <div className="flex justify-center pt-12">
-      <div className="w-300 h-300 pt-8 pb-8 px-12 bg-white rounded-lg border border-gray-300 flex-col justify-center items-center inline-flex">
-        <h2>ลงทะเบียนผู้ใช้ใหม่</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="InputStyle w-[440px] h-[72px] flex-col justify-start items-start gap-1 inline-flex">
-            <label
-              className=" w-[126px] h-4 text-gray-600 text-lg font-medium"
-              htmlFor="fullName"
-            >
-              ชื่อ-นามสกุล
-            </label>
-            <br />
-            <input
-              className="Rectangle7 w-[460px] h-[38px] bg-white rounded-[5px] border border-zinc-400"
-              type="text"
-              id="fullName"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              required
-            />
+      <div className="w-[550px] h-auto py-[32px] px-[12px]  mt-[52px] mb-[82px] bg-white rounded-lg border border-gray-300 flex-col justify-center  items-center inline-flex">
+        <h1>ลงทะเบียน</h1>
+
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col justify-center items-center"
+        >
+          <div className="inline-flex flex-col gap-[20px] m-2 w-96">
+            <div className="relative">
+              <label
+                className="mt-[16px] text-gray-900 text-base font-medium leading-normal"
+                htmlFor="fullName"
+              >
+                ชื่อ - นามสกุล <span className="text-utility-red">*</span>
+              </label>
+              <br />
+              <Input
+                className={`${
+                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                }`}
+                type="text"
+                id="name"
+                name="name"
+                placeholder="กรุณากรอกชื่อ นามสกุล"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+              <img
+                src={error}
+                alt="error"
+                className={`${
+                  !isValid ? "absolute right-4 bottom-4" : "hidden"
+                }`}
+              />
+            </div>
+
+            <div className="">
+              <label
+                htmlFor="phoneNumber"
+                className="text-gray-900 text-base font-medium leading-normal"
+              >
+                เบอร์โทรศัพท์ <span className="text-utility-red">*</span>{" "}
+              </label>
+              <br />
+              <Input
+                className={
+                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                }
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="กรุณากรอกเบอร์โทรศัพท์"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+              <img
+                src={error}
+                alt="error"
+                className={`${
+                  !isValid ? "absolute right-4 bottom-4" : "hidden"
+                }`}
+              />
+            </div>
+
+            <div className="">
+              <label
+                htmlFor="email"
+                className="text-gray-900 text-base font-medium leading-normal"
+              >
+                อีเมล <span className="text-utility-red">*</span>{" "}
+              </label>
+              <br />
+              <Input
+                className={
+                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                }
+                type="email"
+                id="email"
+                name="email"
+                placeholder="กรุณากรอกอีเมล"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              <img
+                src={error}
+                alt="error"
+                className={`${
+                  !isValid ? "absolute right-4 bottom-4" : "hidden"
+                }`}
+              />
+            </div>
+
+            <div className="">
+              <label
+                htmlFor="password"
+                className="text-gray-900 text-base font-medium leading-normal"
+              >
+                รหัสผ่าน <span className="text-utility-red">*</span>
+              </label>
+              <br />
+              <Input
+                className={
+                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                }
+                type="password"
+                id="password"
+                name="password"
+                placeholder="กรุณากรอกรหัสผ่าน"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              <img
+                src={error}
+                alt="error"
+                className={`${
+                  !isValid ? "absolute right-4 bottom-4" : "hidden"
+                }`}
+              />
+            </div>
           </div>
 
-          <div className="Frame17 w-[460px] h-[73px] flex-col justify-center items-start gap-[19px] inline-flex">
-            <label htmlFor="phoneNumber">เบอร์โทรศัพท์</label>
-            <br />
-            <input
-              type="tel"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="email">อีเมลล์</label>
-            <br />
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="username">ชื่อผู้ใช้</label>
-            <br />
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="password">รหัสผ่าน</label>
-            <br />
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <p>
-            <input
-              type="checkbox"
+          <div className="mt-[30px]  flex justify-center items-center ">
+            <Checkbox
+              className="mr-4 w-6 h-6 rounded-[6px] border-gray-300 hover:border-blue-600"
               id="acceptTerms"
               name="acceptTerms"
               required
             />
-            <label htmlFor="acceptTerms">
-              คุณได้ยอมรับ ข้อตกลงและเงื่อนไข และ นโยบายความเป็นส่วนตัว
-            </label>
-          </p>
 
-          <button type="submit">ลงทะเบียน</button>
-          <button type="button">เข้าสู่ระบบ</button>
-          <p>หรือ</p>
-          <button type="button">เข้าสู่ระบบด้วย Facebook</button>
+            <label htmlFor="acceptTerms">
+              <span className="p3 mr-1 text-gray-900">ยอมรับ</span>
+              <Modals
+                variant="link"
+                className="p-0 h-0 mr-1"
+                button="ข้อตกลงและเงื่อนไข"
+                title="ข้อตกลงและเงื่อนไข"
+                description="นโยบายความเป็นส่วนตัว ยาวๆ"
+              />
+              <span className="p3 mr-1 text-gray-900">และ</span>
+              <Modals
+                variant="link"
+                className="p-0 h-0 mr-1"
+                button="นโยบายความเป็นส่วนตัว"
+                title="นโยบายความเป็นส่วนตัว"
+                description="นโยบายความเป็นส่วนตัว ยาวๆ"
+              />
+            </label>
+          </div>
+
+          <Button
+            className="w-96 h-11 px-6 py-2.5 bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex m-8"
+            type="submit"
+          >
+            ลงทะเบียน
+            {isLoading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : null}
+          </Button>
+
+          <div className="w-96 h-5 justify-center items-center gap-2 inline-flex">
+            <div className="grow shrink basis-0 h-px bg-gray-500" />
+            <div className="text-center text-gray-700 text-sm font-normal leading-tight">
+              หรือลงชื่อเข้าใช้ผ่าน
+            </div>
+            <div className="grow shrink basis-0 h-px bg-gray-500" />
+          </div>
+
+          <Button
+            variant="secondary"
+            className="w-96 h-11 hover:opacity-50 border border-gray-300 text-gray-600 hover:text-gray-600 hover:border-gray-300 active:text-gray-900 active:border-gray-800 gap-2 m-8"
+            onClick={signInWithGoogle}
+          >
+            <img src={googleLogo} className="mr-2 h-4 w-4" />
+            เข้าสู่ระบบด้วย Google
+          </Button>
+
+          <Button variant="link" onClick={() => navigate("/login")}>
+            กลับไปหน้าเข้าสู่ระบบ
+          </Button>
         </form>
-        <button type="button" onClick={() => history.push("/login")}>
-          กลับเข้าสู่หน้าเข้าสู่ระบบ
-        </button>
       </div>
     </div>
   );

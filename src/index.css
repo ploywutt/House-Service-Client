@@ -3,76 +3,6 @@
 @import "tailwindcss/utilities";
 
 @layer base {
-  :root {
-    --background: #ffffff;
-    --foreground: #020817;
-
-    --card: #ffffff;
-    --card-foreground: #020817;
-
-    --popover: #ffffff;
-    --popover-foreground: #020817;
-
-    --primary: #2563eb;
-    --primary-foreground: #ffffff;
-    --primary-hover: #4c7ff4;
-    --primary-active: #0e3fb0;
-
-    --secondary: #336df2;
-    --secondary-foreground: ##336df2;
-    --secondary-hover: #799ff7;
-    --secondary-active: #0e3fb0;
-
-    --muted: #f1f5f9;
-    --muted-foreground: #646c80;
-
-    --accent: #f1f5f9;
-    --accent-foreground: #0f172a;
-    --accent-hover: #799ff7;
-    --accent-active: #0e3fb0;
-
-    --destructive: #ef4444;
-    --destructive-foreground: #f8fafc;
-
-    --border: #e2e8f0;
-    --input: #e2e8f0;
-    --ring: #2563eb;
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-@layer base {
   h1 {
     @apply text-3xl
     font-medium
@@ -102,9 +32,9 @@
 
 @layer components {
   .p1 {
-    @apply text-xl
+    @apply text-base
     font-normal
-    leading-loose;
+    leading-normal;
   }
   .p2 {
     @apply text-base

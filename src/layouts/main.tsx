@@ -8,7 +8,7 @@ function MainLayout() {
       <Navbar></Navbar>
       <div
         className="bg-[#F3F4F6]"
-        style={{ minHeight: "calc(100vh - 240px)" }}
+        style={{ minHeight: "calc(100vh)" }}
       >
         <Outlet />
       </div>
