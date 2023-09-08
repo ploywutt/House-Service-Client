@@ -32,11 +32,16 @@ const useRegister = () => {
         formData
       );
       console.log(response.data.message);
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+      })
+      console.log(`Create user ${data} success`)
       setIsValid(true);
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       setIsValid(false);
-      console.error(error);
+      console.error(error.response.data.message);
     }
     setIsLoading(false);
   };
