@@ -1,11 +1,11 @@
 import AirconImage from "../../assets/image/AirconImage.png";
 
-function HeadImage() {
+function ServiceHeadImage() {
   return (
-    <div className="opacity-90">
+    <div className="bg-opacity-40">
       <img src={AirconImage} alt="Aircondition" />
     </div>
   );
 }
 
-export default HeadImage;
+export default ServiceHeadImage;
