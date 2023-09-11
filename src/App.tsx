@@ -10,6 +10,9 @@ import Registerpage from "./pages/Registerpage";
 import Shadcn from "./pages/shadecn-test";
 import Servicedetail from "./pages/Servicedetail";
 
+import CalendarDemo from "./components/DayPicker";
+import AddressInput from "./pages/AddressInput";
+
 function App() {
   return (
     <>
@@ -23,6 +26,8 @@ function App() {
           <Route element={<NoFooter />}>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/register" element={<Registerpage />}></Route>
+            <Route path="/test" element={<CalendarDemo />}></Route>
+            <Route path="/address" element={<AddressInput />}></Route>
           </Route>
           <Route element={<ServiceFooter />}>
             <Route path="/service" element={<Servicedetail />}></Route>
@@ -32,5 +37,4 @@ function App() {
     </>
   );
 }
-
 export default App;
