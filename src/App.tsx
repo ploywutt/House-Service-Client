@@ -27,11 +27,7 @@ function App() {
           <Route element={<NoFooter />}>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/register" element={<Registerpage />}></Route>
-<<<<<<< HEAD
             <Route path="/test" element={<CalendarDemo />}></Route>
-=======
-            <Route path="/shadcn" element={<Shadcn />}></Route>
->>>>>>> 7703e92 (feat: add day-picker)
             <Route path="/address" element={<AddressInput />}></Route>
           </Route>
           <Route element={<ServiceFooter />}>
