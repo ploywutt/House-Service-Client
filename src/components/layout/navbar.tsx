@@ -4,6 +4,7 @@ import { User } from "@/core/types/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bell, User2, ClipboardList, History, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,11 +17,17 @@ function Navbar() {
   let userstr = localStorage.getItem("user");
   const parse: User | undefined = userstr ? JSON.parse(userstr) : undefined;
   const [user, setUser] = useState<User | undefined>(parse);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isLoginPage = location.pathname == "/login";
   const logout = () => {
+    localStorage.removeItem("user");
     setUser(undefined);
+    navigate("/");
   };
   const login = () => {
-    setUser({ name: "mhing", image: "https://picsum.photos/200/300" });
+    navigate("/login");
+    // setUser({ name: "mhing", image: "https://picsum.photos/200/300" });
   };
   return (
     <>
@@ -39,9 +46,13 @@ function Navbar() {
         </div>
         <div className="flex items-center">
           {user == undefined ? (
-            <Button onClick={login} variant="outline-primary">
-              เข้าสู่ระบบ
-            </Button>
+            isLoginPage ? (
+              ""
+            ) : (
+              <Button onClick={login} variant="outline-primary">
+                เข้าสู่ระบบ
+              </Button>
+            )
           ) : (
             <div className="flex items-center">
               <DropdownMenu>
