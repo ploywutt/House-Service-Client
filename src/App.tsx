@@ -11,7 +11,8 @@ import Shadcn from "./pages/shadecn-test";
 import Servicedetail from "./pages/Servicedetail";
 
 import CalendarDemo from "./components/DayPicker";
-import AddressInput from "./pages/AddressInput";
+
+import AddressInput from "./pages/AddressPage";
 
 function App() {
   return (
@@ -26,7 +27,11 @@ function App() {
           <Route element={<NoFooter />}>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/register" element={<Registerpage />}></Route>
+<<<<<<< HEAD
             <Route path="/test" element={<CalendarDemo />}></Route>
+=======
+            <Route path="/shadcn" element={<Shadcn />}></Route>
+>>>>>>> 7703e92 (feat: add day-picker)
             <Route path="/address" element={<AddressInput />}></Route>
           </Route>
           <Route element={<ServiceFooter />}>
