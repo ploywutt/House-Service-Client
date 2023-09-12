@@ -19,7 +19,7 @@ const UserLogin = () => {
   } = useLogin();
 
   return (
-    <div className="flex justify-center pt-12">
+    <div className="flex justify-center pt-14 pb-24">
       <div className="w-300 h-300 pt-8 pb-8 px-12 bg-white rounded-lg border border-gray-300 flex-col justify-center items-center inline-flex">
         <h1 className=" text-center text-blue-950 leading-10 mb-4">
           เข้าสู่ระบบ
