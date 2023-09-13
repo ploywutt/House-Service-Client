@@ -8,14 +8,10 @@ import Servicelistpage from "./pages/Servicelistpage";
 import LoginPage from "./pages/LoginPage";
 import Registerpage from "./pages/Registerpage";
 import Shadcn from "./pages/shadecn-test";
-<<<<<<< HEAD
 import Servicedetail from "./pages/Servicedetail";
 import ClientInformation from "./pages/ClientInformation";
-
 import TimePicker from "./components/TimePicker";
-=======
 import OrderListPage from "./pages/OrderListPage";
->>>>>>> 3b40dd0 (feat: make orderlist page)
 
 function App() {
   return (
@@ -25,21 +21,17 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<Homepage />}></Route>
             <Route path="/servicelist" element={<Servicelistpage />}></Route>
+            <Route path="/orders" element={<OrderListPage />}></Route>
             <Route path="/shadcn" element={<Shadcn />}></Route>
           </Route>
           <Route element={<NoFooter />}>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/register" element={<Registerpage />}></Route>
-<<<<<<< HEAD
           </Route>
           <Route element={<ServiceFooter />}>
             <Route path="/test" element={<TimePicker />}></Route>
             <Route path="/address" element={<ClientInformation />}></Route>
             <Route path="/service" element={<Servicedetail />}></Route>
-=======
-            <Route path="/orders" element={<OrderListPage />}></Route>
-            <Route path="/shadcn" element={<Shadcn />}></Route>
->>>>>>> 3b40dd0 (feat: make orderlist page)
           </Route>
         </Routes>
       </Router>
