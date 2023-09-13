@@ -1,5 +1,7 @@
 import "@/assets/css/servicelistpage.css";
+import ProductCard from "@/components/product-card";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -13,6 +15,7 @@ import { AutoComplete, Option } from "@/components/ui/autocomplete";
 function Servicelistpage() {
   const [searchtext, setSearchText] = useState<Option>();
   const [selectcategory, setSelectcategory] = useState("all");
+  const [selectsortby, setSelectsortby] = useState("recommended");
   const option = [
     { label: "ล้างแอร์", value: "ล้างแอร์" },
     { label: "ติดตั้งแอร์", value: "ติดตั้งแอร์" },
@@ -25,13 +28,23 @@ function Servicelistpage() {
     { value: "kitchen", text: "บริการห้องครัว" },
     { value: "toilet", text: "บริการห้องน้ำ" },
   ];
+  const sortby = [
+    { value: "recommended", text: "บริการแนะนำ" },
+    { value: "popular", text: "บริการยอดนิยม" },
+    { value: "ascend", text: "ตามตัวอักษร (Ascending)" },
+    { value: "descend", text: "ตามตัวอักษร (Descending)" },
+  ];
 
   const ChangeSelectedcategory = (event: string) => {
     setSelectcategory(event);
   };
+
+  const ChangeSortby = (event: string) => {
+    setSelectsortby(event);
+  };
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col pb-12">
         <div className="relative">
           <div className="list-image text-white">
             <div className="z-10 relative text-center py-[5rem]">
@@ -44,7 +57,7 @@ function Servicelistpage() {
             </div>
           </div>
         </div>
-        <div className="flex bg-white px-52 items-center justify-between">
+        <div className="flex bg-white px-52 items-center justify-between py-2 sticky top-0">
           <div>
             <AutoComplete
               placeholder="ค้นหาบริการ..."
@@ -87,6 +100,68 @@ function Servicelistpage() {
                 </SelectContent>
               </Select>
             </div>
+          </div>
+          <div>
+            <div className="text-[0.75rem] text-gray-700">ราคา</div>
+          </div>
+          <div>
+            <div className="text-[0.75rem] text-gray-700">เรียงตาม</div>
+            <div>
+              <Select
+                defaultValue={selectsortby}
+                onValueChange={(event) => {
+                  ChangeSortby(event);
+                }}
+              >
+                <SelectTrigger className="w-[14.5rem]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {sortby.map((category, index) => {
+                    let className = "pl-2";
+                    if (category.value == selectsortby) {
+                      className += " text-blue-700";
+                    }
+                    return (
+                      <SelectItem
+                        key={index}
+                        value={category.value}
+                        className={className}
+                      >
+                        {category.text}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <Button className="px-8 py-6">ค้นหา</Button>
+        </div>
+      </div>
+      <div className="grid grid-cols-3 gap-14 px-52 pb-20">
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+        <ProductCard></ProductCard>
+      </div>
+      <div className="footerLogo px-[25rem] py-[8rem]">
+        <div className="relative">
+          <div className="opacity-image"></div>
+        </div>
+        <div className="pl-[10rem]">
+          <div className="text-white text-center text-[1.25rem] pb-[1.5rem]">
+            เพราะเราคือช่าง ผู้ให้บริการเรื่องบ้านอันดับ 1 แบบครบวงจร
+            โดยทีมช่างมืออาชีพมากกว่า 100 ทีม <br />
+            สามารถตอบโจทย์ด้านการบริการเรื่องบ้านของคุณ และสร้าง <br />
+            ความสะดวกสบายในการติดต่อกับทีมช่าง ได้ทุกที่ ทุกเวลา ตลอด 24 ชม.
+            <br />
+            มั่นใจ ช่างไม่ทิ้งงาน พร้อมรับประกันคุณภาพงาน
           </div>
         </div>
       </div>

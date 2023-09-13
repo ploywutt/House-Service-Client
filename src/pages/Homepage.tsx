@@ -2,8 +2,13 @@ import { Button } from "@/components/ui/button";
 import WorkerImageFooter from "@/assets/image/WorkerImageFooter.jpg";
 import "@/assets/css/homepage.css";
 import ProductCard from "@/components/product-card";
+import { useNavigate } from "react-router-dom";
 
 function Homepage() {
+  const navigate = useNavigate();
+  const toservicelist = () => {
+    navigate("/servicelist");
+  };
   return (
     <>
       <div className="banner">
@@ -38,7 +43,9 @@ function Homepage() {
           <ProductCard></ProductCard>
         </div>
         <div className="text-center mt-[4rem]">
-          <Button variant="myPrimary">ดูบริการทั้งหมด</Button>
+          <Button variant="myPrimary" onClick={toservicelist}>
+            ดูบริการทั้งหมด
+          </Button>
         </div>
       </div>
       <div className="footerLogo">

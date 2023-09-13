@@ -29,18 +29,28 @@ function Navbar() {
     navigate("/login");
     // setUser({ name: "mhing", image: "https://picsum.photos/200/300" });
   };
+  const homepage = () => {
+    navigate("/");
+  };
+  const toservicelist = () => {
+    navigate("/servicelist");
+  };
   return (
     <>
-      <nav className="px-52 flex justify-between shadow-lg shadow-black-200 py-3">
+      <nav className="px-52 flex justify-between shadow-lg shadow-black-200 py-3 sticky  bg-white top-0 z-50">
         <div className="flex items-center col-span-3">
           <Button
             variant="link"
             className="no-underline hover:no-underline text-blue-600"
+            onClick={homepage}
           >
             <img src={AppIcon} alt="Logo" />
             <div className="flex text-lg pl-3">HomeServices</div>
           </Button>
-          <Button className="hover:no-underline hover:bg-gray-100  active:bg-gray-200 disabled:bg-white disabled:text-blue-700 disabled:opacity-100">
+          <Button
+            className="hover:no-underline hover:bg-blue-500  active:bg-blue-800 disabled:bg-white disabled:text-blue-700 disabled:opacity-100"
+            onClick={toservicelist}
+          >
             บริการของเรา
           </Button>
         </div>

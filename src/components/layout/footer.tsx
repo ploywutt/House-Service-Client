@@ -2,8 +2,13 @@ import AppIcon from "@/assets/icon/AppIcon.png";
 import { Button } from "../ui/button";
 import Email from "@/assets/icon/email.svg";
 import Phone from "@/assets/icon/phone.svg";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+  const navigate = useNavigate();
+  const homepage = () => {
+    navigate("/");
+  };
   return (
     <>
       <footer>
@@ -11,6 +16,7 @@ function Footer() {
           <Button
             variant="link"
             className="hover:no-underline text-blue-600 no-underline"
+            onClick={homepage}
           >
             <img src={AppIcon} alt="Logo" />
             <div className="flex text-lg pl-3">HomeServices</div>
