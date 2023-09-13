@@ -2,6 +2,7 @@ import "@/assets/css/servicelistpage.css";
 import ProductCard from "@/components/product-card";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import StickyBox from "@/components/stickybox";
 import {
   Select,
   SelectContent,
@@ -42,6 +43,7 @@ function Servicelistpage() {
   const ChangeSortby = (event: string) => {
     setSelectsortby(event);
   };
+
   return (
     <>
       <div className="flex flex-col pb-12">
@@ -57,87 +59,91 @@ function Servicelistpage() {
             </div>
           </div>
         </div>
-        <div className="flex bg-white px-52 items-center justify-between py-2 sticky top-0">
-          <div>
-            <AutoComplete
-              placeholder="ค้นหาบริการ..."
-              options={option}
-              emptyMessage="ไม่พ้บข้อมูล"
-              value={searchtext}
-              onValueChange={(event) => {
-                setSearchText(event);
-              }}
-            ></AutoComplete>
-          </div>
-          <div>
-            <div className="text-[0.75rem] text-gray-700">หมวดหมู่บริการ</div>
+        <StickyBox>
+          <div
+            className={"flex bg-white px-52 items-center justify-between py-2"}
+          >
             <div>
-              <Select
-                defaultValue={selectcategory}
+              <AutoComplete
+                placeholder="ค้นหาบริการ..."
+                options={option}
+                emptyMessage="ไม่พ้บข้อมูล"
+                value={searchtext}
                 onValueChange={(event) => {
-                  ChangeSelectedcategory(event);
+                  setSearchText(event);
                 }}
-              >
-                <SelectTrigger className="w-[10rem]">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {servicecategory.map((category, index) => {
-                    let className = "pl-2";
-                    if (category.value == selectcategory) {
-                      className += " text-blue-700";
-                    }
-                    return (
-                      <SelectItem
-                        key={index}
-                        value={category.value}
-                        className={className}
-                      >
-                        {category.text}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select>
+              ></AutoComplete>
             </div>
-          </div>
-          <div>
-            <div className="text-[0.75rem] text-gray-700">ราคา</div>
-          </div>
-          <div>
-            <div className="text-[0.75rem] text-gray-700">เรียงตาม</div>
             <div>
-              <Select
-                defaultValue={selectsortby}
-                onValueChange={(event) => {
-                  ChangeSortby(event);
-                }}
-              >
-                <SelectTrigger className="w-[14.5rem]">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {sortby.map((category, index) => {
-                    let className = "pl-2";
-                    if (category.value == selectsortby) {
-                      className += " text-blue-700";
-                    }
-                    return (
-                      <SelectItem
-                        key={index}
-                        value={category.value}
-                        className={className}
-                      >
-                        {category.text}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select>
+              <div className="text-[0.75rem] text-gray-700">หมวดหมู่บริการ</div>
+              <div>
+                <Select
+                  defaultValue={selectcategory}
+                  onValueChange={(event) => {
+                    ChangeSelectedcategory(event);
+                  }}
+                >
+                  <SelectTrigger className="w-[10rem]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {servicecategory.map((category, index) => {
+                      let className = "pl-2";
+                      if (category.value == selectcategory) {
+                        className += " text-blue-700";
+                      }
+                      return (
+                        <SelectItem
+                          key={index}
+                          value={category.value}
+                          className={className}
+                        >
+                          {category.text}
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
+            <div>
+              <div className="text-[0.75rem] text-gray-700">ราคา</div>
+            </div>
+            <div>
+              <div className="text-[0.75rem] text-gray-700">เรียงตาม</div>
+              <div>
+                <Select
+                  defaultValue={selectsortby}
+                  onValueChange={(event) => {
+                    ChangeSortby(event);
+                  }}
+                >
+                  <SelectTrigger className="w-[14.5rem]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {sortby.map((category, index) => {
+                      let className = "pl-2";
+                      if (category.value == selectsortby) {
+                        className += " text-blue-700";
+                      }
+                      return (
+                        <SelectItem
+                          key={index}
+                          value={category.value}
+                          className={className}
+                        >
+                          {category.text}
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <Button className="px-8 py-6">ค้นหา</Button>
           </div>
-          <Button className="px-8 py-6">ค้นหา</Button>
-        </div>
+        </StickyBox>
       </div>
       <div className="grid grid-cols-3 gap-14 px-52 pb-20">
         <ProductCard></ProductCard>
@@ -150,11 +156,11 @@ function Servicelistpage() {
         <ProductCard></ProductCard>
         <ProductCard></ProductCard>
       </div>
-      <div className="footerLogo px-[25rem] py-[8rem]">
+      <div className="footerLogo xl:px-[25rem] xl:py-[8rem] px-[16px] py-[32px] ">
         <div className="relative">
           <div className="opacity-image"></div>
         </div>
-        <div className="pl-[10rem]">
+        <div className="flex justify-center w-full">
           <div className="text-white text-center text-[1.25rem] pb-[1.5rem]">
             เพราะเราคือช่าง ผู้ให้บริการเรื่องบ้านอันดับ 1 แบบครบวงจร
             โดยทีมช่างมืออาชีพมากกว่า 100 ทีม <br />
