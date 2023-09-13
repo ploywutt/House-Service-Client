@@ -26,11 +26,10 @@ function App() {
           <Route element={<NoFooter />}>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/register" element={<Registerpage />}></Route>
-
-            <Route path="/test" element={<TimePicker />}></Route>
-            <Route path="/address" element={<ClientInformation />}></Route>
           </Route>
           <Route element={<ServiceFooter />}>
+            <Route path="/test" element={<TimePicker />}></Route>
+            <Route path="/address" element={<ClientInformation />}></Route>
             <Route path="/service" element={<Servicedetail />}></Route>
           </Route>
         </Routes>
