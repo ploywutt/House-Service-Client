@@ -2,9 +2,12 @@ import "../assets/css/servicedetailbanner.css";
 import SellTag from "../assets/icon/sell_tag.png";
 import PlusIcon from "../assets/icon/plus_icon.png";
 import NegativeIcon from "../assets/icon/negative_icon.png";
-// import LineIcon from "../assets/icon/line_icon.png";
-import RightArrow from "../assets/icon/Right_Arrow.png";
 import { Separator } from "@/components/ui/separator";
+import BreadCrumb from "@/components/layout/servicebreadcrumb";
+import GroupIcon from "../assets/icon/Group.svg";
+import PenGray from "../assets/icon/Pen_gray.svg";
+import CreditGray from "../assets/icon/Credit_gray.svg";
+
 // import { Button } from "@/components/ui/button";
 
 function Servicedetail() {
@@ -16,32 +19,53 @@ function Servicedetail() {
             <section>
               <div
                 id="container-1"
-                className="z-10 relative flex flex-col px-40 gap-12 pt-16"
+                className="z-10 relative flex flex-col gap-12 pt-16 px-[160px]"
               >
-                <div className="w-72 bg-white flex flex-row justify-center items-center rounded-lg border border-gray-300 p-2">
-                  <h5 className="text-gray-700 mr-2 p-2">บริการของเรา</h5>
-                  <img src={RightArrow} alt="Right Arrow" className="h-2 w-2" />
-                  <h1 className="text-blue-600 ml-2 p-2">ล้างแอร์</h1>
-                </div>
-                <div className="w-300 bg-white  rounded-lg border border-gray-300  p-12">
+                <BreadCrumb />
+
+                <div className="w-full h-[129px] bg-white  rounded-lg border border-gray-300">
                   <div className="flex flex-row justify-evenly">
-                    <h5>รายการ</h5>
-                    <h5>กรอกข้อมูลบริการ</h5>
-                    <h5>ชำระเงิน</h5>
+                    <div className="text-blue-500 flex flex-col items-center">
+                      <div
+                        id="circle1"
+                        className="w-[40px] h-[40px] rounded-full border-blue-500 border-2 flex justify-center items-center"
+                      >
+                        <img src={GroupIcon} alt="GroupIcon" />
+                      </div>
+                      <h5 className="pt-2">รายการ</h5>
+                    </div>
+
+                    <div className="text-gray-700 flex flex-col items-center">
+                      <div
+                        id="circle1"
+                        className="w-[40px] h-[40px] rounded-full border-gray-300 border-2 flex justify-center items-center"
+                      >
+                        <img src={PenGray} alt="PenGray" />
+                      </div>
+                      <h5 className="pt-2">กรอกข้อมูลบริการ</h5>
+                    </div>
+
+                    <div className="text-gray-700 flex flex-col items-center">
+                      <div
+                        id="circle1"
+                        className="w-[40px] h-[40px] rounded-full border-gray-300 border-2 flex justify-center items-center"
+                      >
+                        <img src={CreditGray} alt="CreditGray" />
+                      </div>
+                      <h5 className="pt-2">ชำระเงิน</h5>
+                    </div>
                   </div>
                 </div>
                 <div id="container-2" className="flex flex-row justify-between">
-                  <div className="w-fit h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 ">
-                    {/* tital */}
+                  <div className="w-[735px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 ">
                     <h3 className="text-gray-500 mb-8">
                       เลือกรายการบริการล้างแอร์
                     </h3>
 
-                    {/* detail */}
                     <div className="flex-col justify-start items-start gap-px ">
                       <div className="flex-col justify-start items-start flex">
-                        <div className="flex flex-row justify-evenly">
-                          <div className="w-96 mb-4 ">
+                        <div className="w-full flex flex-row justify-between">
+                          <div className="w-full mb-4 ">
                             <h4 className=" text-black">
                               9,000 - 18,000 BTU, แบบติดผนัง
                             </h4>
@@ -77,26 +101,18 @@ function Servicedetail() {
                             </button>
                           </div>
                         </div>
-                        {/* Line */}
-                        {/* <div className="flex justify-center mb-2">
-                          <img src={LineIcon} alt="Line" className="w-" />
-                        </div> */}
+
                         <Separator className="my-4" />
                       </div>
                     </div>
                   </div>
-                  {/* Card Container */}
-                  <div className="w-80 h-36 px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 ">
-                    {/* tital */}
+
+                  <div className="w-[349px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 sticky top-0">
                     <div>
                       <h3 className="text-gray-500 mb-2">สรุปรายการ</h3>
                     </div>
                     <Separator className="my-4" />
 
-                    {/* Line */}
-                    {/* <div className="flex justify-center mb-2">
-                      <img src={LineIcon} alt="Line" className="w-72" />
-                    </div> */}
                     <div className="flex flex-row justify-between">
                       <p>รวม</p>
                       <h5>0.00 ฿</h5>
