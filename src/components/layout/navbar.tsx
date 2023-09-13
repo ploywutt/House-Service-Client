@@ -37,7 +37,10 @@ function Navbar() {
   };
   return (
     <>
-      <nav className="px-52 flex justify-between shadow-lg shadow-black-200 py-3 sticky  bg-white top-0 z-50">
+      <nav
+        id="navbar"
+        className="px-52 flex justify-between shadow-lg shadow-black-200 py-3 sticky  bg-white top-0 z-50"
+      >
         <div className="flex items-center col-span-3">
           <Button
             variant="link"
