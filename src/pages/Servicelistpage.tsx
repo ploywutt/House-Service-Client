@@ -3,6 +3,8 @@ import ProductCard from "@/components/product-card";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import StickyBox from "@/components/stickybox";
+import { ChevronDown } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
 import {
   Select,
   SelectContent,
@@ -10,6 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select-no-indicator";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 import { AutoComplete, Option } from "@/components/ui/autocomplete";
 
@@ -17,6 +24,8 @@ function Servicelistpage() {
   const [searchtext, setSearchText] = useState<Option>();
   const [selectcategory, setSelectcategory] = useState("all");
   const [selectsortby, setSelectsortby] = useState("recommended");
+  const [minprice, setMinprice] = useState(0);
+  const [maxprice, setMaxprice] = useState(2000);
   const option = [
     { label: "ล้างแอร์", value: "ล้างแอร์" },
     { label: "ติดตั้งแอร์", value: "ติดตั้งแอร์" },
@@ -36,6 +45,11 @@ function Servicelistpage() {
     { value: "descend", text: "ตามตัวอักษร (Descending)" },
   ];
 
+  const handleSlider = (value: number[]) => {
+    setMinprice(value[0]);
+    setMaxprice(value[1]);
+    console.log(value);
+  };
   const ChangeSelectedcategory = (event: string) => {
     setSelectcategory(event);
   };
@@ -108,6 +122,30 @@ function Servicelistpage() {
             </div>
             <div>
               <div className="text-[0.75rem] text-gray-700">ราคา</div>
+              <div className="w-[10rem] cursor-pointer select-none">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <div className="flex justify-between items-center pr-3 py-2">
+                      <div>
+                        {minprice}-{maxprice}฿
+                      </div>
+                      <ChevronDown className="h-4 w-4 opacity-50" />
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent className="pb-6 px-6">
+                    <div className="text-gray-700">
+                      {minprice}-{maxprice}฿
+                    </div>
+                    <Slider
+                      className="my-3"
+                      onValueChange={handleSlider}
+                      defaultValue={[minprice, maxprice]}
+                      max={10000}
+                      step={1}
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
             </div>
             <div>
               <div className="text-[0.75rem] text-gray-700">เรียงตาม</div>
