@@ -19,7 +19,7 @@ const Registerpage = () => {
   } = useRegister();
 
   return (
-    <div className="flex justify-center pt-12">
+    <div className="flex justify-center pt-2 ">
       <div className="w-[550px] h-auto py-[32px] px-[12px]  mt-[52px] mb-[82px] bg-white rounded-lg border border-gray-300 flex-col justify-center  items-center inline-flex">
         <h1>ลงทะเบียน</h1>
 
