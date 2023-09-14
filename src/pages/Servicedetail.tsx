@@ -19,13 +19,13 @@ function Servicedetail() {
             <section>
               <div
                 id="container-1"
-                className="z-10 relative flex flex-col gap-12 pt-16 px-[160px]"
+                className="z-10 relative flex flex-col gap-12 px-52 py-[5rem]"
               >
                 <BreadCrumb />
 
                 <div className="w-full h-[129px] bg-white  rounded-lg border border-gray-300">
-                  <div className="flex flex-row justify-evenly">
-                    <div className="text-blue-500 flex flex-col items-center">
+                  <div className="flex justify-evenly h-full">
+                    <div className="text-blue-500 flex flex-col items-center justify-center">
                       <div
                         id="circle1"
                         className="w-[40px] h-[40px] rounded-full border-blue-500 border-2 flex justify-center items-center"
@@ -35,7 +35,7 @@ function Servicedetail() {
                       <h5 className="pt-2">รายการ</h5>
                     </div>
 
-                    <div className="text-gray-700 flex flex-col items-center">
+                    <div className="text-gray-700 flex flex-col items-center justify-center">
                       <div
                         id="circle1"
                         className="w-[40px] h-[40px] rounded-full border-gray-300 border-2 flex justify-center items-center"
@@ -45,7 +45,7 @@ function Servicedetail() {
                       <h5 className="pt-2">กรอกข้อมูลบริการ</h5>
                     </div>
 
-                    <div className="text-gray-700 flex flex-col items-center">
+                    <div className="text-gray-700 flex flex-col items-center justify-center">
                       <div
                         id="circle1"
                         className="w-[40px] h-[40px] rounded-full border-gray-300 border-2 flex justify-center items-center"
@@ -106,13 +106,11 @@ function Servicedetail() {
                       </div>
                     </div>
                   </div>
-
                   <div className="w-[349px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 sticky top-0">
                     <div>
                       <h3 className="text-gray-500 mb-2">สรุปรายการ</h3>
                     </div>
                     <Separator className="my-4" />
-
                     <div className="flex flex-row justify-between">
                       <p>รวม</p>
                       <h5>0.00 ฿</h5>
