@@ -1,5 +1,5 @@
 .service-detail-banner {
-  background: url("../../../public/Airconditions.jpg") no-repeat;
+  background: url("/Airconditions.jpg") no-repeat;
   background-position: left 0rem bottom -25rem;
   background-size: cover;
 }
