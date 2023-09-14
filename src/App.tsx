@@ -8,7 +8,7 @@ import Servicelistpage from "./pages/Servicelistpage";
 import LoginPage from "./pages/LoginPage";
 import Registerpage from "./pages/Registerpage";
 import Shadcn from "./pages/shadecn-test";
-import ServiceDetail from "./pages/ServiceDetail";
+import ServiceDetail from "./pages/Servicedetail";
 import ClientInformation from "./pages/ClientInformation";
 
 import TimePicker from "./components/TimePicker";
@@ -26,11 +26,11 @@ function App() {
           <Route element={<NoFooter />}>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/register" element={<Registerpage />}></Route>
+            <Route path="/service/:id" element={<ServiceDetail />}></Route>
           </Route>
           <Route element={<ServiceFooter />}>
             <Route path="/test" element={<TimePicker />}></Route>
             <Route path="/address" element={<ClientInformation />}></Route>
-            <Route path="/service" element={<ServiceDetail />}></Route>
           </Route>
         </Routes>
       </Router>

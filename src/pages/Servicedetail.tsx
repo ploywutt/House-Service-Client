@@ -7,10 +7,32 @@ import BreadCrumb from "@/components/layout/servicebreadcrumb";
 import GroupIcon from "../assets/icon/Group.svg";
 import PenGray from "../assets/icon/Pen_gray.svg";
 import CreditGray from "../assets/icon/Credit_gray.svg";
+import { useParams } from "react-router-dom";
+import Stepper from "@/components/stepper";
+import ServiceFooterButton from "@/components/layout/servicefooterbutton";
+import { useState } from "react";
 
 // import { Button } from "@/components/ui/button";
 
 function Servicedetail() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const { id } = useParams();
+  const steppermenu = [
+    { icon: GroupIcon, label: "รายการ" },
+    { icon: PenGray, label: "กรอกข้อมูลบริการ" },
+    { icon: CreditGray, label: "ชำระเงิน" },
+  ];
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+  const handleNext = () => {
+    const maxstep = steppermenu.length;
+    if (currentStep < maxstep) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
   return (
     <>
       <div className="flex flex-col">
@@ -24,36 +46,12 @@ function Servicedetail() {
                 <BreadCrumb />
 
                 <div className="w-full h-[129px] bg-white  rounded-lg border border-gray-300">
-                  <div className="flex justify-evenly h-full">
-                    <div className="text-blue-500 flex flex-col items-center justify-center">
-                      <div
-                        id="circle1"
-                        className="w-[40px] h-[40px] rounded-full border-blue-500 border-2 flex justify-center items-center"
-                      >
-                        <img src={GroupIcon} alt="GroupIcon" />
-                      </div>
-                      <h5 className="pt-2">รายการ</h5>
-                    </div>
-
-                    <div className="text-gray-700 flex flex-col items-center justify-center">
-                      <div
-                        id="circle1"
-                        className="w-[40px] h-[40px] rounded-full border-gray-300 border-2 flex justify-center items-center"
-                      >
-                        <img src={PenGray} alt="PenGray" />
-                      </div>
-                      <h5 className="pt-2">กรอกข้อมูลบริการ</h5>
-                    </div>
-
-                    <div className="text-gray-700 flex flex-col items-center justify-center">
-                      <div
-                        id="circle1"
-                        className="w-[40px] h-[40px] rounded-full border-gray-300 border-2 flex justify-center items-center"
-                      >
-                        <img src={CreditGray} alt="CreditGray" />
-                      </div>
-                      <h5 className="pt-2">ชำระเงิน</h5>
-                    </div>
+                  <div>
+                    <Stepper
+                      value={steppermenu}
+                      currentStep={currentStep}
+                      className="w-[50rem]"
+                    ></Stepper>
                   </div>
                 </div>
                 <div id="container-2" className="flex flex-row justify-between">
@@ -121,6 +119,12 @@ function Servicedetail() {
             </section>
           </div>
         </div>
+      </div>
+      <div className="fixed bottom-0 z-10 w-full">
+        <ServiceFooterButton
+          handleBack={handleBack}
+          handleNext={handleNext}
+        ></ServiceFooterButton>
       </div>
     </>
   );
