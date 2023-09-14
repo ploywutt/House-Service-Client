@@ -19,6 +19,7 @@ const badgeVariants = cva(
         purple: "text-purple-900 bg-purple-100 rounded-md border-0",
         green: "text-green-900 bg-green-100 rounded-md border-0",
         gray: "p3 px-3 py-0.5 bg-gray-200",
+        yellow: "p3 px-3 py-0.5 bg-yellow-100 text-yellow-900",
       },
     },
     defaultVariants: {

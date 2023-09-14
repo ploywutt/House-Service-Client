@@ -14,6 +14,7 @@ import { useState } from "react";
 
 // import { Button } from "@/components/ui/button";
 
+<<<<<<< HEAD
 function Servicedetail() {
   const [currentStep, setCurrentStep] = useState(1);
   const { id } = useParams();
@@ -33,6 +34,9 @@ function Servicedetail() {
       setCurrentStep(currentStep + 1);
     }
   };
+=======
+function Servicedetail(props) {
+>>>>>>> 60c949f (feat(orderPage): map data from database)
   return (
     <>
       <div className="flex flex-col">
@@ -55,7 +59,13 @@ function Servicedetail() {
                   </div>
                 </div>
                 <div id="container-2" className="flex flex-row justify-between">
+<<<<<<< HEAD
                   <div className="w-[735px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 ">
+=======
+                  {props.data}
+                  <div className="w-fit h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 ">
+                    {/* tital */}
+>>>>>>> 60c949f (feat(orderPage): map data from database)
                     <h3 className="text-gray-500 mb-8">
                       เลือกรายการบริการล้างแอร์
                     </h3>
