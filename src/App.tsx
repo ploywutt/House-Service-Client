@@ -10,6 +10,7 @@ import Registerpage from "./pages/Registerpage";
 import Shadcn from "./pages/shadecn-test";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import ServiceDetail from "./pages/Servicedetail";
 =======
@@ -24,6 +25,12 @@ import OrderListPage from "./pages/OrderListPage";
 
 import CheckoutPage from "./pages/CheckoutPage";
 
+=======
+import Servicedetail from "./pages/Servicedetail";
+import ClientInformation from "./pages/ClientInformation";
+import TimePicker from "./components/TimePicker";
+import OrderListPage from "./pages/OrderListPage";
+>>>>>>> 2f4f3b37318cb16f4e397893b5fc582f26d9d72b
 
 function App() {
   return (
