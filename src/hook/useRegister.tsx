@@ -14,6 +14,7 @@ const useRegister = () => {
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+
   const handleChange = async (e: any) => {
     const { name, value } = e.target;
     setFormData({
@@ -56,7 +57,7 @@ const useRegister = () => {
       console.error(error);
     }
   }
-
+  
   return {
     handleChange,
     handleSubmit,
@@ -70,3 +71,4 @@ const useRegister = () => {
 };
 
 export default useRegister;
+
