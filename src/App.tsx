@@ -22,7 +22,6 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<Homepage />}></Route>
             <Route path="/servicelist" element={<Servicelistpage />}></Route>
-            <Route path="/orders" element={<OrderListPage />}></Route>
             <Route path="/shadcn" element={<Shadcn />}></Route>
           </Route>
           <Route element={<NoFooter />}>
