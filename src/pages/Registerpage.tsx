@@ -6,14 +6,20 @@ import useRegister from "../hook/useRegister";
 import { Modals } from "@/components/Modal";
 
 const Registerpage = () => {
-  const { formData, handleChange, handleSubmit, navigate, signInWithGoogle } =
-    useRegister();
-
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    navigate,
+    signInWithGoogle,
+    
+  } = useRegister();
+ 
   return (
     <div className="flex justify-center pt-12">
       <div className="w-[550px] h-auto py-[32px] px-[12px]  mt-[52px] mb-[82px] bg-white rounded-lg border border-gray-300 flex-col justify-center  items-center inline-flex">
         <h1>ลงทะเบียน</h1>
-
+        
         <form
           onSubmit={handleSubmit}
           className="flex flex-col justify-center items-center"
@@ -33,6 +39,8 @@ const Registerpage = () => {
                 onChange={handleChange}
                 required
               />
+              
+           
             </div>
 
             <div>
@@ -49,6 +57,7 @@ const Registerpage = () => {
                 onChange={handleChange}
                 required
               />
+              
             </div>
             <div>
               <label htmlFor="email">
@@ -64,6 +73,7 @@ const Registerpage = () => {
                 onChange={handleChange}
                 required
               />
+              
             </div>
 
             <div>
@@ -81,12 +91,8 @@ const Registerpage = () => {
                 required
               />
             </div>
+          
           </div>
-
-
-
-
-
           <div className="mt-[30px]  flex justify-center items-center ">
             <Checkbox
               className="mr-4 w-6 h-6 rounded-[6px] border-gray-300 hover:border-blue-600"
@@ -103,11 +109,6 @@ const Registerpage = () => {
               
             </label>
           </div>
-
-
-
-
-
           <Button
             className="w-96 h-11 px-6 py-2.5 bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex m-8"
             type="submit"
@@ -138,6 +139,7 @@ const Registerpage = () => {
         </form>
       </div>
     </div>
+    
   );
 };
 
