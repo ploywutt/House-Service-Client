@@ -13,6 +13,7 @@ import ServiceDetail from "./pages/Servicedetail";
 import TimePicker from "./components/TimePicker";
 import OrderListPage from "./pages/OrderListPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import ServicePayment from "./pages/Servicepayment";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/register" element={<Registerpage />}></Route>
             <Route path="/service/:id" element={<ServiceDetail />}></Route>
+            <Route path="/payment" element={<ServicePayment />}></Route>
           </Route>
           <Route element={<ServiceFooter />}>
             <Route path="/test" element={<TimePicker />}></Route>
