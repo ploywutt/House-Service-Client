@@ -8,10 +8,14 @@ import Servicelistpage from "./pages/Servicelistpage";
 import LoginPage from "./pages/LoginPage";
 import Registerpage from "./pages/Registerpage";
 import Shadcn from "./pages/shadecn-test";
+
 import ServiceDetail from "./pages/Servicedetail";
 import ClientInformation from "./pages/ClientInformation";
 
 import TimePicker from "./components/TimePicker";
+
+import CheckoutPage from "./pages/CheckoutPage";
+
 
 function App() {
   return (
@@ -31,6 +35,8 @@ function App() {
           <Route element={<ServiceFooter />}>
             <Route path="/test" element={<TimePicker />}></Route>
             <Route path="/address" element={<ClientInformation />}></Route>
+           
+            <Route path="/checkout" element={<CheckoutPage/>}></Route>
           </Route>
         </Routes>
       </Router>
