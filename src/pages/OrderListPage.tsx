@@ -7,15 +7,32 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import supabase from "@/auth/supabaseauth";
 
 function OrderListPage() {
   const [fetchData, setFetchData] = useState<any>([]);
+  const [currentUserEmail, setCurrentUserEmail] = useState<any>("");
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        console.log(user.email);
+        setCurrentUserEmail(user?.email);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axios.get(
-          "http://localhost:4000/v1/user/orders"
+          `http://localhost:4000/v1/user/orders?email=${currentUserEmail}`
         );
         console.log(response.data.data);
         setFetchData(response.data.data);
@@ -23,8 +40,9 @@ function OrderListPage() {
         console.error(error);
       }
     }
+
     fetchData();
-  }, []);
+  }, [currentUserEmail]);
 
   return (
     <div id="container" className="flex flex-col gap-7">
