@@ -16,9 +16,9 @@ function ClientInput() {
   const [provinces, setProvinces] = useState([]);
   const [amphures, setAmphures] = useState([]);
   const [tambons, setTambons] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedAmphure, setSelectedAmphure] = useState("");
-  const [selectedTambon, setSelectedTambon] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("เลือกจังหวัด");
+  const [selectedAmphure, setSelectedAmphure] = useState("เลือกเขต / อำเภอ");
+  const [selectedTambon, setSelectedTambon] = useState("เลือกแขวง / ตำบล");
 
   const fetchProvince = async () => {
     try {
@@ -115,14 +115,10 @@ function ClientInput() {
 
             <Select
               onValueChange={(event) => setSelectedProvince(event)}
-              defaultValue={selectedProvince}
+              // defaultValue={selectedProvince}
             >
               <SelectTrigger className="w-full">
-                <SelectValue
-                  placeholder={
-                    selectedProvince ? selectedProvince : "เลือกจังหวัด"
-                  }
-                />
+                <SelectValue placeholder="เลือกจังหวัด" />
               </SelectTrigger>
               <SelectContent className="h-96">
                 {provinces.map((item: { name_th: string; id: number }) => {
@@ -143,7 +139,7 @@ function ClientInput() {
 
             <Select
               onValueChange={(event) => setSelectedAmphure(event)}
-              defaultValue={selectedAmphure}
+              // defaultValue={selectedAmphure}
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกเขต / อำเภอ" />
@@ -167,7 +163,7 @@ function ClientInput() {
 
             <Select
               onValueChange={(event) => setSelectedTambon(event)}
-              defaultValue={selectedTambon}
+              // defaultValue={selectedTambon}
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกแขวง / ตำบล" />
