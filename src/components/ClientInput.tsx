@@ -26,7 +26,7 @@ function ClientInput() {
       console.log(data.data);
       setProvinces(data.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -39,7 +39,7 @@ function ClientInput() {
         console.log(data.data);
         setAmphures(data.data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -53,7 +53,7 @@ function ClientInput() {
         console.log(data.data);
         setTambons(data.data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -96,7 +96,7 @@ function ClientInput() {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="address" className="py-0.5">
+            <label htmlFor="address" className="py-0.5 ">
               ที่อยู่<span className="text-utility-red">*</span>
             </label>
             <Input
@@ -104,6 +104,7 @@ function ClientInput() {
               id="address"
               name="address"
               placeholder="กรุณากรอกที่อยู่"
+              className="hover:bg-slate-100 placeholder:hover:text-slate-900"
               required
             />
           </div>
@@ -144,7 +145,7 @@ function ClientInput() {
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกเขต / อำเภอ" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="h-96">
                 {amphures.map((item: { name_th: string; id: number }) => {
                   return (
                     <SelectItem key={item.id} value={item.name_th}>
@@ -168,7 +169,7 @@ function ClientInput() {
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกแขวง / ตำบล" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="h-96">
                 {tambons.map((item: { name_th: string; id: number }) => {
                   return (
                     <SelectItem key={item.id} value={item.name_th}>
