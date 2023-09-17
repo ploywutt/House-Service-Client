@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/popover";
 import { useState } from "react";
 
-export function TimePicker() {
+function TimePicker() {
   const [clickHour, setClickHour] = useState<string>("00");
   const [clickMinute, setClickMinute] = useState<string>("00");
   const [time, setTime] = useState<string>("");

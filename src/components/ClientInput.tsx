@@ -9,70 +9,18 @@ import {
 
 import DayPicker from "./DayPicker";
 import TimePicker from "./TimePicker";
-import { useEffect, useState } from "react";
-import axios from "axios";
+
+import useOrderInput from "../hook/useOrderDetail";
 
 function ClientInput() {
-  const [provinces, setProvinces] = useState([]);
-  const [amphures, setAmphures] = useState([]);
-  const [tambons, setTambons] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState("เลือกจังหวัด");
-  const [selectedAmphure, setSelectedAmphure] = useState("เลือกเขต / อำเภอ");
-  const [selectedTambon, setSelectedTambon] = useState("เลือกแขวง / ตำบล");
-
-  const fetchProvince = async () => {
-    try {
-      const data = await axios.get("http://localhost:4000/area");
-      console.log(data.data);
-      setProvinces(data.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const fetchDistrict = async () => {
-    if (selectedProvince) {
-      try {
-        const data = await axios.get(
-          `http://localhost:4000/area/amphure/${selectedProvince}`
-        );
-        console.log(data.data);
-        setAmphures(data.data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
-  const fetchSubDistrict = async () => {
-    if (selectedAmphure) {
-      try {
-        const data = await axios.get(
-          `http://localhost:4000/area/tambon/${selectedAmphure}`
-        );
-        console.log(data.data);
-        setTambons(data.data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    fetchProvince();
-  }, []);
-
-  useEffect(() => {
-    fetchDistrict();
-  }, [selectedProvince]);
-
-  useEffect(() => {
-    fetchSubDistrict();
-  }, [selectedAmphure]);
-
-  console.log(selectedProvince);
-  console.log(selectedAmphure);
-  console.log(selectedTambon);
+  const {
+    provinces,
+    amphures,
+    tambons,
+    setSelectedProvince,
+    setSelectedAmphure,
+    setSelectedTambon,
+  } = useOrderInput();
 
   return (
     <div
@@ -114,10 +62,7 @@ function ClientInput() {
               จังหวัด<span className="text-utility-red">*</span>
             </label>
 
-            <Select
-              onValueChange={(event) => setSelectedProvince(event)}
-              // defaultValue={selectedProvince}
-            >
+            <Select onValueChange={(event) => setSelectedProvince(event)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกจังหวัด" />
               </SelectTrigger>
@@ -138,10 +83,7 @@ function ClientInput() {
               เขต / อำเภอ<span className="text-utility-red">*</span>
             </label>
 
-            <Select
-              onValueChange={(event) => setSelectedAmphure(event)}
-              // defaultValue={selectedAmphure}
-            >
+            <Select onValueChange={(event) => setSelectedAmphure(event)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกเขต / อำเภอ" />
               </SelectTrigger>
@@ -162,10 +104,7 @@ function ClientInput() {
               แขวง / ตำบล<span className="text-utility-red">*</span>
             </label>
 
-            <Select
-              onValueChange={(event) => setSelectedTambon(event)}
-              // defaultValue={selectedTambon}
-            >
+            <Select onValueChange={(event) => setSelectedTambon(event)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกแขวง / ตำบล" />
               </SelectTrigger>
