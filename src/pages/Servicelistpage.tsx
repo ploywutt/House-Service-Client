@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import StickyBox from "@/components/stickybox";
 import { ChevronDown } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
+import InfiniteScroll from "react-infinite-scroll-component";
 import {
   Select,
   SelectContent,
@@ -26,6 +27,7 @@ function Servicelistpage() {
   const [selectsortby, setSelectsortby] = useState("recommended");
   const [minprice, setMinprice] = useState(0);
   const [maxprice, setMaxprice] = useState(2000);
+  const [items, setItems] = useState(Array.from({ length: 9 }));
   const option = [
     { label: "ล้างแอร์", value: "ล้างแอร์" },
     { label: "ติดตั้งแอร์", value: "ติดตั้งแอร์" },
@@ -56,6 +58,12 @@ function Servicelistpage() {
 
   const ChangeSortby = (event: string) => {
     setSelectsortby(event);
+  };
+
+  const fetchMoreData = () => {
+    setTimeout(() => {
+      setItems((prevItems) => prevItems.concat(Array.from({ length: 9 })));
+    }, 1000);
   };
 
   return (
@@ -183,16 +191,21 @@ function Servicelistpage() {
           </div>
         </StickyBox>
       </div>
-      <div className="grid grid-cols-3 gap-14 px-52 pb-20">
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
+      <div>
+        <InfiniteScroll
+          className="grid grid-cols-3 gap-14 px-52 pb-20"
+          dataLength={items.length}
+          next={fetchMoreData}
+          hasMore={true}
+          loader={<div />}
+          scrollThreshold={0.4}
+        >
+          {items.map((_, index) => (
+            <div key={index}>
+              <ProductCard />
+            </div>
+          ))}
+        </InfiniteScroll>
       </div>
       <div className="footerLogo xl:px-[25rem] xl:py-[8rem] px-[16px] py-[32px] ">
         <div className="relative">
