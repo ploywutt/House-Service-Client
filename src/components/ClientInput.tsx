@@ -9,71 +9,8 @@ import {
 
 import DayPicker from "./DayPicker";
 import TimePicker from "./TimePicker";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
-function ClientInput() {
-  const [provinces, setProvinces] = useState([]);
-  const [amphures, setAmphures] = useState([]);
-  const [tambons, setTambons] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState("เลือกจังหวัด");
-  const [selectedAmphure, setSelectedAmphure] = useState("เลือกเขต / อำเภอ");
-  const [selectedTambon, setSelectedTambon] = useState("เลือกแขวง / ตำบล");
-
-  const fetchProvince = async () => {
-    try {
-      const data = await axios.get("http://localhost:4000/area");
-      console.log(data.data);
-      setProvinces(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchDistrict = async () => {
-    if (selectedProvince) {
-      try {
-        const data = await axios.get(
-          `http://localhost:4000/area/amphure/${selectedProvince}`
-        );
-        console.log(data.data);
-        setAmphures(data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
-  const fetchSubDistrict = async () => {
-    if (selectedAmphure) {
-      try {
-        const data = await axios.get(
-          `http://localhost:4000/area/tambon/${selectedAmphure}`
-        );
-        console.log(data.data);
-        setTambons(data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    fetchProvince();
-  }, []);
-
-  useEffect(() => {
-    fetchDistrict();
-  }, [selectedProvince]);
-
-  useEffect(() => {
-    fetchSubDistrict();
-  }, [selectedAmphure]);
-
-  console.log(selectedProvince);
-  console.log(selectedAmphure);
-  console.log(selectedTambon);
-
+function ClientInput(props) {
   return (
     <div
       id="add-input"
@@ -96,7 +33,7 @@ function ClientInput() {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="address" className="py-0.5">
+            <label htmlFor="address" className="py-0.5 ">
               ที่อยู่<span className="text-utility-red">*</span>
             </label>
             <Input
@@ -104,6 +41,7 @@ function ClientInput() {
               id="address"
               name="address"
               placeholder="กรุณากรอกที่อยู่"
+              className="hover:bg-slate-100 placeholder:hover:text-slate-900"
               required
             />
           </div>
@@ -113,21 +51,20 @@ function ClientInput() {
               จังหวัด<span className="text-utility-red">*</span>
             </label>
 
-            <Select
-              onValueChange={(event) => setSelectedProvince(event)}
-              // defaultValue={selectedProvince}
-            >
+            <Select onValueChange={(event) => props.setSelectedProvince(event)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกจังหวัด" />
               </SelectTrigger>
               <SelectContent className="h-96">
-                {provinces.map((item: { name_th: string; id: number }) => {
-                  return (
-                    <SelectItem key={item.id} value={item.name_th}>
-                      {item.name_th}
-                    </SelectItem>
-                  );
-                })}
+                {props.provinces.map(
+                  (item: { name_th: string; id: number }) => {
+                    return (
+                      <SelectItem key={item.id} value={item.name_th}>
+                        {item.name_th}
+                      </SelectItem>
+                    );
+                  }
+                )}
               </SelectContent>
             </Select>
           </div>
@@ -137,15 +74,12 @@ function ClientInput() {
               เขต / อำเภอ<span className="text-utility-red">*</span>
             </label>
 
-            <Select
-              onValueChange={(event) => setSelectedAmphure(event)}
-              // defaultValue={selectedAmphure}
-            >
+            <Select onValueChange={(event) => props.setSelectedAmphure(event)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกเขต / อำเภอ" />
               </SelectTrigger>
-              <SelectContent>
-                {amphures.map((item: { name_th: string; id: number }) => {
+              <SelectContent className="h-96">
+                {props.amphures.map((item: { name_th: string; id: number }) => {
                   return (
                     <SelectItem key={item.id} value={item.name_th}>
                       {item.name_th}
@@ -161,15 +95,12 @@ function ClientInput() {
               แขวง / ตำบล<span className="text-utility-red">*</span>
             </label>
 
-            <Select
-              onValueChange={(event) => setSelectedTambon(event)}
-              // defaultValue={selectedTambon}
-            >
+            <Select onValueChange={(event) => props.setSelectedTambon(event)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกแขวง / ตำบล" />
               </SelectTrigger>
-              <SelectContent>
-                {tambons.map((item: { name_th: string; id: number }) => {
+              <SelectContent className="h-96">
+                {props.tambons.map((item: { name_th: string; id: number }) => {
                   return (
                     <SelectItem key={item.id} value={item.name_th}>
                       {item.name_th}
