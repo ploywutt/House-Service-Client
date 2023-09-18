@@ -40,7 +40,7 @@ function stickybox({ children, top = undefined, replace = true }: Stickybox) {
       <div
         ref={ElementRef}
         className={
-          offset > offsettop ? `fixed w-full top-[${topposition}px]` : ""
+          offset > offsettop ? `fixed w-full z-20 top-[${topposition}px]` : ""
         }
       >
         {children}

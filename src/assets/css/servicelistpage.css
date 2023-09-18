@@ -1,7 +1,19 @@
 .list-image {
   background: url("/ServiceListBanner.jpg") no-repeat;
-  background-position: left 0rem bottom -25rem;
+  background-position: left 0rem bottom 0rem;
   background-size: cover;
+}
+
+@screen md {
+  .list-image {
+    background-position: left 0rem bottom -15rem;
+  }
+}
+
+@screen 2xl {
+  .list-image {
+    background-position: left 0rem bottom -25rem;
+  }
 }
 
 .list-image::before {

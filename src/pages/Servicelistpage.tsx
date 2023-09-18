@@ -27,7 +27,7 @@ function Servicelistpage() {
   const [selectsortby, setSelectsortby] = useState("recommended");
   const [minprice, setMinprice] = useState(0);
   const [maxprice, setMaxprice] = useState(2000);
-  const [items, setItems] = useState(Array.from({ length: 9 }));
+  const [items, setItems] = useState(Array.from({ length: 8 }));
   const option = [
     { label: "ล้างแอร์", value: "ล้างแอร์" },
     { label: "ติดตั้งแอร์", value: "ติดตั้งแอร์" },
@@ -50,7 +50,6 @@ function Servicelistpage() {
   const handleSlider = (value: number[]) => {
     setMinprice(value[0]);
     setMaxprice(value[1]);
-    console.log(value);
   };
   const ChangeSelectedcategory = (event: string) => {
     setSelectcategory(event);
@@ -73,7 +72,7 @@ function Servicelistpage() {
           <div className="list-image text-white">
             <div className="z-10 relative text-center py-[5rem]">
               <div className="font-medium text-[2rem]">บริการของเรา</div>
-              <div className="pt-[1.5rem]">
+              <div className="pt-[1.5rem] px-6">
                 ซ่อมเครื่องใช้ไฟฟ้า ซ่อมแอร์ ทำความสะอาดบ้าน และอื่น ๆ อีกมากมาย
                 <br />
                 โดยพนักงานแม่บ้าน และช่างมืออาชีพ
@@ -83,7 +82,9 @@ function Servicelistpage() {
         </div>
         <StickyBox>
           <div
-            className={"flex bg-white px-52 items-center justify-between py-2"}
+            className={
+              "flex bg-white 2xl:px-52 lg:px-28 items-center justify-between py-2 flex-col lg:flex-row"
+            }
           >
             <div>
               <AutoComplete
@@ -96,7 +97,7 @@ function Servicelistpage() {
                 }}
               ></AutoComplete>
             </div>
-            <div>
+            <div className="w-full px-[5rem] lg:px-0 lg:w-[10rem]">
               <div className="text-[0.75rem] text-gray-700">หมวดหมู่บริการ</div>
               <div>
                 <Select
@@ -105,7 +106,7 @@ function Servicelistpage() {
                     ChangeSelectedcategory(event);
                   }}
                 >
-                  <SelectTrigger className="w-[10rem]">
+                  <SelectTrigger className="w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -128,9 +129,9 @@ function Servicelistpage() {
                 </Select>
               </div>
             </div>
-            <div>
+            <div className="w-full px-[5rem] lg:px-0 lg:w-[8rem]">
               <div className="text-[0.75rem] text-gray-700">ราคา</div>
-              <div className="w-[10rem] cursor-pointer select-none">
+              <div className="w-full cursor-pointer select-none">
                 <Popover>
                   <PopoverTrigger asChild>
                     <div className="flex justify-between items-center pr-3 py-2">
@@ -155,7 +156,7 @@ function Servicelistpage() {
                 </Popover>
               </div>
             </div>
-            <div>
+            <div className="w-full px-[5rem] lg:px-0 lg:w-[14rem]">
               <div className="text-[0.75rem] text-gray-700">เรียงตาม</div>
               <div>
                 <Select
@@ -164,7 +165,7 @@ function Servicelistpage() {
                     ChangeSortby(event);
                   }}
                 >
-                  <SelectTrigger className="w-[14.5rem]">
+                  <SelectTrigger className="w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -193,10 +194,10 @@ function Servicelistpage() {
       </div>
       <div>
         <InfiniteScroll
-          className="grid grid-cols-3 gap-14 px-52 pb-20"
+          className="grid lg:grid-cols-4 md:grid-cols-2 lg:gap-14 gap-6 lg:px-[6rem] lg:pb-20 pb-10 px-4"
           dataLength={items.length}
           next={fetchMoreData}
-          hasMore={true}
+          hasMore={false}
           loader={<div />}
           scrollThreshold={0.4}
         >
