@@ -10,18 +10,7 @@ import {
 import DayPicker from "./DayPicker";
 import TimePicker from "./TimePicker";
 
-import useOrderInput from "../hook/useOrderDetail";
-
-function ClientInput() {
-  const {
-    provinces,
-    amphures,
-    tambons,
-    setSelectedProvince,
-    setSelectedAmphure,
-    setSelectedTambon,
-  } = useOrderInput();
-
+function ClientInput(props) {
   return (
     <div
       id="add-input"
@@ -62,18 +51,20 @@ function ClientInput() {
               จังหวัด<span className="text-utility-red">*</span>
             </label>
 
-            <Select onValueChange={(event) => setSelectedProvince(event)}>
+            <Select onValueChange={(event) => props.setSelectedProvince(event)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกจังหวัด" />
               </SelectTrigger>
               <SelectContent className="h-96">
-                {provinces.map((item: { name_th: string; id: number }) => {
-                  return (
-                    <SelectItem key={item.id} value={item.name_th}>
-                      {item.name_th}
-                    </SelectItem>
-                  );
-                })}
+                {props.provinces.map(
+                  (item: { name_th: string; id: number }) => {
+                    return (
+                      <SelectItem key={item.id} value={item.name_th}>
+                        {item.name_th}
+                      </SelectItem>
+                    );
+                  }
+                )}
               </SelectContent>
             </Select>
           </div>
@@ -83,12 +74,12 @@ function ClientInput() {
               เขต / อำเภอ<span className="text-utility-red">*</span>
             </label>
 
-            <Select onValueChange={(event) => setSelectedAmphure(event)}>
+            <Select onValueChange={(event) => props.setSelectedAmphure(event)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกเขต / อำเภอ" />
               </SelectTrigger>
               <SelectContent className="h-96">
-                {amphures.map((item: { name_th: string; id: number }) => {
+                {props.amphures.map((item: { name_th: string; id: number }) => {
                   return (
                     <SelectItem key={item.id} value={item.name_th}>
                       {item.name_th}
@@ -104,12 +95,12 @@ function ClientInput() {
               แขวง / ตำบล<span className="text-utility-red">*</span>
             </label>
 
-            <Select onValueChange={(event) => setSelectedTambon(event)}>
+            <Select onValueChange={(event) => props.setSelectedTambon(event)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกแขวง / ตำบล" />
               </SelectTrigger>
               <SelectContent className="h-96">
-                {tambons.map((item: { name_th: string; id: number }) => {
+                {props.tambons.map((item: { name_th: string; id: number }) => {
                   return (
                     <SelectItem key={item.id} value={item.name_th}>
                       {item.name_th}

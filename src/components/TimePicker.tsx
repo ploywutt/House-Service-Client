@@ -14,7 +14,6 @@ function TimePicker() {
   const [clickHour, setClickHour] = useState<string>("00");
   const [clickMinute, setClickMinute] = useState<string>("00");
   const [time, setTime] = useState<string>("");
-  //   const [open, setOpen] = useState<boolean>(true);
 
   const handleHour = (e: string) => {
     setClickHour(e);
