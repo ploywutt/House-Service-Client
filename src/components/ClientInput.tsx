@@ -7,8 +7,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import DayPicker from "./DayPicker";
-import TimePicker from "./TimePicker";
+import DayPicker from "./addressInput/DayPicker";
+import TimePicker from "./addressInput/TimePicker";
 
 function ClientInput(props) {
   return (
@@ -23,13 +23,22 @@ function ClientInput(props) {
             <label htmlFor="calendar" className="py-0.5">
               วันที่สะดวกใช้บริการ<span className="text-utility-red">*</span>
             </label>
-            <DayPicker />
+            <DayPicker date={props.date} setDate={props.setDate} />
           </div>
           <div className="flex flex-col">
             <label htmlFor="time" className="py-0.5">
               เวลาที่สะดวกใช้บริการ<span className="text-utility-red">*</span>
             </label>
-            <TimePicker />
+            <TimePicker
+              hour={props.hour}
+              minute={props.minute}
+              handleHour={props.handleHour}
+              handleMinute={props.handleMinute}
+              clickHour={props.clickHour}
+              clickMinute={props.clickMinute}
+              selectedTime={props.selectedTime}
+              setSelectedTime={props.setSelectedTime}
+            />
           </div>
 
           <div className="flex flex-col">
@@ -43,6 +52,7 @@ function ClientInput(props) {
               placeholder="กรุณากรอกที่อยู่"
               className="hover:bg-slate-100 placeholder:hover:text-slate-900"
               required
+              onChange={(e) => props.setAddress(e.target.value)}
             />
           </div>
 
@@ -57,9 +67,9 @@ function ClientInput(props) {
               </SelectTrigger>
               <SelectContent className="h-96">
                 {props.provinces.map(
-                  (item: { name_th: string; id: number }) => {
+                  (item: { name_th: string }, index: number) => {
                     return (
-                      <SelectItem key={item.id} value={item.name_th}>
+                      <SelectItem key={index} value={item.name_th}>
                         {item.name_th}
                       </SelectItem>
                     );
@@ -79,13 +89,15 @@ function ClientInput(props) {
                 <SelectValue placeholder="เลือกเขต / อำเภอ" />
               </SelectTrigger>
               <SelectContent className="h-96">
-                {props.amphures.map((item: { name_th: string; id: number }) => {
-                  return (
-                    <SelectItem key={item.id} value={item.name_th}>
-                      {item.name_th}
-                    </SelectItem>
-                  );
-                })}
+                {props.amphures.map(
+                  (item: { name_th: string }, index: number) => {
+                    return (
+                      <SelectItem key={index} value={item.name_th}>
+                        {item.name_th}
+                      </SelectItem>
+                    );
+                  }
+                )}
               </SelectContent>
             </Select>
           </div>
@@ -100,13 +112,15 @@ function ClientInput(props) {
                 <SelectValue placeholder="เลือกแขวง / ตำบล" />
               </SelectTrigger>
               <SelectContent className="h-96">
-                {props.tambons.map((item: { name_th: string; id: number }) => {
-                  return (
-                    <SelectItem key={item.id} value={item.name_th}>
-                      {item.name_th}
-                    </SelectItem>
-                  );
-                })}
+                {props.tambons.map(
+                  (item: { name_th: string }, index: number) => {
+                    return (
+                      <SelectItem key={index} value={item.name_th}>
+                        {item.name_th}
+                      </SelectItem>
+                    );
+                  }
+                )}
               </SelectContent>
             </Select>
           </div>

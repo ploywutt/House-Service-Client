@@ -8,11 +8,12 @@ function useFetchProvince() {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedAmphure, setSelectedAmphure] = useState("");
   const [selectedTambon, setSelectedTambon] = useState("");
+  const [address, setAddress] = useState("");
 
   const fetchProvince = async () => {
     try {
       const data = await axios.get("http://localhost:4000/area");
-      // console.log(data.data);
+      console.log("provinces:", data.data);
       setProvinces(data.data);
     } catch (error) {
       console.error(error, "Error 400");
@@ -25,7 +26,7 @@ function useFetchProvince() {
         const data = await axios.get(
           `http://localhost:4000/area/amphure/${selectedProvince}`
         );
-        // console.log(data.data);
+        console.log("amphures:", data.data);
         setAmphures(data.data);
       } catch (error) {
         console.error(error, "Error 400");
@@ -39,7 +40,7 @@ function useFetchProvince() {
         const data = await axios.get(
           `http://localhost:4000/area/tambon/${selectedAmphure}`
         );
-        // console.log(data.data);
+        console.log("tambons:", data.data);
         setTambons(data.data);
       } catch (error) {
         console.error(error, "Error 400");
@@ -54,8 +55,8 @@ function useFetchProvince() {
 
   useEffect(() => {
     fetchDistrict();
-    setSelectedAmphure("เลือกเขต / อำเภอ");
-    setSelectedTambon("เลือกแขวง / ตำบล");
+    setSelectedAmphure("");
+    setSelectedTambon("");
     setTambons([]);
   }, [selectedProvince]);
 
@@ -73,6 +74,8 @@ function useFetchProvince() {
     setSelectedAmphure,
     selectedTambon,
     setSelectedTambon,
+    address,
+    setAddress,
   };
 }
 

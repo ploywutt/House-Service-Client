@@ -3,13 +3,11 @@ import ClientInput from "../components/ClientInput";
 import OrderDetail from "@/components/OrderDetail";
 
 import useFetchProvince from "../hook/useFetchProvince";
+import useTimePicker from "@/components/addressInput/useTimePicker";
+import useDayPicker from "@/components/addressInput/useDayPicker";
 
 function ClientInformation() {
   const {
-    // function OrderDetail(props) {
-    //   console.log(props.selectedProvince);
-    //   console.log(props.selectedAmphure);
-    //   console.log(props.selectedTambon);
     provinces,
     amphures,
     tambons,
@@ -19,8 +17,23 @@ function ClientInformation() {
     setSelectedAmphure,
     selectedTambon,
     setSelectedTambon,
-    isLoading,
+    address,
+    setAddress,
   } = useFetchProvince();
+
+  const {
+    hour,
+    minute,
+    handleHour,
+    handleMinute,
+    clickHour,
+    clickMinute,
+    selectedTime,
+    setSelectedTime,
+  } = useTimePicker();
+
+  const { thaiDate, date, setDate } = useDayPicker();
+
   return (
     <>
       <div className="service-detail-banner w-full h-60"></div>
@@ -32,12 +45,25 @@ function ClientInformation() {
           setSelectedProvince={setSelectedProvince}
           setSelectedAmphure={setSelectedAmphure}
           setSelectedTambon={setSelectedTambon}
-          isLoading={isLoading}
+          setAddress={setAddress}
+          hour={hour}
+          minute={minute}
+          handleHour={handleHour}
+          handleMinute={handleMinute}
+          clickHour={clickHour}
+          clickMinute={clickMinute}
+          selectedTime={selectedTime}
+          setSelectedTime={setSelectedTime}
+          date={date}
+          setDate={setDate}
         />
         <OrderDetail
+          thaiDate={thaiDate}
           selectedProvince={selectedProvince}
           selectedAmphure={selectedAmphure}
           selectedTambon={selectedTambon}
+          address={address}
+          selectedTime={selectedTime}
         />
       </div>
     </>
