@@ -8,7 +8,7 @@ import useFetchUserEmail from "@/hook/useFetchUserEmail";
 function OrderListPage() {
   const currentUserEmail = useFetchUserEmail();
   const fetchData = useFetchData(
-    `http://localhost:4000/v1/user/orders?email=${currentUserEmail}`,
+    `http://localhost:4000/v1/user/history?email=${currentUserEmail}`,
     currentUserEmail
   );
 
