@@ -39,19 +39,26 @@ function Navbar() {
     <>
       <nav
         id="navbar"
-        className="px-52 flex justify-between shadow-lg shadow-black-200 py-3 sticky  bg-white top-0 z-50"
+        className=" px-[16px] lg:px-52 md:px-[6rem] flex justify-between shadow-lg shadow-black-200 py-3 sticky  bg-white top-0 z-50"
       >
         <div className="flex items-center col-span-3">
+          <img
+            src={AppIcon}
+            alt="Logo"
+            className="w-6 hidden md:block md:w-8"
+            onClick={homepage}
+          />
           <Button
             variant="link"
-            className="no-underline hover:no-underline text-blue-600"
+            className="no-underline hover:no-underline text-blue-600 pl-0"
             onClick={homepage}
           >
-            <img src={AppIcon} alt="Logo" />
-            <div className="flex text-lg pl-3">HomeServices</div>
+            <div className="flex text-sm lg:text-lg lg:pl-2 md:text-lg md:pl-[8px]">
+              HomeServices
+            </div>
           </Button>
           <Button
-            className="hover:no-underline hover:bg-blue-500  active:bg-blue-800 disabled:bg-white disabled:text-blue-700 disabled:opacity-100"
+            className="hover:no-underline hover:bg-blue-500  active:bg-blue-800 disabled:bg-white disabled:text-blue-700 disabled:opacity-100 text-sm lg:text-lg md:text-lg"
             onClick={toservicelist}
           >
             บริการของเรา
@@ -62,7 +69,11 @@ function Navbar() {
             isLoginPage ? (
               ""
             ) : (
-              <Button onClick={login} variant="outline-primary">
+              <Button
+                onClick={login}
+                variant="outline-primary"
+                className="md:text-lg"
+              >
                 เข้าสู่ระบบ
               </Button>
             )
