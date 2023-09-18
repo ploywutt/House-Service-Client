@@ -14,6 +14,7 @@ import TimePicker from "./components/TimePicker";
 import OrderListPage from "./pages/OrderListPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ServicePayment from "./pages/Servicepayment";
+import HistoryPage from "./pages/HistoryPage";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/address" element={<ClientInformation />}></Route>
             <Route path="/checkout" element={<CheckoutPage />}></Route>
             <Route path="/orders" element={<OrderListPage />}></Route>
+            <Route path="/history" element={<HistoryPage />}></Route>
           </Route>
         </Routes>
       </Router>
