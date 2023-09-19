@@ -8,7 +8,7 @@ import Stepper from "@/components/stepper";
 import ServiceFooterButton from "@/components/service/servicefooterbutton";
 import { useState } from "react";
 import Subservice from "../components/service/Subservice";
-import SummaryService from "@/components/service/Summaryservice";
+import OrderDetail from "@/components/OrderDetail";
 
 function Servicedetail() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -53,7 +53,7 @@ function Servicedetail() {
                 </div>
                 <div id="container-2" className="flex flex-row justify-between">
                   <Subservice />
-                  <SummaryService />
+                  <OrderDetail />
                 </div>
               </div>
             </section>

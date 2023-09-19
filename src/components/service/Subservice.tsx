@@ -1,27 +1,10 @@
 import SellTag from "../../assets/icon/sell_tag.png";
 import { Separator } from "../../components/ui/separator";
-import axios from "axios";
-import { useState, useEffect } from "react";
 import Counter from "../service/Counter";
+import useFetchSubservice from "@/hook/useFetchSubservice";
 
-export default function subservice() {
-  const [subservice, setSubservice] = useState([]);
-
-  const fetchSubService = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:4000/v1/user/subservices"
-      );
-      // console.log(response.data.data);
-      setSubservice(response.data.data);
-    } catch (error) {
-      console.error(error, "Error 400");
-    }
-  };
-
-  useEffect(() => {
-    fetchSubService();
-  }, []);
+export default function Subservice() {
+  const { subservice } = useFetchSubservice();
 
   return (
     <div className="w-[735px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 ">

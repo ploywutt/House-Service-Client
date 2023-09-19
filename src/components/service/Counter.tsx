@@ -1,15 +1,10 @@
 import PlusIcon from "../../assets/icon/plus_icon.png";
 import NegativeIcon from "../../assets/icon/negative_icon.png";
-import { useState } from "react";
+import useFetchSubservice from "@/hook/useFetchSubservice";
 
 export default function Counter() {
-  const [count, setCount] = useState(0);
-  const handleIncrement = () => setCount(count + 1);
-  const handleDecrement = () => {
-    if (count > 0) {
-      setCount(count - 1);
-    }
-  };
+  const { handleIncrement, handleDecrement, count } = useFetchSubservice();
+
   return (
     <div className="w-36 h-11 justify-center items-start inline-flex">
       <button
