@@ -30,9 +30,9 @@ function App() {
             <Route path="/register" element={<Registerpage />}></Route>
             <Route path="/service/:id" element={<ServiceDetail />}></Route>
             <Route path="/payment" element={<ServicePayment />}></Route>
+            <Route path="/address" element={<ClientInformation />}></Route>
           </Route>
           <Route element={<ServiceFooter />}>
-            <Route path="/address" element={<ClientInformation />}></Route>
             <Route path="/checkout" element={<CheckoutPage />}></Route>
             <Route path="/orders" element={<OrderListPage />}></Route>
             <Route path="/history" element={<HistoryPage />}></Route>

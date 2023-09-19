@@ -1,4 +1,4 @@
-import "../assets/css/servicedetailbanner.css";
+// import "../assets/css/servicedetailbanner.css";
 import ClientInput from "../components/ClientInput";
 import OrderDetail from "@/components/OrderDetail";
 
@@ -19,6 +19,8 @@ function ClientInformation() {
     setSelectedTambon,
     address,
     setAddress,
+    isProvince,
+    setIsProvince,
   } = useFetchProvince();
 
   const {
@@ -36,7 +38,7 @@ function ClientInformation() {
 
   return (
     <>
-      <div className="service-detail-banner w-full h-60"></div>
+      {/* <div className="service-detail-banner w-full h-60"></div> */}
       <div className="h-[700px] flex justify-between items-center p-[20rem]">
         <ClientInput
           provinces={provinces}
@@ -56,8 +58,11 @@ function ClientInformation() {
           setSelectedTime={setSelectedTime}
           date={date}
           setDate={setDate}
+          isProvince={isProvince}
+          setIsProvince={setIsProvince}
         />
         <OrderDetail
+          date={date}
           thaiDate={thaiDate}
           selectedProvince={selectedProvince}
           selectedAmphure={selectedAmphure}
