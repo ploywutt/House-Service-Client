@@ -52,3 +52,18 @@
     leading-none;
   }
 }
+
+/* width */
+::-webkit-scrollbar {
+  @apply w-3;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply rounded-md bg-gradient-to-b from-[#4B5160];
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply rounded-md bg-gradient-to-t from-[#4C7FF4];
+}
