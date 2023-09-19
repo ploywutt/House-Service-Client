@@ -4,7 +4,13 @@ import employee from "../../assets/icon/employee.svg";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 
+// import { useNavigate } from "react-router-dom";
+import usePathname from "@/hook/usePathname";
+
 function OrderListItem(props: any) {
+  // const navigate = useNavigate();
+  const { pathname, navigate } = usePathname();
+
   return (
     <section id="order-list-column" className="flex flex-col gap-4">
       {props.fetchData.map(
@@ -20,15 +26,17 @@ function OrderListItem(props: any) {
           const subServiceArray = item.service_order;
 
           const workingDateTime = new Date(item.order_detail.working_time);
-          const options = {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          };
-          const workingDate = workingDateTime.toLocaleDateString(
-            "en-GB",
-            options
-          );
+
+          const thaiYear = workingDateTime.getFullYear() + 543;
+
+          const workingDate = workingDateTime
+            .toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })
+            .replace(String(workingDateTime.getFullYear()), String(thaiYear));
+
           const hours = workingDateTime
             .getUTCHours()
             .toString()
@@ -42,10 +50,10 @@ function OrderListItem(props: any) {
           const orderPrice = subServiceArray.reduce(
             (
               totalPrice: number,
-              data: { amount: number; sub_service: { price: number } }
+              data: { amount: number; sub_service: { price_per_unit: number } }
             ) => {
               const amount = data.amount;
-              const price = data.sub_service.price;
+              const price = data.sub_service.price_per_unit;
               return totalPrice + amount * price;
             },
             0
@@ -76,7 +84,7 @@ function OrderListItem(props: any) {
                         ? "yellow-order"
                         : status === "ดำเนินการสำเร็จ"
                         ? "green-order"
-                        : "unknown"
+                        : null
                     }
                   >
                     {status}
@@ -106,7 +114,7 @@ function OrderListItem(props: any) {
                           const result = employee.employee.name;
                           return (
                             <span className="p3 text-gray-700" key={index}>
-                              {result}
+                              {index + 1}.{result}
                             </span>
                           );
                         }
@@ -134,7 +142,7 @@ function OrderListItem(props: any) {
                         const subServiceName =
                           data.sub_service.sub_service_name;
                         const amount = data.amount;
-                        const unit = data.sub_service.service_unit;
+                        const unit = data.sub_service.unit;
                         return (
                           <li key={index}>
                             {subServiceName} - จำนวน {amount} {unit}
@@ -144,7 +152,14 @@ function OrderListItem(props: any) {
                     )}
                   </ul>
                 </div>
-                <Button className="px-6 py-2.5">ดูรายละเอียด</Button>
+                {pathname === "/history" ? null : (
+                  <Button
+                    className="px-6 py-2.5"
+                    onClick={() => navigate("/payment")}
+                  >
+                    ดูรายละเอียด
+                  </Button>
+                )}
               </div>
             </div>
           );

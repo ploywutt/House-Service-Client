@@ -14,7 +14,7 @@ function OrderListPage() {
 
   return (
     <div id="container" className="flex flex-col gap-7">
-      <PageHeader title="รายการคำสั่งซ่อม" />
+      <PageHeader title="ประวัติการซ่อม" />
       <main className="flex flex-row gap-9 justify-center">
         <SidebarMenu />
         <OrderListItem fetchData={fetchData.fetchData} />
