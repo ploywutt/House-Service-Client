@@ -8,6 +8,7 @@ function OrderDetail(props: {
   selectedAmphure: string;
   selectedProvince: string;
   thaiDate: string;
+  date: string[];
 }) {
   // function OrderDetail() {
   //   const { selectedProvince, selectedAmphure, selectedTambon } =
