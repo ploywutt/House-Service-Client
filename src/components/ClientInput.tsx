@@ -60,9 +60,18 @@ function ClientInput(props) {
             <label htmlFor="province" className="py-0.5">
               จังหวัด<span className="text-utility-red">*</span>
             </label>
-
-            <Select onValueChange={(event) => props.setSelectedProvince(event)}>
-              <SelectTrigger className="w-full">
+            <Select
+              onValueChange={(event) => {
+                props.setSelectedProvince(event);
+              }}
+            >
+              <SelectTrigger
+                className={`w-full ${
+                  props.isProvinces === false
+                    ? "border-[#C82438]"
+                    : "focus:border-blue-600"
+                }`}
+              >
                 <SelectValue placeholder="เลือกจังหวัด" />
               </SelectTrigger>
               <SelectContent className="h-96">
@@ -83,8 +92,14 @@ function ClientInput(props) {
             <label htmlFor="city" className="py-0.5">
               เขต / อำเภอ<span className="text-utility-red">*</span>
             </label>
-
-            <Select onValueChange={(event) => props.setSelectedAmphure(event)}>
+            <Select
+              onValueChange={(event) => {
+                props.setSelectedAmphure(event);
+                // if (!event) {
+                //   props.setIsProvince(false);
+                // }
+              }}
+            >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือกเขต / อำเภอ" />
               </SelectTrigger>
@@ -125,6 +140,7 @@ function ClientInput(props) {
             </Select>
           </div>
         </div>
+
         <div className="flex flex-col py-6">
           <label htmlFor="other" className="py-0.5">
             ระบุข้อมูลเพิ่มเติม

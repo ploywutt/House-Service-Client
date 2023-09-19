@@ -30,8 +30,8 @@ function Calendar({
           "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 "
         ),
         //ปุ่มลูกศรซ้าย-ขวา
-        nav_button_previous: "absolute right-6",
-        nav_button_next: "absolute right-1",
+        nav_button_previous: "absolute right-7 border-none",
+        nav_button_next: "absolute right-1 border-none",
         table: "w-full border-collapse space-y-1",
         head_row: "flex",
         head_cell:

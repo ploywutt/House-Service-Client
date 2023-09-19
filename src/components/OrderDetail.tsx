@@ -1,6 +1,5 @@
 // import useFetchProvince from "../hook/useFetchProvince";
 import { Separator } from "./ui/separator";
-// import useFetchProvince from "@/hook/useFetchProvince";
 
 function OrderDetail(props: {
   selectedTime: string;
@@ -21,26 +20,35 @@ function OrderDetail(props: {
       </div>
       <Separator className="my-4" />
       <div className="grid grid-cols-1 gap-5 py-2">
-        <div className="flex flex-row justify-between">
-          <p className="text-gray-500">วันที่</p>
-          <h5>{props.thaiDate}</h5>
-        </div>
-        <div className="flex flex-row justify-between">
-          <p className="text-gray-500">เวลา</p>
-          <h5>{props.selectedTime} น.</h5>
-        </div>
-        <div className="flex flex-row justify-between">
-          <p className="text-gray-500">สถานที่</p>
-          <div className="w-[200px]">
-            <h5 className="text-end">{props.address}</h5>
-            <h5 className="text-end">
-              {`${props.selectedTambon} ${props.selectedAmphure} ${props.selectedProvince}`}
-              {/* {`${selectedTambon} ${selectedAmphure} ${selectedProvince}`} */}
-            </h5>
+        {props.date && (
+          <div className="flex flex-row justify-between">
+            <p className="text-gray-500">วันที่</p>
+            <h5>{props.thaiDate}</h5>
           </div>
-        </div>
+        )}
+        {props.selectedTime && (
+          <div className="flex flex-row justify-between">
+            <p className="text-gray-500">เวลา</p>
+            <h5>{props.selectedTime} น.</h5>
+          </div>
+        )}
+        {(props.address || props.selectedProvince) && (
+          <div className="flex flex-row justify-between">
+            <p className="text-gray-500">สถานที่</p>
+            <div className="w-[200px]">
+              <h5 className="text-end">{props.address}</h5>
+              <h5 className="text-end">
+                {`${props.selectedTambon} ${props.selectedAmphure} ${props.selectedProvince}`}
+                {/* {`${selectedTambon} ${selectedAmphure} ${selectedProvince}`} */}
+              </h5>
+            </div>
+          </div>
+        )}
       </div>
-      <Separator className="my-4" />
+      {(props.date ||
+        props.selectedTime ||
+        props.address ||
+        props.selectedProvince) && <Separator className="my-4" />}
       <div className="flex flex-row justify-between">
         <p className="text-gray-500">รวม</p>
         <h5>0.00 ฿</h5>

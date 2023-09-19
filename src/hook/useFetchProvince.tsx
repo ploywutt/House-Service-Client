@@ -9,11 +9,13 @@ function useFetchProvince() {
   const [selectedAmphure, setSelectedAmphure] = useState("");
   const [selectedTambon, setSelectedTambon] = useState("");
   const [address, setAddress] = useState("");
+  const [isProvince, setIsProvince] = useState(true);
 
   const fetchProvince = async () => {
     try {
       const data = await axios.get("http://localhost:4000/area");
       console.log("provinces:", data.data);
+      console.log(isProvince);
       setProvinces(data.data);
     } catch (error) {
       console.error(error, "Error 400");
@@ -21,6 +23,11 @@ function useFetchProvince() {
   };
 
   const fetchDistrict = async () => {
+    // if (provinces && !selectedProvince) {
+    //   setIsProvince(false);
+    //   console.log(isProvince);
+    // }
+
     if (selectedProvince) {
       try {
         const data = await axios.get(
@@ -28,6 +35,7 @@ function useFetchProvince() {
         );
         console.log("amphures:", data.data);
         setAmphures(data.data);
+        console.log(isProvince);
       } catch (error) {
         console.error(error, "Error 400");
       }
@@ -51,6 +59,7 @@ function useFetchProvince() {
   useEffect(() => {
     fetchProvince();
     setAmphures([]);
+    setIsProvince(true);
   }, []);
 
   useEffect(() => {
@@ -58,6 +67,7 @@ function useFetchProvince() {
     setSelectedAmphure("");
     setSelectedTambon("");
     setTambons([]);
+    // setIsProvince(true);
   }, [selectedProvince]);
 
   useEffect(() => {
@@ -76,6 +86,8 @@ function useFetchProvince() {
     setSelectedTambon,
     address,
     setAddress,
+    isProvince,
+    setIsProvince,
   };
 }
 
