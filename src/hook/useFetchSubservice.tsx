@@ -1,13 +1,16 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 export default function useFetchSubservice() {
+  const { id } = useParams();
+
   const [subservice, setSubservice] = useState([]);
 
   const fetchSubService = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/v1/user/subservices"
+        `http://localhost:4000/v1/user/subservices/${id}`
       );
       console.log(response.data.data);
       setSubservice(response.data.data);

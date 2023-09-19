@@ -8,11 +8,15 @@ import Stepper from "@/components/stepper";
 import ServiceFooterButton from "@/components/service/servicefooterbutton";
 import { useState } from "react";
 import Subservice from "../components/service/Subservice";
-import OrderDetail from "@/components/OrderDetail";
+import OrderDetail from "../components/OrderDetail";
+// import SummaryService from "@/components/service/Summaryservice";
+import ClientInput from "../components/ClientInput";
 
 function Servicedetail() {
-  const [currentStep, setCurrentStep] = useState(1);
   const { id } = useParams();
+
+  const [currentStep, setCurrentStep] = useState(1);
+
   const steppermenu = [
     { icon: GroupIcon, label: "รายการ" },
     { icon: PenGray, label: "กรอกข้อมูลบริการ" },
@@ -52,8 +56,13 @@ function Servicedetail() {
                   </div>
                 </div>
                 <div id="container-2" className="flex flex-row justify-between">
+                  {/* render - card 1-2-3 */}
                   <Subservice />
+                  {/* <ClientInput />/ */}
+
+                  {/* render - summary */}
                   <OrderDetail />
+                  {/* <SummaryService /> */}
                 </div>
               </div>
             </section>

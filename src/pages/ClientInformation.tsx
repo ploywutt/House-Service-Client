@@ -19,8 +19,6 @@ function ClientInformation() {
     setSelectedTambon,
     address,
     setAddress,
-    isProvince,
-    setIsProvince,
   } = useFetchProvince();
 
   const {
@@ -44,9 +42,12 @@ function ClientInformation() {
           provinces={provinces}
           amphures={amphures}
           tambons={tambons}
+          selectedProvince={selectedProvince}
           setSelectedProvince={setSelectedProvince}
           setSelectedAmphure={setSelectedAmphure}
+          selectedAmphure={selectedAmphure}
           setSelectedTambon={setSelectedTambon}
+          selectedTambon={selectedTambon}
           setAddress={setAddress}
           hour={hour}
           minute={minute}
@@ -58,8 +59,6 @@ function ClientInformation() {
           setSelectedTime={setSelectedTime}
           date={date}
           setDate={setDate}
-          isProvince={isProvince}
-          setIsProvince={setIsProvince}
         />
         <OrderDetail
           date={date}

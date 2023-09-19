@@ -8,6 +8,7 @@ function OrderDetail(props: {
   selectedAmphure: string;
   selectedProvince: string;
   thaiDate: string;
+  date: string[];
 }) {
   // function OrderDetail() {
   //   const { selectedProvince, selectedAmphure, selectedTambon } =
@@ -51,7 +52,7 @@ function OrderDetail(props: {
         props.selectedProvince) && <Separator className="my-4" />}
       <div className="flex flex-row justify-between">
         <p className="text-gray-500">รวม</p>
-        <h5>0.00 ฿</h5>
+        <h5>฿฿฿</h5>
       </div>
     </div>
   );

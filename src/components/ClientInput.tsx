@@ -11,6 +11,8 @@ import DayPicker from "./addressInput/DayPicker";
 import TimePicker from "./addressInput/TimePicker";
 
 function ClientInput(props) {
+  console.log(props.selectedProvince);
+
   return (
     <div
       id="add-input"
@@ -65,15 +67,15 @@ function ClientInput(props) {
                 props.setSelectedProvince(event);
               }}
             >
-              <SelectTrigger
-                className={`w-full ${
-                  props.isProvinces === false
-                    ? "border-[#C82438]"
-                    : "focus:border-blue-600"
-                }`}
-              >
-                <SelectValue placeholder="เลือกจังหวัด" />
-              </SelectTrigger>
+              {props.selectedProvince === "" ? (
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="เลือกจังหวัด" />
+                </SelectTrigger>
+              ) : (
+                <SelectTrigger className="w-full text-slate-950">
+                  <SelectValue placeholder="เลือกจังหวัด" />
+                </SelectTrigger>
+              )}
               <SelectContent className="h-96">
                 {props.provinces.map(
                   (item: { name_th: string }, index: number) => {
@@ -92,17 +94,21 @@ function ClientInput(props) {
             <label htmlFor="city" className="py-0.5">
               เขต / อำเภอ<span className="text-utility-red">*</span>
             </label>
-            <Select
-              onValueChange={(event) => {
-                props.setSelectedAmphure(event);
-                // if (!event) {
-                //   props.setIsProvince(false);
-                // }
-              }}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="เลือกเขต / อำเภอ" />
-              </SelectTrigger>
+            <Select onValueChange={(event) => props.setSelectedAmphure(event)}>
+              {props.selectedProvince === "" ? (
+                <SelectTrigger className="w-full" disabled>
+                  <SelectValue placeholder="เลือกเขต / อำเภอ" />
+                </SelectTrigger>
+              ) : props.selectedAmphure === "" ? (
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="เลือกเขต / อำเภอ" />
+                </SelectTrigger>
+              ) : (
+                <SelectTrigger className="w-full text-slate-950">
+                  <SelectValue placeholder="เลือกเขต / อำเภอ" />
+                </SelectTrigger>
+              )}
+
               <SelectContent className="h-96">
                 {props.amphures.map(
                   (item: { name_th: string }, index: number) => {
@@ -123,9 +129,20 @@ function ClientInput(props) {
             </label>
 
             <Select onValueChange={(event) => props.setSelectedTambon(event)}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="เลือกแขวง / ตำบล" />
-              </SelectTrigger>
+              {props.selectedAmphure === "" ? (
+                <SelectTrigger className="w-full" disabled>
+                  <SelectValue placeholder="เลือกแขวง / ตำบล" />
+                </SelectTrigger>
+              ) : props.selectedTambon === "" ? (
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="เลือกแขวง / ตำบล" />
+                </SelectTrigger>
+              ) : (
+                <SelectTrigger className="w-full text-slate-950">
+                  <SelectValue placeholder="เลือกแขวง / ตำบล" />
+                </SelectTrigger>
+              )}
+
               <SelectContent className="h-96">
                 {props.tambons.map(
                   (item: { name_th: string }, index: number) => {
