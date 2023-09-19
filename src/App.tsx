@@ -24,6 +24,8 @@ function App() {
             <Route path="/" element={<Homepage />}></Route>
             <Route path="/servicelist" element={<Servicelistpage />}></Route>
             <Route path="/shadcn" element={<Shadcn />}></Route>
+            <Route path="/orders" element={<OrderListPage />}></Route>
+            <Route path="/history" element={<HistoryPage />}></Route>
           </Route>
           <Route element={<NoFooter />}>
             <Route path="/login" element={<LoginPage />}></Route>
@@ -34,8 +36,6 @@ function App() {
           </Route>
           <Route element={<ServiceFooter />}>
             <Route path="/checkout" element={<CheckoutPage />}></Route>
-            <Route path="/orders" element={<OrderListPage />}></Route>
-            <Route path="/history" element={<HistoryPage />}></Route>
           </Route>
         </Routes>
       </Router>
