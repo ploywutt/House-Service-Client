@@ -3,8 +3,10 @@ import { Button } from "../ui/button";
 import Email from "@/assets/icon/email.svg";
 import Phone from "@/assets/icon/phone.svg";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Footer() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const homepage = () => {
     navigate("/");
@@ -22,9 +24,9 @@ function Footer() {
             <div className="flex text-lg pl-3">HomeServices</div>
           </Button>
           <div className="flex flex-col items-center lg:items-start py-2 ">
-            <div>บริษัท โฮมเซอร์วิสเซส จำกัด</div>
+            <div>{t("footer.company")}</div>
             <div className="text-gray-800 text-center">
-              452 ซอยสุขุมวิท 79 แขวงพระโขนงเหนือ เขตวัฒนา กรุงเทพมหานคร 10260
+              {t("footer.location")}
             </div>
           </div>
           <div className="flex lg:flex-row flex-col items-center p-2">
@@ -47,10 +49,10 @@ function Footer() {
           <div>copyright © 2021 HomeServices.com All rights reserved</div>
           <div>
             <Button variant="link" className="text-gray-800 no-underline">
-              เงื่อนไขและข้อตกลงการใช้งานเว็บไซต์
+              {t("footer.terms")}
             </Button>
             <Button variant="link" className="text-gray-800 no-underline">
-              นโยบายความเป็นส่วนตัว
+              {t("footer.privacy")}
             </Button>
           </div>
         </div>
