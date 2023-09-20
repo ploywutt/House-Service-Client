@@ -20,8 +20,10 @@ import {
 } from "@/components/ui/popover";
 
 import { AutoComplete, Option } from "@/components/ui/autocomplete";
+import { useTranslation } from "react-i18next";
 
 function Servicelistpage() {
+  const { t } = useTranslation();
   const [searchtext, setSearchText] = useState<Option>();
   const [selectcategory, setSelectcategory] = useState("all");
   const [selectsortby, setSelectsortby] = useState("recommended");
@@ -34,17 +36,19 @@ function Servicelistpage() {
     { label: "ซ่อมแอร์", value: "ซ่อมแอร์" },
     { label: "ทำความสะอาดทั่วไป", value: "ทำความสะอาดทั่วไป" },
   ];
+  // const [servicecategory, setServiceCategory] = useState("");
+
   const servicecategory = [
-    { value: "all", text: "บริการทั้งหมด" },
-    { value: "general", text: "บริการทั่วไป" },
-    { value: "kitchen", text: "บริการห้องครัว" },
-    { value: "toilet", text: "บริการห้องน้ำ" },
+    { value: "all", text: t("category_all") },
+    { value: "general", text: t("category_general") },
+    { value: "kitchen", text: t("category_kitchen") },
+    { value: "toilet", text: t("category_toilet") },
   ];
   const sortby = [
-    { value: "recommended", text: "บริการแนะนำ" },
-    { value: "popular", text: "บริการยอดนิยม" },
-    { value: "ascend", text: "ตามตัวอักษร (Ascending)" },
-    { value: "descend", text: "ตามตัวอักษร (Descending)" },
+    { value: "recommended", text: t("sort_option.recommended") },
+    { value: "popular", text: t("sort_option.popular") },
+    { value: "ascend", text: t("sort_option.ascend") },
+    { value: "descend", text: t("sort_option.descend") },
   ];
 
   const handleSlider = (value: number[]) => {
@@ -71,12 +75,13 @@ function Servicelistpage() {
         <div className="relative">
           <div className="list-image text-white">
             <div className="z-10 relative text-center py-[5rem]">
-              <div className="font-medium text-[2rem]">บริการของเรา</div>
-              <div className="pt-[1.5rem] px-6">
-                ซ่อมเครื่องใช้ไฟฟ้า ซ่อมแอร์ ทำความสะอาดบ้าน และอื่น ๆ อีกมากมาย
-                <br />
-                โดยพนักงานแม่บ้าน และช่างมืออาชีพ
-              </div>
+              <div className="font-medium text-[2rem]">{t("our_services")}</div>
+              <div
+                className="pt-[1.5rem] px-6"
+                dangerouslySetInnerHTML={{
+                  __html: t("banner_servicelistpage1"),
+                }}
+              ></div>
             </div>
           </div>
         </div>
@@ -88,9 +93,9 @@ function Servicelistpage() {
           >
             <div>
               <AutoComplete
-                placeholder="ค้นหาบริการ..."
+                placeholder={t("search_service_placeholder")}
                 options={option}
-                emptyMessage="ไม่พ้บข้อมูล"
+                emptyMessage={t("no_service_message")}
                 value={searchtext}
                 onValueChange={(event) => {
                   setSearchText(event);
@@ -98,7 +103,9 @@ function Servicelistpage() {
               ></AutoComplete>
             </div>
             <div className="w-full px-[5rem] lg:px-0 lg:w-[10rem]">
-              <div className="text-[0.75rem] text-gray-700">หมวดหมู่บริการ</div>
+              <div className="text-[0.75rem] text-gray-700">
+                {t("service_categories")}
+              </div>
               <div>
                 <Select
                   defaultValue={selectcategory}
@@ -130,7 +137,7 @@ function Servicelistpage() {
               </div>
             </div>
             <div className="w-full px-[5rem] lg:px-0 lg:w-[8rem]">
-              <div className="text-[0.75rem] text-gray-700">ราคา</div>
+              <div className="text-[0.75rem] text-gray-700">{t("price")}</div>
               <div className="w-full cursor-pointer select-none">
                 <Popover>
                   <PopoverTrigger asChild>
@@ -157,7 +164,7 @@ function Servicelistpage() {
               </div>
             </div>
             <div className="w-full px-[5rem] lg:px-0 lg:w-[14rem]">
-              <div className="text-[0.75rem] text-gray-700">เรียงตาม</div>
+              <div className="text-[0.75rem] text-gray-700">{t("sortby")}</div>
               <div>
                 <Select
                   defaultValue={selectsortby}
@@ -188,7 +195,7 @@ function Servicelistpage() {
                 </Select>
               </div>
             </div>
-            <Button className="px-8 py-6">ค้นหา</Button>
+            <Button className="px-8 py-6">{t("search")}</Button>
           </div>
         </StickyBox>
       </div>
@@ -213,14 +220,10 @@ function Servicelistpage() {
           <div className="opacity-image"></div>
         </div>
         <div className="flex justify-center w-full">
-          <div className="text-white text-center text-[1.25rem] pb-[1.5rem]">
-            เพราะเราคือช่าง ผู้ให้บริการเรื่องบ้านอันดับ 1 แบบครบวงจร
-            โดยทีมช่างมืออาชีพมากกว่า 100 ทีม <br />
-            สามารถตอบโจทย์ด้านการบริการเรื่องบ้านของคุณ และสร้าง <br />
-            ความสะดวกสบายในการติดต่อกับทีมช่าง ได้ทุกที่ ทุกเวลา ตลอด 24 ชม.
-            <br />
-            มั่นใจ ช่างไม่ทิ้งงาน พร้อมรับประกันคุณภาพงาน
-          </div>
+          <div
+            className="text-white text-center text-[1.25rem] pb-[1.5rem]"
+            dangerouslySetInnerHTML={{ __html: t("servicelist_footer") }}
+          ></div>
         </div>
       </div>
     </>

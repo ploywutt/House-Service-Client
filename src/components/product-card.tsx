@@ -1,8 +1,10 @@
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { Tag } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function productCard() {
+  const { t } = useTranslation();
   return (
     <div className="border rounded-lg overflow-hidden">
       <img src="https://picsum.photos/400/300" alt="Image" className="w-full" />
@@ -18,7 +20,7 @@ export default function productCard() {
           ค่าบริการประมาณ 500.00 - 1,000.00 ฿
         </div>
         <Button variant="link" className="underline text-blue-600 px-0">
-          เลือกบริการ
+          {t("service_selection")}
         </Button>
       </div>
     </div>

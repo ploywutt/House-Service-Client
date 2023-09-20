@@ -3,8 +3,9 @@ import { Button } from "../ui/button";
 import { User } from "@/core/types/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bell, User2, ClipboardList, History, LogOut } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Switch } from "@/components/ui/switch";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,19 +13,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useTranslation } from "react-i18next";
+import supabase from "@/auth/supabaseauth";
 
 function Navbar() {
+  const { i18n, t } = useTranslation();
   let userstr = localStorage.getItem("user");
   const parse: User | undefined = userstr ? JSON.parse(userstr) : undefined;
   const [user, setUser] = useState<User | undefined>(parse);
   const navigate = useNavigate();
   const location = useLocation();
   const isLoginPage = location.pathname == "/login";
-  const logout = () => {
+  const logout = async () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("sb-xgtmarqfhoqpodfgxvse-auth-token");
+    if (localStorage.getItem("sb-xgtmarqfhoqpodfgxvse-auth-token")) {
+      await supabase.auth.signOut();
+    }
     setUser(undefined);
     navigate("/");
   };
+
   const login = () => {
     navigate("/login");
     // setUser({ name: "mhing", image: "https://picsum.photos/200/300" });
@@ -35,6 +44,30 @@ function Navbar() {
   const toservicelist = () => {
     navigate("/servicelist");
   };
+
+  const changeLanguage = (e: any) => {
+    i18n.changeLanguage(e ? "en" : "th");
+  };
+
+  const checked = i18n.language == "en" ? true : false;
+
+  useEffect(() => {
+    setTimeout(() => {
+      const googleUserStr = localStorage.getItem(
+        "sb-xgtmarqfhoqpodfgxvse-auth-token"
+      );
+      const googleUser = googleUserStr ? JSON.parse(googleUserStr) : undefined;
+      const googleProfile = googleUser?.user?.user_metadata;
+      if (googleProfile) {
+        const userData: User = {
+          image: googleProfile.avatar_url,
+          name: googleProfile.name,
+        };
+        setUser(userData);
+      }
+    }, 100);
+  }, []);
+
   return (
     <>
       <nav
@@ -61,7 +94,7 @@ function Navbar() {
             className="hover:no-underline hover:bg-blue-500  active:bg-blue-800 disabled:bg-white disabled:text-blue-700 disabled:opacity-100 text-sm lg:text-lg md:text-lg"
             onClick={toservicelist}
           >
-            บริการของเรา
+            {t("our_services")}
           </Button>
         </div>
         <div className="flex items-center">
@@ -74,7 +107,7 @@ function Navbar() {
                 variant="outline-primary"
                 className="md:text-lg"
               >
-                เข้าสู่ระบบ
+                {t("user.login")}
               </Button>
             )
           ) : (
@@ -92,15 +125,15 @@ function Navbar() {
                 <DropdownMenuContent>
                   <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer">
                     <User2 className="pr-1 w-5" />
-                    ข้อมูลผู้ใช้
+                    {t("user.profile")}
                   </DropdownMenuItem>
                   <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer">
                     <ClipboardList className="pr-1 w-5" />
-                    รายการคำสั่งซ่อม
+                    {t("user.order_list")}
                   </DropdownMenuItem>
                   <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer">
                     <History className="pr-1 w-5" />
-                    ประวัติการซ่อม
+                    {t("user.history")}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
@@ -108,20 +141,26 @@ function Navbar() {
                     className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer"
                   >
                     <LogOut className="pr-1 w-5" />
-                    ออกจากระบบ
+                    {t("user.logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button
-                variant="secondary"
-                size="icon"
-                className="rounded-full ml-3"
-              >
+              <Button variant="bell" size="icon" className="rounded-full ml-3">
                 <Bell className="h-4 w-4" />
               </Button>
             </div>
           )}
+          <Switch
+            defaultChecked={checked}
+            className={
+              "ml-4 relative before:absolute before:text-[12px] after:text-[12px] " +
+              (i18n.language == "en"
+                ? "before:content-['EN'] before:text-white"
+                : "after:content-['TH']")
+            }
+            onCheckedChange={changeLanguage}
+          />
         </div>
       </nav>
     </>
