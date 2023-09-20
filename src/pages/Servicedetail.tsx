@@ -1,21 +1,57 @@
 import "../assets/css/servicedetailbanner.css";
 
-import { useParams } from "react-router-dom";
-
 import BreadCrumb from "@/components/service/servicebreadcrumb";
 import Stepper from "@/components/stepper";
 import ServiceFooterButton from "@/components/service/servicefooterbutton";
 
 import Subservice from "../components/service/Subservice";
+import ClientInput from "@/components/ClientInput";
+import CheckoutPage from "./CheckoutPage";
 import OrderDetail from "../components/OrderDetail";
-import ClientInformation from "./ClientInformation";
 
 import useStepper from "@/hook/useStepper";
+import useFetchSubservice from "@/hook/useFetchSubservice";
+import useFetchProvince from "@/hook/useFetchProvince";
+import useTimePicker from "@/components/addressInput/useTimePicker";
+import useDayPicker from "@/components/addressInput/useDayPicker";
 
 function Servicedetail() {
-  const { id } = useParams();
-
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
+  const {
+    serviceName,
+    subservice,
+    handleIncrement,
+    handleDecrement,
+    counts,
+    totalprice,
+  } = useFetchSubservice();
+
+  const {
+    provinces,
+    amphures,
+    tambons,
+    selectedProvince,
+    setSelectedProvince,
+    selectedAmphure,
+    setSelectedAmphure,
+    selectedTambon,
+    setSelectedTambon,
+    address,
+    setAddress,
+  } = useFetchProvince();
+
+  const {
+    hour,
+    minute,
+    handleHour,
+    handleMinute,
+    clickHour,
+    clickMinute,
+    selectedTime,
+    setSelectedTime,
+  } = useTimePicker();
+
+  const { thaiDate, date, setDate } = useDayPicker();
 
   return (
     <>
@@ -27,7 +63,7 @@ function Servicedetail() {
                 id="container-1"
                 className="z-10 relative flex flex-col gap-12 px-52 py-[5rem]"
               >
-                <BreadCrumb />
+                <BreadCrumb serviceName={serviceName} />
 
                 <div className="w-full h-[129px] bg-white  rounded-lg border border-gray-300">
                   <div>
@@ -39,13 +75,50 @@ function Servicedetail() {
                   </div>
                 </div>
                 <div id="container-2" className="flex flex-row justify-between">
-                  {/* render - card 1-2-3 */}
-                  <Subservice />
-                  {/* <ClientInformation /> */}
-
-                  {/* render - summary */}
-                  <OrderDetail />
-                  {/* <SummaryService /> */}
+                  {currentStep === 1 && (
+                    <Subservice
+                      subservice={subservice}
+                      counts={counts}
+                      handleDecrement={handleDecrement}
+                      handleIncrement={handleIncrement}
+                    />
+                  )}
+                  {currentStep === 2 && (
+                    <ClientInput
+                      provinces={provinces}
+                      amphures={amphures}
+                      tambons={tambons}
+                      selectedProvince={selectedProvince}
+                      setSelectedProvince={setSelectedProvince}
+                      setSelectedAmphure={setSelectedAmphure}
+                      selectedAmphure={selectedAmphure}
+                      setSelectedTambon={setSelectedTambon}
+                      selectedTambon={selectedTambon}
+                      setAddress={setAddress}
+                      hour={hour}
+                      minute={minute}
+                      handleHour={handleHour}
+                      handleMinute={handleMinute}
+                      clickHour={clickHour}
+                      clickMinute={clickMinute}
+                      selectedTime={selectedTime}
+                      setSelectedTime={setSelectedTime}
+                      date={date}
+                      setDate={setDate}
+                    />
+                  )}
+                  {currentStep === 3 && <CheckoutPage />}
+                  <OrderDetail
+                    totalprice={totalprice}
+                    counts={counts}
+                    date={date}
+                    thaiDate={thaiDate}
+                    selectedProvince={selectedProvince}
+                    selectedAmphure={selectedAmphure}
+                    selectedTambon={selectedTambon}
+                    address={address}
+                    selectedTime={selectedTime}
+                  />
                 </div>
               </div>
             </section>
