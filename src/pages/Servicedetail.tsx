@@ -1,38 +1,21 @@
 import "../assets/css/servicedetailbanner.css";
-import BreadCrumb from "@/components/service/servicebreadcrumb";
-import GroupIcon from "../assets/icon/Group.svg";
-import PenGray from "../assets/icon/Pen_gray.svg";
-import CreditGray from "../assets/icon/Credit_gray.svg";
+
 import { useParams } from "react-router-dom";
+
+import BreadCrumb from "@/components/service/servicebreadcrumb";
 import Stepper from "@/components/stepper";
 import ServiceFooterButton from "@/components/service/servicefooterbutton";
-import { useState } from "react";
+
 import Subservice from "../components/service/Subservice";
 import OrderDetail from "../components/OrderDetail";
-// import SummaryService from "@/components/service/Summaryservice";
-import ClientInput from "../components/ClientInput";
+import ClientInformation from "./ClientInformation";
+
+import useStepper from "@/hook/useStepper";
 
 function Servicedetail() {
   const { id } = useParams();
 
-  const [currentStep, setCurrentStep] = useState(1);
-
-  const steppermenu = [
-    { icon: GroupIcon, label: "รายการ" },
-    { icon: PenGray, label: "กรอกข้อมูลบริการ" },
-    { icon: CreditGray, label: "ชำระเงิน" },
-  ];
-  const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-  const handleNext = () => {
-    const maxstep = steppermenu.length;
-    if (currentStep < maxstep) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
+  const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
 
   return (
     <>
@@ -58,7 +41,7 @@ function Servicedetail() {
                 <div id="container-2" className="flex flex-row justify-between">
                   {/* render - card 1-2-3 */}
                   <Subservice />
-                  {/* <ClientInput />/ */}
+                  {/* <ClientInformation /> */}
 
                   {/* render - summary */}
                   <OrderDetail />
