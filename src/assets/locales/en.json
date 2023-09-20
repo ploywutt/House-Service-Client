@@ -40,5 +40,6 @@
     "terms": "Terms of service",
     "privacy": "Privacy Policy"
   },
-  "service_selection": "Select Service"
+  "service_selection": "Select Service",
+  "average_price": "Average Price"
 }

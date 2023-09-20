@@ -21,15 +21,24 @@ import {
 
 import { AutoComplete, Option } from "@/components/ui/autocomplete";
 import { useTranslation } from "react-i18next";
+import ServiceAPI from "@/core/services/services";
+import { Pagination } from "@/core/types/pagination";
+import { Services } from "@/core/types/services";
 
 function Servicelistpage() {
   const { t } = useTranslation();
+  const [pagination, setPagination] = useState<Pagination>({
+    page: 1,
+    pageSize: 4,
+    totalPage: 0,
+    totalRecord: 0,
+  });
   const [searchtext, setSearchText] = useState<Option>();
   const [selectcategory, setSelectcategory] = useState("all");
   const [selectsortby, setSelectsortby] = useState("recommended");
   const [minprice, setMinprice] = useState(0);
   const [maxprice, setMaxprice] = useState(2000);
-  const [items, setItems] = useState(Array.from({ length: 8 }));
+  const [items, setItems] = useState<Services[]>([]);
   const option = [
     { label: "ล้างแอร์", value: "ล้างแอร์" },
     { label: "ติดตั้งแอร์", value: "ติดตั้งแอร์" },
@@ -63,11 +72,15 @@ function Servicelistpage() {
     setSelectsortby(event);
   };
 
-  const fetchMoreData = () => {
-    setTimeout(() => {
-      setItems((prevItems) => prevItems.concat(Array.from({ length: 9 })));
-    }, 1000);
+  const fetchData = async () => {
+    const response = await ServiceAPI.get(pagination);
+    setPagination(response.pagination);
+    setItems((prevItems) => prevItems?.concat(response.data));
   };
+
+  useEffect(() => {
+    fetchData();
+  }, [pagination.page]);
 
   return (
     <>
@@ -202,15 +215,20 @@ function Servicelistpage() {
       <div>
         <InfiniteScroll
           className="grid lg:grid-cols-4 md:grid-cols-2 lg:gap-14 gap-6 lg:px-[6rem] lg:pb-20 pb-10 px-4"
-          dataLength={items.length}
-          next={fetchMoreData}
-          hasMore={false}
+          dataLength={items?.length || 0}
+          next={() => {
+            setPagination((prevItems) => ({
+              ...prevItems,
+              page: prevItems.page + 1,
+            }));
+          }}
+          hasMore={pagination.page < (pagination.totalPage || 0)}
           loader={<div />}
           scrollThreshold={0.4}
         >
-          {items.map((_, index) => (
-            <div key={index}>
-              <ProductCard />
+          {items?.map((list, index) => (
+            <div key={index} className="flex">
+              <ProductCard items={list} />
             </div>
           ))}
         </InfiniteScroll>

@@ -4,13 +4,27 @@ import "@/assets/css/homepage.css";
 import ProductCard from "@/components/product-card";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Services } from "@/core/types/services";
+import { useEffect, useState } from "react";
+import ServiceAPI from "@/core/services/services";
 
 function Homepage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [items, setItems] = useState<Services[]>([]);
   const toservicelist = () => {
     navigate("/servicelist");
   };
+
+  const fetchData = async () => {
+    const response = await ServiceAPI.get({ page: 1, pageSize: 2 });
+    setItems((prevItems) => prevItems?.concat(response.data));
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   // document.documentElement.style.setProperty("--color-primary-700", "255 0 0 ");
   return (
     <>
@@ -41,10 +55,13 @@ function Homepage() {
           {t("popular_service")}
         </div>
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 2xl:px-52 xl:px-24 px-4">
+          {/* <ProductCard />
           <ProductCard />
           <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          <ProductCard /> */}
+          {items.map((item) => (
+            <ProductCard key={item.id} items={item}></ProductCard>
+          ))}
         </div>
         <div className="text-center lg:mt-[4rem] mt-[2rem]">
           <Button variant="myPrimary" onClick={toservicelist}>
