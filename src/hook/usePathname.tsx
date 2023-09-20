@@ -5,6 +5,8 @@ function usePathname() {
   const location = useLocation();
   const pathname = location.pathname;
 
+  console.log(location);
+
   return { pathname, navigate };
 }
 
