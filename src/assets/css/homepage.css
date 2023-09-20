@@ -22,7 +22,7 @@
 @screen 2xl {
   .banner {
     background: url("/Homepage-Human.png") no-repeat;
-    background-position: right 18% bottom -12rem;
+    background-position: right 18% bottom -13rem;
     @apply bg-blue-100;
   }
 }
