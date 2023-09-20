@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import Summary from '@/components/layout/summary';
+import React, { useState } from "react";
+import Summary from "@/components/layout/summary";
 
 const CheckoutPage = () => {
-  const [paymentMethod, setPaymentMethod] = useState('card');
+  const [paymentMethod, setPaymentMethod] = useState("card");
   const [formData, setFormData] = useState({
-    creditCardNumber: '',
-    cardHolderName: '',
-    expirationDate: '',
-    cvc: '',
-    discountCode: '',
+    creditCardNumber: "",
+    cardHolderName: "",
+    expirationDate: "",
+    cvc: "",
+    discountCode: "",
   });
   const [isCodeApplied, setIsCodeApplied] = useState(false);
 
@@ -28,22 +28,20 @@ const CheckoutPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (paymentMethod === 'card') {
-    } else if (paymentMethod === 'promptpay') {
+    if (paymentMethod === "card") {
+    } else if (paymentMethod === "promptpay") {
     }
   };
 
   return (
     <div className="flex justify-center pt-12">
-      
       <div className="w-[735px] h-[auto]  bg-white rounded-lg border border-zinc-300 p-5">
-
         <h1 className="text-grey-700cr">ชำระเงิน</h1>
         <div className="flex flex-row">
           <button
-            onClick={() => handlePaymentMethodChange('card')}
+            onClick={() => handlePaymentMethodChange("card")}
             className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 ${
-              paymentMethod === 'card' ? 'bg-blue-200 border-blue-500' : ''
+              paymentMethod === "card" ? "bg-blue-200 border-blue-500" : ""
             }`}
           >
             <div className="w-[35px] h-[35px] relative" />
@@ -54,9 +52,11 @@ const CheckoutPage = () => {
           </button>
 
           <button
-            onClick={() => handlePaymentMethodChange('promptpay')}
+            onClick={() => handlePaymentMethodChange("promptpay")}
             className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 ml-[24px] ${
-              paymentMethod === 'promptpay' ? 'bg-blue-200 border-blue-500 '   : ''
+              paymentMethod === "promptpay"
+                ? "bg-blue-200 border-blue-500 "
+                : ""
             }`}
           >
             <div className="w-[35px] h-[35px] relative" />
@@ -67,12 +67,11 @@ const CheckoutPage = () => {
           </button>
         </div>
 
-        {paymentMethod === 'card' && (
+        {paymentMethod === "card" && (
           <div>
             <div className="w-[686px] pt-[36px] flex flex-col ">
               <label htmlFor="creditCardNumber" className="mb-[10px]">
-                หมายเลขบัตรเครดิต{' '}
-                <span className="text-utility-red">*</span>{' '}
+                หมายเลขบัตรเครดิต <span className="text-utility-red">*</span>{" "}
               </label>
               <input
                 type="text"
@@ -85,8 +84,7 @@ const CheckoutPage = () => {
             </div>
             <div className="w-[686px] pt-[36px] flex flex-col ">
               <label htmlFor="cardHolderName" className="">
-                ชื่อบนบัตรเครดิต{' '}
-                <span className="text-utility-red">*</span>{' '}
+                ชื่อบนบัตรเครดิต <span className="text-utility-red">*</span>{" "}
               </label>
               <input
                 type="text"
@@ -99,11 +97,9 @@ const CheckoutPage = () => {
             </div>
 
             <div className="w-[686px] h-auto pt-[36px] flex flex-row">
-              
               <div className=" w-[331px] h-[72px] flex-col justify-start items-start gap-1 inline-flex">
                 <label htmlFor="expirationDate" className="">
-                  วันหมดอายุ{' '}
-                  <span className="text-utility-red">*</span>{' '}
+                  วันหมดอายุ <span className="text-utility-red">*</span>{" "}
                 </label>
                 <input
                   type="text"
@@ -113,11 +109,11 @@ const CheckoutPage = () => {
                   placeholder="MM/YY"
                   className="w-[331px] h-auto px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex"
                   maxLength={4}
-                /> 
+                />
               </div>
-              <div className='w-[331px] h-[72px] flex-col justify-start items-start gap-1 inline-flex ml-[24px]'> 
+              <div className="w-[331px] h-[72px] flex-col justify-start items-start gap-1 inline-flex ml-[24px]">
                 <label htmlFor="cvc" className="">
-                  รหัส CVC / CVV <span className="text-utility-red">*</span>{' '}
+                  รหัส CVC / CVV <span className="text-utility-red">*</span>{" "}
                 </label>
                 <input
                   type="text"
@@ -133,7 +129,7 @@ const CheckoutPage = () => {
           </div>
         )}
 
-        {paymentMethod === 'promptpay' && (
+        {paymentMethod === "promptpay" && (
           <div>
             <h3>Enter PromptPay Info</h3>
             <input
@@ -165,10 +161,9 @@ const CheckoutPage = () => {
           </button>
         </div>
       </div>
-      <Summary />
+      {/* <Summary /> */}
     </div>
   );
 };
 
 export default CheckoutPage;
-

@@ -7,6 +7,8 @@ import CreditGray from "../assets/icon/Credit_gray.svg";
 function useStepper() {
   const [currentStep, setCurrentStep] = useState(1);
 
+  console.log("step", currentStep);
+
   const steppermenu = [
     { icon: GroupIcon, label: "รายการ" },
     { icon: PenGray, label: "กรอกข้อมูลบริการ" },

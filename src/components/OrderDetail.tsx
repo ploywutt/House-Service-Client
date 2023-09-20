@@ -1,7 +1,4 @@
-// import useFetchProvince from "../hook/useFetchProvince";
 import { Separator } from "./ui/separator";
-// import useFetchSubservice from "@/hook/useFetchSubservice";
-import useMapCalculateTotalPrice from "@/hook/useMapCalculateTotalPrice";
 
 function OrderDetail(props: {
   selectedTime: string;
@@ -10,17 +7,35 @@ function OrderDetail(props: {
   selectedAmphure: string;
   selectedProvince: string;
   thaiDate: string;
-  date: string[];
+  date: any;
+  totalprice: number;
+  counts: { name: string; count: number; unit: string }[];
 }) {
-  // function OrderDetail() {
-  //   const { selectedProvince, selectedAmphure, selectedTambon } =
-  //     useFetchProvince();
-  const { totalprice } = useMapCalculateTotalPrice();
-
   return (
     <div className="w-[349px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 sticky top-0 ">
       <div>
         <h3 className="text-gray-700 mb-2">สรุปรายการ</h3>
+        <div className="flex flex-col ">
+          {props.counts.map(
+            (
+              item: { name: string; count: number; unit: string },
+              index: number
+            ) => {
+              return (
+                <div key={index} className="flex justify-between">
+                  {item.count > 0 && (
+                    <>
+                      <p>{item.name}</p>
+                      <p>
+                        {item.count} {item.unit}
+                      </p>
+                    </>
+                  )}
+                </div>
+              );
+            }
+          )}
+        </div>
       </div>
       <Separator className="my-4" />
       <div className="grid grid-cols-1 gap-5 py-2">
@@ -43,7 +58,6 @@ function OrderDetail(props: {
               <h5 className="text-end">{props.address}</h5>
               <h5 className="text-end">
                 {`${props.selectedTambon} ${props.selectedAmphure} ${props.selectedProvince}`}
-                {/* {`${selectedTambon} ${selectedAmphure} ${selectedProvince}`} */}
               </h5>
             </div>
           </div>
@@ -55,7 +69,7 @@ function OrderDetail(props: {
         props.selectedProvince) && <Separator className="my-4" />}
       <div className="flex flex-row justify-between">
         <p className="text-gray-500">รวม</p>
-        <h5>{totalprice}฿</h5>
+        <h5>{props.totalprice.toFixed(2)} ฿</h5>
       </div>
     </div>
   );
