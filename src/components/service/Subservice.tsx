@@ -4,7 +4,8 @@ import Counter from "../service/Counter";
 import useFetchSubservice from "@/hook/useFetchSubservice";
 
 export default function Subservice() {
-  const { subservice } = useFetchSubservice();
+  const { subservice, counts, handleDecrement, handleIncrement } =
+    useFetchSubservice();
 
   return (
     <div className="w-[735px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 ">
@@ -19,6 +20,15 @@ export default function Subservice() {
           },
           index: number
         ) => {
+          const price = item.price_per_unit;
+          console.log(`price: ${price}`);
+
+          // ส่ง count Hook มาใน map ไม่ได้
+          // const amount = count;
+          // console.log(`countMap: ${count}`);
+
+          // const totalpricePerSubService = price * amount;
+          // console.log(`totalpricePerSubService: ${totalpricePerSubService}`);
           return (
             <div
               className="flex-col justify-start items-start gap-px"
@@ -39,7 +49,12 @@ export default function Subservice() {
                       </p>
                     </div>
                   </div>
-                  <Counter />
+                  <Counter
+                    index={index}
+                    count={counts[index].count}
+                    handleIncrement={() => handleIncrement(index)}
+                    handleDecrement={() => handleDecrement(index)}
+                  />
                 </div>
                 <Separator className="my-4" />
               </div>

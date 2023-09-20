@@ -1,5 +1,7 @@
 // import useFetchProvince from "../hook/useFetchProvince";
 import { Separator } from "./ui/separator";
+// import useFetchSubservice from "@/hook/useFetchSubservice";
+import useMapCalculateTotalPrice from "@/hook/useMapCalculateTotalPrice";
 
 function OrderDetail(props: {
   selectedTime: string;
@@ -13,6 +15,7 @@ function OrderDetail(props: {
   // function OrderDetail() {
   //   const { selectedProvince, selectedAmphure, selectedTambon } =
   //     useFetchProvince();
+  const { totalprice } = useMapCalculateTotalPrice();
 
   return (
     <div className="w-[349px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 sticky top-0 ">
@@ -52,7 +55,7 @@ function OrderDetail(props: {
         props.selectedProvince) && <Separator className="my-4" />}
       <div className="flex flex-row justify-between">
         <p className="text-gray-500">รวม</p>
-        <h5>฿฿฿</h5>
+        <h5>{totalprice}฿</h5>
       </div>
     </div>
   );
