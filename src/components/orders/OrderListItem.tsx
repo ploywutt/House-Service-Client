@@ -152,14 +152,14 @@ function OrderListItem(props: any) {
                     )}
                   </ul>
                 </div>
-                {pathname === "/history" ? null : (
+                {/* {pathname === "/history" ? null : (
                   <Button
                     className="px-6 py-2.5"
                     onClick={() => navigate("/payment")}
                   >
                     ดูรายละเอียด
                   </Button>
-                )}
+                )} */}
               </div>
             </div>
           );
