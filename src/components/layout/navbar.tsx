@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { User } from "@/core/types/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bell, User2, ClipboardList, History, LogOut } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Switch } from "@/components/ui/switch";
 import {
@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTranslation } from "react-i18next";
+import supabase from "@/auth/supabaseauth";
 
 function Navbar() {
   const { i18n, t } = useTranslation();
@@ -23,11 +24,16 @@ function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const isLoginPage = location.pathname == "/login";
-  const logout = () => {
+  const logout = async () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("sb-xgtmarqfhoqpodfgxvse-auth-token");
+    if (localStorage.getItem("sb-xgtmarqfhoqpodfgxvse-auth-token")) {
+      await supabase.auth.signOut();
+    }
     setUser(undefined);
     navigate("/");
   };
+
   const login = () => {
     navigate("/login");
     // setUser({ name: "mhing", image: "https://picsum.photos/200/300" });
@@ -44,6 +50,23 @@ function Navbar() {
   };
 
   const checked = i18n.language == "en" ? true : false;
+
+  useEffect(() => {
+    setTimeout(() => {
+      const googleUserStr = localStorage.getItem(
+        "sb-xgtmarqfhoqpodfgxvse-auth-token"
+      );
+      const googleUser = googleUserStr ? JSON.parse(googleUserStr) : undefined;
+      const googleProfile = googleUser?.user?.user_metadata;
+      if (googleProfile) {
+        const userData: User = {
+          image: googleProfile.avatar_url,
+          name: googleProfile.name,
+        };
+        setUser(userData);
+      }
+    }, 100);
+  }, []);
 
   return (
     <>
