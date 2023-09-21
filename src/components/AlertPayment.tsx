@@ -3,7 +3,6 @@ import { Separator } from "../components/ui/separator";
 import { Button } from "../components/ui/button";
 import InfoPay from "../assets/icon/info_pay.svg";
 import ArrowRight from "../assets/icon/arrow_right.png";
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,7 +15,20 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-export function AlertPayment() {
+import useCreateOrder from "@/hook/usePostOrder";
+
+export function AlertPayment(props) {
+  // const createOrder = useCreateOrder();
+  //
+  // const handleClick = (event) => {
+  //   event.preventDefault();
+  //   createOrder({
+  //     title,
+  //     content,
+  //     status,
+  //   });
+  // };
+  // };
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -36,12 +48,26 @@ export function AlertPayment() {
             </div>
           </AlertDialogTitle>
           <AlertDialogDescription>
-            <div
-              id="Detail"
-              className="w-[422px] flex flex-row justify-between p-4"
-            >
-              <h4>9,000 - 18,000 BTU, แบบติดผนัง</h4>
-              <h4>2 รายการ</h4>
+            <div className="flex flex-col ">
+              {props.counts.map(
+                (
+                  item: { name: string; count: number; unit: string },
+                  index: number
+                ) => {
+                  return (
+                    <div key={index} className="flex justify-between">
+                      {item.count > 0 && (
+                        <>
+                          <p>{item.name}</p>
+                          <p>
+                            {item.count} {item.unit}
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  );
+                }
+              )}
             </div>
             <Separator className="w-96 border-gray-300 px-4" />
             <div
@@ -49,23 +75,21 @@ export function AlertPayment() {
               className="flex flex-row justify-between w-[422px] p-4"
             >
               <a className="p3 text-gray-500">วันที่</a>
-              <a className="p3 text-right text-black">23 เม.ย. 2021</a>
+              <a className="p3 text-right text-black">{props.thaiDate}</a>
             </div>
             <div
               id="Time"
               className="flex flex-row justify-between w-[422px] p-4"
             >
               <a className="p3 text-gray-500">เวลา</a>
-              <a className="p3 text-right text-black">11.00 น.</a>
+              <a className="p3 text-right text-black">{props.selectedTime}</a>
             </div>
             <div
               id="Place"
               className="flex flex-row justify-between w-[422px] p-4"
             >
               <a className="p3 text-gray-500">สถานที่</a>
-              <a className="p3 text-right text-black">
-                444/4 คอนโดสุภาลัย เสนานิคม จตุจักร กรุงเทพฯ
-              </a>
+              <a className="p3 text-right text-black">{props.address}</a>
             </div>
             <Separator className="w-96 border-gray-300" />
             <div
@@ -73,7 +97,7 @@ export function AlertPayment() {
               className="flex flex-row justify-between w-[422px] p-4 pb-8"
             >
               <a className="p3 text-gray-500">รวม</a>
-              <h5>1550.00 ฿</h5>
+              <h5>{props.totalprice.toFixed(2)} ฿</h5>
             </div>
           </AlertDialogDescription>
         </AlertDialogHeader>

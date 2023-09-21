@@ -8,12 +8,24 @@ type ServiceFooter = {
   handleBack?: () => void;
   handleNext?: () => void;
   currentStep: number;
+  totalprice: number;
+  counts: number;
+  date: any;
+  thaiDate: string;
+  selectedTime: () => void;
+  address: string;
 };
 
 function ServiceFooterButton({
   handleBack,
   handleNext,
   currentStep,
+  totalprice,
+  counts,
+  date,
+  thaiDate,
+  selectedTime,
+  address,
 }: ServiceFooter) {
   return (
     <div className="px-[160px] first-line:w-full h-[92px] flex justify-between items-center  bg-white">
@@ -32,7 +44,16 @@ function ServiceFooterButton({
         </Button>
       ) : null}
 
-      {currentStep === 3 && <AlertPayment />}
+      {currentStep === 3 && (
+        <AlertPayment
+          totalprice={totalprice}
+          counts={counts}
+          date={date}
+          thaiDate={thaiDate}
+          selectedTime={selectedTime}
+          address={address}
+        />
+      )}
     </div>
   );
 }
