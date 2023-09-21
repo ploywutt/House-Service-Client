@@ -79,7 +79,7 @@ function Servicedetail() {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col h-[1150px]">
         <div className="relative">
           <div className="service-detail-banner w-full h-60">
             <section>
@@ -157,6 +157,12 @@ function Servicedetail() {
           handleBack={handleBack}
           handleNext={handleNext}
           currentStep={currentStep}
+          totalprice={totalprice}
+          counts={counts}
+          date={date}
+          thaiDate={thaiDate}
+          selectedTime={selectedTime}
+          address={`${address} ${selectedTambon} ${selectedAmphure} ${selectedProvince}`}
         ></ServiceFooterButton>
       </div>
     </>

@@ -1,4 +1,7 @@
 import { Separator } from "./ui/separator";
+import { createContext } from "react";
+
+export const OrderContext = createContext({});
 
 function OrderDetail(props: {
   selectedTime: string;
