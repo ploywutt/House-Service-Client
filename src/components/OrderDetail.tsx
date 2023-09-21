@@ -16,9 +16,8 @@ function OrderDetail(props: {
 
   return (
     <div className="w-[349px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 sticky top-0 ">
-      <div>
-        <h3 className="text-gray-700 mb-2">สรุปรายการ</h3>
-      </div>
+      <h3 className="text-gray-700 mb-2">สรุปรายการ</h3>
+
       <Separator className="my-4" />
       <div className="grid grid-cols-1 gap-5 py-2">
         {props.date && (

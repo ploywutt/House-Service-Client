@@ -8,7 +8,6 @@ import ServiceFooterButton from "@/components/service/servicefooterbutton";
 
 import Subservice from "../components/service/Subservice";
 import OrderDetail from "../components/OrderDetail";
-import ClientInformation from "./ClientInformation";
 
 import useStepper from "@/hook/useStepper";
 
@@ -28,7 +27,6 @@ function Servicedetail() {
                 className="z-10 relative flex flex-col gap-12 px-52 py-[5rem]"
               >
                 <BreadCrumb />
-
                 <div className="w-full h-[129px] bg-white  rounded-lg border border-gray-300">
                   <div>
                     <Stepper

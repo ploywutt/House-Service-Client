@@ -6,6 +6,10 @@ import useFetchSubservice from "@/hook/useFetchSubservice";
 export default function Subservice() {
   const { subservice } = useFetchSubservice();
 
+  //const [list, setList] = useState<any>([]);
+  const prices: number[] = [];
+  console.log(`prices: ${prices}`);
+
   return (
     <div className="w-[735px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 ">
       <h3 className="text-gray-500 mb-8">รายการที่เลือก</h3>
@@ -19,6 +23,9 @@ export default function Subservice() {
           },
           index: number
         ) => {
+          const price = item.price_per_unit;
+          console.log(`price: ${price}`);
+          prices.push(price);
           return (
             <div
               className="flex-col justify-start items-start gap-px"

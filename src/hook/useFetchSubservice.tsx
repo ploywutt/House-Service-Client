@@ -30,6 +30,8 @@ export default function useFetchSubservice() {
       setCount(count - 1);
     }
   };
+
+  // console.log(count);
   //
   // const price = subservice.price_per_unit;
   // console.log(`price: ${price}`);
