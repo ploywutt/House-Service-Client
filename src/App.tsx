@@ -14,6 +14,8 @@ import OrderListPage from "./pages/OrderListPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ServicePayment from "./pages/Servicepayment";
 import HistoryPage from "./pages/HistoryPage";
+import ProfilePage from "./pages/ProfilePage";
+import EditProfilePage from "./pages/EditProfilePage";
 import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";
 
@@ -28,6 +30,8 @@ function App() {
             <Route path="/shadcn" element={<Shadcn />}></Route>
             <Route path="/orders" element={<OrderListPage />}></Route>
             <Route path="/history" element={<HistoryPage />}></Route>
+            <Route path="/profile" element={<ProfilePage />}></Route>
+            <Route path="/edit-profile" element={<EditProfilePage />}></Route>
           </Route>
           <Route element={<NoFooter />}>
             <Route path="/login" element={<LoginPage />}></Route>
