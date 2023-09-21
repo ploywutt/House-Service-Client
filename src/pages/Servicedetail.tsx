@@ -14,10 +14,32 @@ import useFetchSubservice from "@/hook/useFetchSubservice";
 import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
+import usePathname from "@/hook/usePathname";
+import { useEffect } from "react";
 
 import AlertPayment from "./Servicepayment";
+import supabase from "@/auth/supabaseauth";
 
 function Servicedetail() {
+  const { pathname, navigate } = usePathname();
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        console.log(data);
+        if (data.session) {
+          navigate(pathname);
+        } else {
+          navigate("/login");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchUser();
+  });
+
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
   const {
     serviceName,
@@ -76,7 +98,10 @@ function Servicedetail() {
                     ></Stepper>
                   </div>
                 </div>
-                <div id="container-2" className="flex flex-row justify-between">
+                <div
+                  id="container-2"
+                  className="flex flex-row justify-between h-full"
+                >
                   {currentStep === 1 && (
                     <Subservice
                       subservice={subservice}

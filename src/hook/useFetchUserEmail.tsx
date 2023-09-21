@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 function useFetchUserEmail() {
   const [currentUserEmail, setCurrentUserEmail] = useState<any>("");
 
+  // console.log(currentUserEmail);
+
   useEffect(() => {
     async function fetchUser() {
       try {
