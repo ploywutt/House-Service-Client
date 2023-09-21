@@ -162,7 +162,7 @@ function Servicedetail() {
           date={date}
           thaiDate={thaiDate}
           selectedTime={selectedTime}
-          address={`${address} ${selectedProvince} ${selectedAmphure} ${selectedTambon}`}
+          address={`${address} ${selectedTambon} ${selectedAmphure} ${selectedProvince}`}
         ></ServiceFooterButton>
       </div>
     </>

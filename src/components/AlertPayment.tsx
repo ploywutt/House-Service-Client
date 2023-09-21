@@ -1,4 +1,3 @@
-// import React from "react";
 import { Separator } from "../components/ui/separator";
 import { Button } from "../components/ui/button";
 import InfoPay from "../assets/icon/info_pay.svg";
@@ -15,24 +14,32 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import useCreateOrder from "@/hook/usePostOrder";
+// import useFetchUserEmail from "./useFetchUserEmail";
+// import { useState } from "react";
+// import axios from "axios";
+
+// import useCreateOrder from "@/hook/usePostOrder";
 
 export function AlertPayment(props) {
   // const createOrder = useCreateOrder();
-  //
+
   // const handleClick = (event) => {
   //   event.preventDefault();
   //   createOrder({
-  //     title,
-  //     content,
-  //     status,
+  //         counts={counts}
+  //         date={date}
+  //         selectedTime={selectedTime}
+  //         address={`${address} ${selectedTambon} ${selectedAmphure} ${selectedProvince}`}
   //   });
   // };
-  // };
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="default" className="w-40 h-11">
+        <Button
+          className="w-40 h-11"
+          // onClick={handleClick}
+        >
           <p className="mr-2 ">ดำเนินการต่อ</p>
           <img src={ArrowRight} alt="ArrowRight" />
         </Button>
@@ -40,14 +47,14 @@ export function AlertPayment(props) {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            <div id="Check-Symbol" className="p-8">
+            <div id="Info Payment" className="flex flex-col items-center">
               <img src={InfoPay} alt="Info Payment Icon" />
-            </div>
-            <div id="Title" className="p-2">
-              <h1>ยืนยันการชำระเงิน !</h1>
+              <div id="Title" className="pt-8">
+                <h1>ยืนยันการชำระเงิน !</h1>
+              </div>
             </div>
           </AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription className="flex flex-col items-center p-4">
             <div className="flex flex-col ">
               {props.counts.map(
                 (
@@ -55,13 +62,16 @@ export function AlertPayment(props) {
                   index: number
                 ) => {
                   return (
-                    <div key={index} className="flex justify-between">
+                    <div
+                      key={index}
+                      className="w-[422px] flex flex-row justify-between px-4"
+                    >
                       {item.count > 0 && (
                         <>
-                          <p>{item.name}</p>
-                          <p>
+                          <h4>{item.name}</h4>
+                          <h4>
                             {item.count} {item.unit}
-                          </p>
+                          </h4>
                         </>
                       )}
                     </div>
@@ -69,7 +79,7 @@ export function AlertPayment(props) {
                 }
               )}
             </div>
-            <Separator className="w-96 border-gray-300 px-4" />
+            <Separator className="w-96 border-gray-300 px-4 mt-4 " />
             <div
               id="Date"
               className="flex flex-row justify-between w-[422px] p-4"
@@ -89,7 +99,7 @@ export function AlertPayment(props) {
               className="flex flex-row justify-between w-[422px] p-4"
             >
               <a className="p3 text-gray-500">สถานที่</a>
-              <a className="p3 text-right text-black">{props.address}</a>
+              <a className="p3 text-right text-black w-5/6">{props.address}</a>
             </div>
             <Separator className="w-96 border-gray-300" />
             <div
@@ -101,18 +111,11 @@ export function AlertPayment(props) {
             </div>
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>
-            {" "}
-            <Button variant="secondary" className="w-[180px]">
-              ยกเลิก
-            </Button>
+        <AlertDialogFooter className="flex pr-9">
+          <AlertDialogCancel className="w-[194px] text-blue-600">
+            ยกเลิก
           </AlertDialogCancel>
-          <AlertDialogAction>
-            <Button variant="default" className="w-[180px]">
-              ตกลง
-            </Button>
-          </AlertDialogAction>
+          <AlertDialogAction className="w-[194px]">ตกลง</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -6,7 +6,7 @@ const useCreateOrder = async (data) => {
   const userEmail = useFetchUserEmail();
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [order, setOrder] = useState({});
+  //   const [order, setOrder] = useState({});
 
   try {
     setIsError(false);
@@ -22,7 +22,7 @@ const useCreateOrder = async (data) => {
       postData
     );
 
-    setOrder(response.data);
+    // setOrder(response.data);
     setIsLoading(false);
   } catch (error) {
     setIsError(true);
@@ -30,7 +30,8 @@ const useCreateOrder = async (data) => {
   }
 
   return {
-    order,
+    // setOrder
+    // order,
     isError,
     isLoading,
   };
