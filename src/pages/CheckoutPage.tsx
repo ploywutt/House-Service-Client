@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Summary from "@/components/layout/summary";
+import React, { useState } from 'react';
+import { number, expirationDate, cvv } from 'card-validator';
 
 const CheckoutPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("card");
@@ -10,6 +10,14 @@ const CheckoutPage = () => {
     cvc: "",
     discountCode: "",
   });
+  const [errors, setErrors] = useState({
+    creditCardNumber: '',
+    cardHolderName: '',
+    expirationDate: '',
+    cvc: '',
+  });
+
+  const [discountCode, setDiscountCode] = useState('');
   const [isCodeApplied, setIsCodeApplied] = useState(false);
 
   const handlePaymentMethodChange = (method) => {
@@ -19,18 +27,69 @@ const CheckoutPage = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    const updatedErrors = { ...errors };
+
+    switch (name) {
+      case 'creditCardNumber':
+        const cardNumberValidation = number(value);
+        if (!cardNumberValidation.isValid) {
+          updatedErrors.creditCardNumber = 'หมายเลขบัตรไม่ถูกต้อง';
+        } else {
+          updatedErrors.creditCardNumber = '';
+        }
+        break;
+      case 'cardHolderName':
+        if (value.trim() === '') {
+          updatedErrors.cardHolderName = 'ชื่อบนบัตรไม่ถูกต้อง';
+        } else if (value.length > 30) {
+          updatedErrors.cardHolderName = '';
+        } else {
+          updatedErrors.cardHolderName = '';
+        }
+        break;
+      case 'expirationDate':
+        const expirationDateValidation = expirationDate(value);
+        if (!expirationDateValidation.isValid) {
+          updatedErrors.expirationDate = 'วันหมดอายุไม่ถูกต้อง MM/YY';
+        } else {
+          updatedErrors.expirationDate = '';
+        }
+        break;
+      case 'cvc':
+        const cvvValidation = cvv(value);
+        if (!cvvValidation.isValid) {
+          updatedErrors.cvc = 'รหัส CVC / CVV ไม่ถูกต้อง';
+        } else {
+          updatedErrors.cvc = '';
+        }
+        break;
+      default:
+        break;
+    }
+  
+    setErrors(updatedErrors);
   };
 
   const handleUseCode = () => {
     setIsCodeApplied(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (paymentMethod === "card") {
-    } else if (paymentMethod === "promptpay") {
-    }
+    if (paymentMethod === 'card') {
+      if (
+        errors.creditCardNumber ||
+        errors.cardHolderName ||
+        errors.expirationDate ||
+        errors.cvc
+      ) {
+        return;
+      }
+
+
+    } else if (paymentMethod === 'promptpay') {}
   };
 
   return (
@@ -38,33 +97,33 @@ const CheckoutPage = () => {
       <div className="w-[735px] h-[auto]  bg-white rounded-lg border border-zinc-300 p-5">
         <h1 className="text-grey-700cr">ชำระเงิน</h1>
         <div className="flex flex-row">
-          <button
-            onClick={() => handlePaymentMethodChange("card")}
-            className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 ${
-              paymentMethod === "card" ? "bg-blue-200 border-blue-500" : ""
-            }`}
-          >
-            <div className="w-[35px] h-[35px] relative" />
-            <img src="/src/assets/icon/card.png" alt="Logo" />
-            <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
-              บัตรเครดิต
-            </span>
-          </button>
+          <div className="flex flex-row">
+            <button
+              onClick={() => handlePaymentMethodChange('card')}
+              className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 ${
+                paymentMethod === 'card' ? 'bg-blue-200 border-blue-500' : ''
+              }`}
+            >
+              <div className="w-[35px] h-[35px] relative" />
+              <img src="/src/assets/icon/card.png" alt="Logo" />
+              <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
+                บัตรเครดิต
+              </span>
+            </button>
 
-          <button
-            onClick={() => handlePaymentMethodChange("promptpay")}
-            className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 ml-[24px] ${
-              paymentMethod === "promptpay"
-                ? "bg-blue-200 border-blue-500 "
-                : ""
-            }`}
-          >
-            <div className="w-[35px] h-[35px] relative" />
-            <img src="/src/assets/icon/qr_code.png" alt="Logo" />
-            <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
-              พร้อมเพ
-            </span>
-          </button>
+            <button
+              onClick={() => handlePaymentMethodChange('promptpay')}
+              className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 ml-[24px] ${
+                paymentMethod === 'promptpay' ? 'bg-blue-200 border-blue-500 ' : ''
+              }`}
+            >
+              <div className="w-[35px] h-[35px] relative" />
+              <img src="/src/assets/icon/qr_code.png" alt="Logo" />
+              <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
+                พร้อมเพ
+              </span>
+            </button>
+          </div>
         </div>
 
         {paymentMethod === "card" && (
@@ -81,6 +140,9 @@ const CheckoutPage = () => {
                 placeholder="กรุณากรอกหมายเลขบัตรเครดิต"
                 className="w-[686px] h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex"
               />
+              {errors.creditCardNumber && (
+                <p className="text-red-500">{errors.creditCardNumber}</p>
+              )}
             </div>
             <div className="w-[686px] pt-[36px] flex flex-col ">
               <label htmlFor="cardHolderName" className="">
@@ -94,10 +156,12 @@ const CheckoutPage = () => {
                 placeholder="กรุณากรอกชื่อบนบัตร"
                 className="w-[686px] h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex"
               />
+              {errors.cardHolderName && (
+                <p className="text-red-500">{errors.cardHolderName}</p>
+              )}
             </div>
-
             <div className="w-[686px] h-auto pt-[36px] flex flex-row">
-              <div className=" w-[331px] h-[72px] flex-col justify-start items-start gap-1 inline-flex">
+              <div className="w-[331px] h-[72px] flex-col justify-start items-start gap-1 inline-flex">
                 <label htmlFor="expirationDate" className="">
                   วันหมดอายุ <span className="text-utility-red">*</span>{" "}
                 </label>
@@ -108,12 +172,16 @@ const CheckoutPage = () => {
                   onChange={handleInputChange}
                   placeholder="MM/YY"
                   className="w-[331px] h-auto px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex"
-                  maxLength={4}
+                  maxLength={5}
                 />
+                {errors.expirationDate && (
+                  <p className="text-red-500">{errors.expirationDate}</p>
+                )}
               </div>
               <div className="w-[331px] h-[72px] flex-col justify-start items-start gap-1 inline-flex ml-[24px]">
                 <label htmlFor="cvc" className="">
-                  รหัส CVC / CVV <span className="text-utility-red">*</span>{" "}
+                  รหัส CVC / CVV{' '}
+                  <span className="text-utility-red">*</span>{' '}
                 </label>
                 <input
                   type="text"
@@ -124,6 +192,9 @@ const CheckoutPage = () => {
                   className="w-[331px] h-auto px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex"
                   maxLength={3}
                 />
+                {errors.cvc && (
+                  <p className="text-red-500">{errors.cvc}</p>
+                )}
               </div>
             </div>
           </div>
@@ -147,21 +218,20 @@ const CheckoutPage = () => {
           <input
             type="text"
             name="discountCode"
-            value={formData.discountCode}
+            value={discountCode}
             onChange={handleInputChange}
             placeholder="กรุณากรอกโค้ดส่วนลด (ถ้ามี)"
             className="w-[331px] h-[auto] px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex"
           />
 
           <button
-            className="ButtonPrimaryMedium w-[90px] h-11 px-6 py-2.5 ml-[24px] bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex text-white "
+            className="ButtonPrimaryMedium w-[90px] h-11 px-6 py-2.5 ml-[24px] bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex text-white"
             onClick={handleUseCode}
           >
             ใช้โค้ด
           </button>
         </div>
       </div>
-      {/* <Summary /> */}
     </div>
   );
 };

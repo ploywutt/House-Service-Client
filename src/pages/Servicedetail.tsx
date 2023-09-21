@@ -8,12 +8,18 @@ import Subservice from "../components/service/Subservice";
 import ClientInput from "@/components/ClientInput";
 import CheckoutPage from "./CheckoutPage";
 import OrderDetail from "../components/OrderDetail";
+<<<<<<< HEAD
 
+=======
+import ClientInformation from "./ClientInformation";
+>>>>>>> 256a2c9 (addingValidation)
 import useStepper from "@/hook/useStepper";
 import useFetchSubservice from "@/hook/useFetchSubservice";
 import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
+
+import CheckoutPage from "./CheckoutPage";
 
 function Servicedetail() {
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
@@ -75,6 +81,7 @@ function Servicedetail() {
                   </div>
                 </div>
                 <div id="container-2" className="flex flex-row justify-between">
+<<<<<<< HEAD
                   {currentStep === 1 && (
                     <Subservice
                       subservice={subservice}
@@ -119,6 +126,16 @@ function Servicedetail() {
                     address={address}
                     selectedTime={selectedTime}
                   />
+=======
+                  {/* render - card 1-2-3 */}
+                  {/* <Subservice /> */}
+                  
+                  {/* <ClientInformation /> */}
+
+                  {/* render - summary */}
+                  <OrderDetail />
+                  {/* <SummaryService /> */}
+>>>>>>> 256a2c9 (addingValidation)
                 </div>
               </div>
             </section>
