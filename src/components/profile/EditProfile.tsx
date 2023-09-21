@@ -46,9 +46,28 @@ function EditProfile(props) {
         id="container"
         className="flex gap-24 justify-evenly items-center m-16"
       >
-        <div id="avatar" className="">
+        <div id="avatar" className="flex flex-col gap-10 items-center">
           <img src={avatar} alt="avatar" />
-          <div id="upload"></div>
+          <div id="upload" className="flex flex-col gap-1">
+            <input
+              id="file"
+              type="file"
+              accept=".jpg, .jpeg, .png, .gif"
+              className="hidden"
+              // onChange={this.handleFileUpload}
+            />
+            <label
+              htmlFor="file"
+              className="flex flex-col items-center cursor-pointer"
+            >
+              <span className="p3 border border-blue-600 rounded-lg px-[6px] py-0 text-blue-600 ">
+                อัพโหลดรูปภาพ
+              </span>
+            </label>
+            <p className="p4 w-[223px] text-center text-gray-700">
+              PNG, JPG ขนาดไม่เกิน 10MB
+            </p>
+          </div>
         </div>
         <div id="user-info" className="flex flex-col gap-5">
           {userInfo.map((item, index) => (
