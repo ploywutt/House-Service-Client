@@ -15,6 +15,8 @@ import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
 
+import AlertPayment from "./Servicepayment";
+
 function Servicedetail() {
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
   const {
@@ -129,6 +131,7 @@ function Servicedetail() {
         <ServiceFooterButton
           handleBack={handleBack}
           handleNext={handleNext}
+          currentStep={currentStep}
         ></ServiceFooterButton>
       </div>
     </>
