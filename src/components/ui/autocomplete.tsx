@@ -11,15 +11,15 @@ import { useState, useRef, useCallback, type KeyboardEvent } from "react";
 
 import { Skeleton } from "./skeleton";
 import { cn } from "@/lib/utils";
-import { Check } from "lucide-react";
+import { Check, Search } from "lucide-react";
 
-export type Option = Record<"value" | "label", string> & Record<string, string>;
+// export type Option = Record<"value" | "label", string> & Record<string, string>;
 
 type AutoCompleteProps = {
-  options: Option[];
+  options: string[];
   emptyMessage: string;
-  value?: Option;
-  onValueChange?: (value: Option) => void;
+  value?: string;
+  onValueChange?: (value: string) => void;
   isLoading?: boolean;
   disabled?: boolean;
   placeholder?: string;
@@ -37,8 +37,8 @@ export const AutoComplete = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [isOpen, setOpen] = useState(false);
-  const [selected, setSelected] = useState<Option>(value as Option);
-  const [inputValue, setInputValue] = useState<string>(value?.label || "");
+  const [selected, setSelected] = useState<string>(value as string);
+  const [inputValue, setInputValue] = useState<string>(value || "");
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
@@ -54,9 +54,7 @@ export const AutoComplete = ({
 
       // This is not a default behaviour of the <input /> field
       if (event.key === "Enter" && input.value !== "") {
-        const optionToSelect = options.find(
-          (option) => option.label === input.value
-        );
+        const optionToSelect = options.find((option) => option === input.value);
         if (optionToSelect) {
           setSelected(optionToSelect);
           onValueChange?.(optionToSelect);
@@ -72,12 +70,12 @@ export const AutoComplete = ({
 
   const handleBlur = useCallback(() => {
     setOpen(false);
-    setInputValue(selected?.label);
-  }, [selected]);
+    onValueChange?.(inputValue);
+  }, [selected, inputValue]);
 
   const handleSelectOption = useCallback(
-    (selectedOption: Option) => {
-      setInputValue(selectedOption.label);
+    (selectedOption: string) => {
+      setInputValue(selectedOption);
 
       setSelected(selectedOption);
       onValueChange?.(selectedOption);
@@ -91,12 +89,18 @@ export const AutoComplete = ({
     [onValueChange]
   );
 
+  const handleKeyUp = (e: any) => {
+    setInputValue(e.target.value);
+    onValueChange?.(inputValue);
+  };
+
   return (
     <CommandPrimitive onKeyDown={handleKeyDown}>
       <div>
         <CommandInput
           ref={inputRef}
           value={inputValue}
+          onKeyUp={handleKeyUp}
           onValueChange={isLoading ? undefined : setInputValue}
           onBlur={handleBlur}
           onFocus={() => setOpen(true)}
@@ -106,7 +110,7 @@ export const AutoComplete = ({
         />
       </div>
       <div className="mt-1 relative">
-        {isOpen ? (
+        {isOpen && inputValue.length > 0 ? (
           <div className="absolute top-0 z-10 w-full rounded-xl bg-stone-50 outline-none animate-in fade-in-0 zoom-in-95">
             <CommandList className="ring-1 ring-slate-200 rounded-lg">
               {isLoading ? (
@@ -119,11 +123,11 @@ export const AutoComplete = ({
               {options.length > 0 && !isLoading ? (
                 <CommandGroup>
                   {options.map((option) => {
-                    const isSelected = selected?.value === option.value;
+                    const isSelected = selected === option;
                     return (
                       <CommandItem
-                        key={option.value}
-                        value={option.label}
+                        key={option}
+                        value={option}
                         onMouseDown={(event) => {
                           event.preventDefault();
                           event.stopPropagation();
@@ -135,7 +139,7 @@ export const AutoComplete = ({
                         )}
                       >
                         {isSelected ? <Check className="w-4" /> : null}
-                        {option.label}
+                        {option}
                       </CommandItem>
                     );
                   })}

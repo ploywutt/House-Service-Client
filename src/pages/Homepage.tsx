@@ -17,8 +17,8 @@ function Homepage() {
   };
 
   const fetchData = async () => {
-    const response = await ServiceAPI.get({ page: 1, pageSize: 2 });
-    setItems((prevItems) => prevItems?.concat(response.data));
+    const response = await ServiceAPI.get({ page: 1, pageSize: 4 });
+    setItems(response.data);
   };
 
   useEffect(() => {
