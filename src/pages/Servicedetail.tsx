@@ -18,6 +18,7 @@ import usePathname from "@/hook/usePathname";
 import { useEffect } from "react";
 
 import AlertPayment from "./Servicepayment";
+import supabase from "@/auth/supabaseauth";
 
 function Servicedetail() {
   const { pathname, navigate } = usePathname();
