@@ -9,8 +9,9 @@ import ServiceFooterButton from "@/components/service/servicefooterbutton";
 import Subservice from "../components/service/Subservice";
 import OrderDetail from "../components/OrderDetail";
 import ClientInformation from "./ClientInformation";
-
 import useStepper from "@/hook/useStepper";
+
+import CheckoutPage from "./CheckoutPage";
 
 function Servicedetail() {
   const { id } = useParams();
@@ -40,7 +41,8 @@ function Servicedetail() {
                 </div>
                 <div id="container-2" className="flex flex-row justify-between">
                   {/* render - card 1-2-3 */}
-                  <Subservice />
+                  {/* <Subservice /> */}
+                  
                   {/* <ClientInformation /> */}
 
                   {/* render - summary */}
