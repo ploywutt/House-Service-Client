@@ -14,28 +14,30 @@ import useFetchSubservice from "@/hook/useFetchSubservice";
 import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
+import usePathname from "@/hook/usePathname";
+import { useEffect } from "react";
 
 import AlertPayment from "./Servicepayment";
 
 function Servicedetail() {
-  const navigate = useNavigate();
-  const pathname = usePathname();
+  const { pathname, navigate } = usePathname();
 
   useEffect(() => {
-    try {
-      async () => {
-        const { data, error } = await supabase.auth.getUser();
-        console.log("session", data);
-        if (data.user) {
+    async function fetchUser() {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        console.log(data);
+        if (data.session) {
           navigate(pathname);
         } else {
           navigate("/login");
         }
-      };
-    } catch (error) {
-      console.error(error);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, []);
+    fetchUser();
+  });
 
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
   const {
