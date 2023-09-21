@@ -14,9 +14,9 @@ export default function useFetchSubservice() {
       const response = await axios.get(
         `http://localhost:4000/v1/user/subservices/${id}`
       );
-      console.log("res", response.data.data);
+      // console.log("res", response.data.data);
       setSubservice(response.data.data);
-      console.log("name", response.data.data[0].services.service_name);
+      // console.log("name", response.data.data[0].services.service_name);
       setServiceName(response.data.data[0].services.service_name);
 
       setCounts(
@@ -57,8 +57,8 @@ export default function useFetchSubservice() {
 
   const totalprice = calculateTotalPrice();
 
-  console.log(calculateTotalPrice());
-  console.log(`Hook: ${subservice}`);
+  // console.log(calculateTotalPrice());
+  // console.log(`Hook: ${subservice}`);
 
   return {
     subservice,

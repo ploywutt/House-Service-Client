@@ -13,7 +13,7 @@ function useFetchProvince() {
   const fetchProvince = async () => {
     try {
       const data = await axios.get("http://localhost:4000/v1/user/province");
-      console.log("provinces:", data.data);
+      // console.log("provinces:", data.data);
       setProvinces(data.data);
     } catch (error) {
       console.error(error, "Error 400");
@@ -26,7 +26,7 @@ function useFetchProvince() {
         const data = await axios.get(
           `http://localhost:4000/v1/user/province/amphure/${selectedProvince}`
         );
-        console.log("amphures:", data.data);
+        // console.log("amphures:", data.data);
         setAmphures(data.data);
       } catch (error) {
         console.error(error, "Error 400");
@@ -40,7 +40,7 @@ function useFetchProvince() {
         const data = await axios.get(
           `http://localhost:4000/v1/user/province/tambon/${selectedAmphure}`
         );
-        console.log("tambons:", data.data);
+        // console.log("tambons:", data.data);
         setTambons(data.data);
       } catch (error) {
         console.error(error, "Error 400");

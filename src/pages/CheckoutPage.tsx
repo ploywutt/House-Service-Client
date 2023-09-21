@@ -34,9 +34,10 @@ const CheckoutPage = () => {
   };
 
   return (
-    <div className="flex justify-center pt-12">
+    <div>
+      {/* <div className="flex justify-center pt-12"> */}
       <div className="w-[735px] h-[auto]  bg-white rounded-lg border border-zinc-300 p-5">
-        <h1 className="text-grey-700cr">ชำระเงิน</h1>
+        <h3 className="text-grey-700cr">ชำระเงิน</h3>
         <div className="flex flex-row">
           <button
             onClick={() => handlePaymentMethodChange("card")}
