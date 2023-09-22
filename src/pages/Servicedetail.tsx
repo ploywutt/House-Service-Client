@@ -38,7 +38,7 @@ function Servicedetail() {
       }
     }
     fetchUser();
-  });
+  }, []);
 
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
   const {
