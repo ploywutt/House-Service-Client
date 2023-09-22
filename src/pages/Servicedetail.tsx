@@ -17,7 +17,6 @@ import useDayPicker from "@/components/addressInput/useDayPicker";
 import usePathname from "@/hook/usePathname";
 import { useEffect } from "react";
 
-import AlertPayment from "./Servicepayment";
 import supabase from "@/auth/supabaseauth";
 
 function Servicedetail() {
@@ -38,7 +37,7 @@ function Servicedetail() {
       }
     }
     fetchUser();
-  });
+  }, []);
 
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
   const {

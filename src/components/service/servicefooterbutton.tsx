@@ -9,10 +9,10 @@ type ServiceFooter = {
   handleNext?: () => void;
   currentStep: number;
   totalprice: number;
-  counts: number;
-  date: any;
+  counts: { name: string; count: number; unit: string }[];
+  date: Date | undefined;
   thaiDate: string;
-  selectedTime: () => void;
+  selectedTime: string;
   address: string;
 };
 
@@ -37,7 +37,7 @@ function ServiceFooterButton({
         <img src={ArrowLeft} alt="ArrowLeft" />
         <p className="ml-2">ย้อนกลับ</p>
       </Button>
-      {currentStep === 1 || currentStep === 2 ? (
+      {currentStep < 3 ? (
         <Button onClick={handleNext} variant="default" className="w-40 h-11 ">
           <p className="mr-2 ">ดำเนินการต่อ</p>
           <img src={ArrowRight} alt="ArrowRight" />
