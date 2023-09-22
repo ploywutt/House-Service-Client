@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function useDayPicker() {
   const [date, setDate] = useState<Date>();
+  console.log(date, typeof date);
 
   // สร้างวัตถุ Date จากวันที่ในรูปแบบเดิม
   const selectedDate = new Date(date);

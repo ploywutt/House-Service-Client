@@ -10,7 +10,7 @@ function OrderDetail(props: {
   selectedAmphure: string;
   selectedProvince: string;
   thaiDate: string;
-  date: any;
+  date: Date | undefined;
   totalprice: number;
   counts: { name: string; count: number; unit: string }[];
 }) {
