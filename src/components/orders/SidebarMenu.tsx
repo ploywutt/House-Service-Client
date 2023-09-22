@@ -15,7 +15,7 @@ function SidebarMenu() {
       title: "ข้อมูลผู้ใช้งาน",
       icon: info,
       iconSelected: infoBlue,
-      navigate: null,
+      navigate: "/profile",
     },
     {
       title: "รายการคำสั่งซ่อม",
