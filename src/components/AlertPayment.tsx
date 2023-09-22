@@ -1,9 +1,7 @@
-// import React from "react";
 import { Separator } from "../components/ui/separator";
 import { Button } from "../components/ui/button";
 import InfoPay from "../assets/icon/info_pay.svg";
 import ArrowRight from "../assets/icon/arrow_right.png";
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,11 +14,32 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-export function AlertPayment() {
+// import useFetchUserEmail from "./useFetchUserEmail";
+// import { useState } from "react";
+// import axios from "axios";
+
+// import useCreateOrder from "@/hook/usePostOrder";
+
+export function AlertPayment(props) {
+  // const createOrder = useCreateOrder();
+
+  // const handleClick = (event) => {
+  //   event.preventDefault();
+  //   createOrder({
+  //         counts={counts}
+  //         date={date}
+  //         selectedTime={selectedTime}
+  //         address={`${address} ${selectedTambon} ${selectedAmphure} ${selectedProvince}`}
+  //   });
+  // };
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="default" className="w-40 h-11">
+        <Button
+          className="w-40 h-11"
+          // onClick={handleClick}
+        >
           <p className="mr-2 ">ดำเนินการต่อ</p>
           <img src={ArrowRight} alt="ArrowRight" />
         </Button>
@@ -28,44 +47,59 @@ export function AlertPayment() {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            <div id="Check-Symbol" className="p-8">
+            <div id="Info Payment" className="flex flex-col items-center">
               <img src={InfoPay} alt="Info Payment Icon" />
-            </div>
-            <div id="Title" className="p-2">
-              <h1>ยืนยันการชำระเงิน !</h1>
+              <div id="Title" className="pt-8">
+                <h1>ยืนยันการชำระเงิน !</h1>
+              </div>
             </div>
           </AlertDialogTitle>
-          <AlertDialogDescription>
-            <div
-              id="Detail"
-              className="w-[422px] flex flex-row justify-between p-4"
-            >
-              <h4>9,000 - 18,000 BTU, แบบติดผนัง</h4>
-              <h4>2 รายการ</h4>
+          <AlertDialogDescription className="flex flex-col items-center p-4">
+            <div className="flex flex-col ">
+              {props.counts.map(
+                (
+                  item: { name: string; count: number; unit: string },
+                  index: number
+                ) => {
+                  return (
+                    <div
+                      key={index}
+                      className="w-[422px] flex flex-row justify-between px-4"
+                    >
+                      {item.count > 0 && (
+                        <>
+                          <h4>{item.name}</h4>
+                          <h4>
+                            {item.count} {item.unit}
+                          </h4>
+                        </>
+                      )}
+                    </div>
+                  );
+                }
+              )}
             </div>
-            <Separator className="w-96 border-gray-300 px-4" />
+            <Separator className="w-96 border-gray-300 px-4 mt-4 " />
             <div
               id="Date"
               className="flex flex-row justify-between w-[422px] p-4"
             >
               <a className="p3 text-gray-500">วันที่</a>
-              <a className="p3 text-right text-black">23 เม.ย. 2021</a>
+              <a className="p3 text-right text-black">{props.thaiDate}</a>
             </div>
             <div
               id="Time"
               className="flex flex-row justify-between w-[422px] p-4"
             >
               <a className="p3 text-gray-500">เวลา</a>
-              <a className="p3 text-right text-black">11.00 น.</a>
+              <a className="p3 text-right text-black">{props.selectedTime}</a>
             </div>
             <div
               id="Place"
               className="flex flex-row justify-between w-[422px] p-4"
             >
               <a className="p3 text-gray-500">สถานที่</a>
-              <a className="p3 text-right text-black">
-                444/4 คอนโดสุภาลัย เสนานิคม จตุจักร กรุงเทพฯ
-              </a>
+              <a className="p3 text-right text-black w-5/6">{props.address}</a>
             </div>
             <Separator className="w-96 border-gray-300" />
             <div
@@ -73,22 +107,15 @@ export function AlertPayment() {
               className="flex flex-row justify-between w-[422px] p-4 pb-8"
             >
               <a className="p3 text-gray-500">รวม</a>
-              <h5>1550.00 ฿</h5>
+              <h5>{props.totalprice.toFixed(2)} ฿</h5>
             </div>
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>
-            {" "}
-            <Button variant="secondary" className="w-[180px]">
-              ยกเลิก
-            </Button>
+        <AlertDialogFooter className="flex pr-9">
+          <AlertDialogCancel className="w-[194px] text-blue-600">
+            ยกเลิก
           </AlertDialogCancel>
-          <AlertDialogAction>
-            <Button variant="default" className="w-[180px]">
-              ตกลง
-            </Button>
-          </AlertDialogAction>
+          <AlertDialogAction className="w-[194px]">ตกลง</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

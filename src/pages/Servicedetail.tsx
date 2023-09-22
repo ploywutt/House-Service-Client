@@ -14,10 +14,32 @@ import useFetchSubservice from "@/hook/useFetchSubservice";
 import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
+import usePathname from "@/hook/usePathname";
+import { useEffect } from "react";
 
 import AlertPayment from "./Servicepayment";
+import supabase from "@/auth/supabaseauth";
 
 function Servicedetail() {
+  const { pathname, navigate } = usePathname();
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        console.log(data);
+        if (data.session) {
+          navigate(pathname);
+        } else {
+          navigate("/login");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchUser();
+  });
+
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
   const {
     serviceName,
@@ -57,7 +79,7 @@ function Servicedetail() {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col h-[1150px]">
         <div className="relative">
           <div className="service-detail-banner w-full h-60">
             <section>
@@ -76,7 +98,10 @@ function Servicedetail() {
                     ></Stepper>
                   </div>
                 </div>
-                <div id="container-2" className="flex flex-row justify-between">
+                <div
+                  id="container-2"
+                  className="flex flex-row justify-between h-full"
+                >
                   {currentStep === 1 && (
                     <Subservice
                       subservice={subservice}
@@ -132,6 +157,12 @@ function Servicedetail() {
           handleBack={handleBack}
           handleNext={handleNext}
           currentStep={currentStep}
+          totalprice={totalprice}
+          counts={counts}
+          date={date}
+          thaiDate={thaiDate}
+          selectedTime={selectedTime}
+          address={`${address} ${selectedTambon} ${selectedAmphure} ${selectedProvince}`}
         ></ServiceFooterButton>
       </div>
     </>

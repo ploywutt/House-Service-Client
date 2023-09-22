@@ -18,7 +18,7 @@ function ClientInput(props) {
       id="add-input"
       className="w-[735px] h-fit bg-white rounded-lg border border-zinc-300  p-5"
     >
-      <h4 className="text-gray-700">กรอกข้อมูลบริการ</h4>
+      <h3 className="text-gray-700">กรอกข้อมูลบริการ</h3>
       <div className="flex flex-col py-8">
         <div className="grid grid-cols-2 gap-4 gap-y-6">
           <div className="flex flex-col">
