@@ -2,10 +2,14 @@ import SellTag from "../../assets/icon/sell_tag.png";
 import { Separator } from "../../components/ui/separator";
 import Counter from "../service/Counter";
 
+import { useTranslation } from "react-i18next";
+
 export default function Subservice(props) {
+  const { t } = useTranslation();
+
   return (
     <div className="w-[735px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 ">
-      <h3 className="text-gray-500 mb-8">รายการที่เลือก</h3>
+      <h3 className="text-gray-500 mb-8">{t("subservice_header")}</h3>
 
       {props.subservice.map(
         (

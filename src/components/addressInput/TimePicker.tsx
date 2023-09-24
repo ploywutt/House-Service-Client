@@ -9,6 +9,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+import { useTranslation } from "react-i18next";
+
 function TimePicker(props: {
   hour: string[];
   minute: string[];
@@ -19,6 +21,8 @@ function TimePicker(props: {
   selectedTime: number;
   setSelectedTime: (e: string) => void;
 }) {
+  const { t } = useTranslation();
+
   return (
     <Popover>
       <PopoverTrigger>
@@ -34,7 +38,9 @@ function TimePicker(props: {
           {props.selectedTime ? (
             `${props.selectedTime}`
           ) : (
-            <span>กรุณาเลือกเวลา</span>
+            <span>
+              {t("stepper_second_details.stepper_detail_time_picker")}
+            </span>
           )}
           <img src={clockicon} className="absolute right-4" />
         </Button>
@@ -86,7 +92,7 @@ function TimePicker(props: {
               props.setSelectedTime(`${props.clickHour}:${props.clickMinute}`);
             }}
           >
-            ยืนยัน
+            {t("stepper_second_details.stepper_detail_time_picker_confirm")}
           </Button>
         </div>
       </PopoverContent>

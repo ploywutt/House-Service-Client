@@ -1,7 +1,9 @@
 import RightArrow from "../../assets/icon/Right_Arrow.png";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function BreadCrumb(props: { serviceName: string }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const toservicelist = () => {
     navigate("/servicelist");
@@ -13,7 +15,7 @@ function BreadCrumb(props: { serviceName: string }) {
         onClick={toservicelist}
         className="text-gray-700 mr-2 p-2 cursor-pointer"
       >
-        บริการของเรา
+        {t("service_breadcrumb")}
       </h5>
       <img src={RightArrow} alt="Right Arrow" className="h-2 w-2" />
       <h1 className="text-blue-600 ml-2 p-2">{props.serviceName}</h1>

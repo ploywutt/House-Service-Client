@@ -4,7 +4,10 @@ import { Label } from "../ui/label";
 
 import avatar from "../../assets/image/Avatar-image-profile.png";
 
+import { useTranslation } from "react-i18next";
+
 function EditProfile(props) {
+  const { t } = useTranslation();
   console.log(props.fetchData);
   const fullName = props.fetchData[0]?.name || "";
   const phone = props.fetchData[0]?.phone || "";
@@ -12,27 +15,27 @@ function EditProfile(props) {
 
   const userInfo = [
     {
-      label: "ชื่อ - นามสกุล",
+      label: t("edit_profile_page.name_fullname"),
       placeholder: fullName,
     },
     {
-      label: "เบอร์โทร",
+      label: t("edit_profile_page.telephone"),
       placeholder: phone,
     },
     {
-      label: "อีเมล",
+      label: t("edit_profile_page.email"),
       placeholder: email,
     },
     {
-      label: "รหัสผ่านปัจจุบัน",
+      label: t("edit_profile_page.current_password"),
       placeholder: "xxxxxxxx",
     },
     {
-      label: "รหัสผ่านใหม่",
+      label: t("edit_profile_page.new_password"),
       placeholder: "xxxxxxxx",
     },
     {
-      label: "ยืนยันรหัสผ่านใหม่",
+      label: t("edit_profile_page.confirm_password"),
       placeholder: "xxxxxxxx",
     },
   ];
@@ -61,11 +64,11 @@ function EditProfile(props) {
               className="flex flex-col items-center cursor-pointer"
             >
               <span className="p3 border border-blue-600 rounded-lg px-[6px] py-0 text-blue-600 ">
-                อัพโหลดรูปภาพ
+                {t("edit_profile_page.upload_picture")}
               </span>
             </label>
             <p className="p4 w-[223px] text-center text-gray-700">
-              PNG, JPG ขนาดไม่เกิน 10MB
+              {t("edit_profile_page.required_picture")}
             </p>
           </div>
         </div>
@@ -79,9 +82,11 @@ function EditProfile(props) {
 
           <div id="buttons" className="flex justify-between mt-20">
             <Button variant={"secondary"} className="px-2.5 py-6 w-[166px]">
-              ยกเลิก
+              {t("edit_profile_page.cancel")}
             </Button>
-            <Button className="px-2.5 py-6 w-[166px]">บันทึก</Button>
+            <Button className="px-2.5 py-6 w-[166px]">
+              {t("edit_profile_page.save")}
+            </Button>
           </div>
         </div>
       </div>

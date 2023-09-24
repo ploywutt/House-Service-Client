@@ -11,7 +11,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+import { useTranslation } from "react-i18next";
+
 function DayPicker(props) {
+  const { t } = useTranslation();
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -27,7 +30,7 @@ function DayPicker(props) {
           {props.date ? (
             format(props.date, "PPP")
           ) : (
-            <span>กรุณาเลือกวันที่</span>
+            <span>{t("stepper_second_details.stepper_detail_day_picker")}</span>
           )}
           <img src={calendaricon} className="absolute right-4 " />
         </Button>

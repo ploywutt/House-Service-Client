@@ -9,7 +9,10 @@ import emailIcon from "../../assets/icon/email.svg";
 import phoneIcon from "../../assets/icon/phone.svg";
 import avatar from "../../assets/image/Avatar-image-profile.png";
 
+import { useTranslation } from "react-i18next";
+
 function Profile(props) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   // const currentUserEmail = useFetchUserEmail();
   // const fetchData = useFetchData(
@@ -53,7 +56,7 @@ function Profile(props) {
         <div id="avatar" className="flex flex-col gap-6 justify-center">
           <img src={avatar} alt="avatar" />
           <Button variant="secondary" onClick={() => navigate("/edit-profile")}>
-            แก้ไขข้อมูล
+            {t("edit_profile")}
           </Button>
         </div>
         <div id="info" className="flex flex-col gap-6 justify-center">
