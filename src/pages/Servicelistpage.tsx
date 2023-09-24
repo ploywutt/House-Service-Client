@@ -1,6 +1,6 @@
 import "@/assets/css/servicelistpage.css";
 import ProductCard from "@/components/product-card";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import StickyBox from "@/components/stickybox";
 import { ChevronDown } from "lucide-react";
@@ -19,45 +19,43 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { AutoComplete, Option } from "@/components/ui/autocomplete";
+import { AutoComplete } from "@/components/ui/autocomplete";
 import { useTranslation } from "react-i18next";
 import ServiceAPI from "@/core/services/services";
 import { Pagination } from "@/core/types/pagination";
 import { Services } from "@/core/types/services";
+import CategoriesAPI from "@/core/services/categories";
+import _debounce from "lodash.debounce";
 
 function Servicelistpage() {
   const { t } = useTranslation();
   const [pagination, setPagination] = useState<Pagination>({
     page: 1,
-    pageSize: 4,
+    pageSize: 16,
     totalPage: 0,
     totalRecord: 0,
   });
-  const [searchtext, setSearchText] = useState<Option>();
-  const [selectcategory, setSelectcategory] = useState("all");
-  const [selectsortby, setSelectsortby] = useState("recommended");
+  const [searchtext, setSearchText] = useState("");
+  const [selectcategory, setSelectcategory] = useState("");
+  const [selectsortby, setSelectsortby] = useState("asc");
   const [minprice, setMinprice] = useState(0);
   const [maxprice, setMaxprice] = useState(2000);
   const [items, setItems] = useState<Services[]>([]);
-  const option = [
-    { label: "ล้างแอร์", value: "ล้างแอร์" },
-    { label: "ติดตั้งแอร์", value: "ติดตั้งแอร์" },
-    { label: "ซ่อมแอร์", value: "ซ่อมแอร์" },
-    { label: "ทำความสะอาดทั่วไป", value: "ทำความสะอาดทั่วไป" },
-  ];
-  // const [servicecategory, setServiceCategory] = useState("");
+  const [autocomplete, setAutocomplete] = useState<string[]>([]);
 
-  const servicecategory = [
-    { value: "all", text: t("category_all") },
-    { value: "general", text: t("category_general") },
-    { value: "kitchen", text: t("category_kitchen") },
-    { value: "toilet", text: t("category_toilet") },
-  ];
+  interface CategoriesOptions {
+    id: number | undefined;
+    category_name: string;
+  }
+  const [servicecategory, setServiceCategory] = useState<CategoriesOptions[]>(
+    []
+  );
+
   const sortby = [
     { value: "recommended", text: t("sort_option.recommended") },
     { value: "popular", text: t("sort_option.popular") },
-    { value: "ascend", text: t("sort_option.ascend") },
-    { value: "descend", text: t("sort_option.descend") },
+    { value: "asc", text: t("sort_option.ascend") },
+    { value: "desc", text: t("sort_option.descend") },
   ];
 
   const handleSlider = (value: number[]) => {
@@ -73,14 +71,54 @@ function Servicelistpage() {
   };
 
   const fetchData = async () => {
-    const response = await ServiceAPI.get(pagination);
+    const response = await ServiceAPI.get(
+      pagination,
+      selectsortby,
+      selectcategory,
+      minprice,
+      maxprice,
+      searchtext
+    );
     setPagination(response.pagination);
     setItems((prevItems) => prevItems?.concat(response.data));
+  };
+
+  const searchData = async () => {
+    setItems([]);
+    setPagination((prev) => ({
+      ...prev,
+      page: 1,
+    }));
+    fetchData();
+  };
+
+  const fetchAutoComplete = async (event: string) => {
+    const response = await ServiceAPI.autocomplete(event);
+    const data = response.data.map((event: Services) => event.service_name);
+    setAutocomplete(data);
+  };
+
+  const fetchCategories = async () => {
+    const response = await CategoriesAPI.get();
+    setServiceCategory([
+      { id: undefined, category_name: "" },
+      ...response.data,
+    ]);
   };
 
   useEffect(() => {
     fetchData();
   }, [pagination.page]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const debounceFunction = useCallback(_debounce(fetchAutoComplete, 400), []);
+
+  useEffect(() => {
+    if (searchtext.length > 0) debounceFunction(searchtext);
+  }, [searchtext]);
 
   return (
     <>
@@ -107,7 +145,7 @@ function Servicelistpage() {
             <div>
               <AutoComplete
                 placeholder={t("search_service_placeholder")}
-                options={option}
+                options={autocomplete}
                 emptyMessage={t("no_service_message")}
                 value={searchtext}
                 onValueChange={(event) => {
@@ -132,16 +170,16 @@ function Servicelistpage() {
                   <SelectContent>
                     {servicecategory.map((category, index) => {
                       let className = "pl-2";
-                      if (category.value == selectcategory) {
+                      if (category.category_name == selectcategory) {
                         className += " text-blue-700";
                       }
                       return (
                         <SelectItem
                           key={index}
-                          value={category.value}
+                          value={category.category_name}
                           className={className}
                         >
-                          {category.text}
+                          {category.category_name || t("category_all")}
                         </SelectItem>
                       );
                     })}
@@ -208,7 +246,9 @@ function Servicelistpage() {
                 </Select>
               </div>
             </div>
-            <Button className="px-8 py-6">{t("search")}</Button>
+            <Button onClick={searchData} className="px-8 py-6">
+              {t("search")}
+            </Button>
           </div>
         </StickyBox>
       </div>
