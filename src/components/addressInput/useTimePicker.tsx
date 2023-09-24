@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import * as React from "react";
 
 function useTimePicker() {
   const [clickHour, setClickHour] = useState<string>("00");

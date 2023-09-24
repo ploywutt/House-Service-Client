@@ -8,7 +8,7 @@ import Servicelistpage from "./pages/Servicelistpage";
 import LoginPage from "./pages/LoginPage";
 import Registerpage from "./pages/Registerpage";
 import Shadcn from "./pages/shadecn-test";
-import ClientInformation from "./pages/ClientInformation";
+// import ClientInformation from "./pages/ClientInformation";
 import ServiceDetail from "./pages/Servicedetail";
 import OrderListPage from "./pages/OrderListPage";
 import CheckoutPage from "./pages/CheckoutPage";
@@ -38,7 +38,7 @@ function App() {
             <Route path="/register" element={<Registerpage />}></Route>
             <Route path="/service/:id" element={<ServiceDetail />}></Route>
             <Route path="/payment" element={<ServicePayment />}></Route>
-            <Route path="/address" element={<ClientInformation />}></Route>
+            {/* <Route path="/address" element={<ClientInformation />}></Route> */}
           </Route>
           <Route element={<ServiceFooter />}>
             <Route path="/checkout" element={<CheckoutPage />}></Route>
