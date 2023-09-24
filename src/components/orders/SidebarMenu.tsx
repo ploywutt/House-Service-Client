@@ -7,24 +7,27 @@ import order from "../../assets/icon/order.svg";
 
 import usePathname from "@/hook/usePathname";
 
+import { useTranslation } from "react-i18next";
+
 function SidebarMenu() {
+  const { t } = useTranslation();
   const { pathname, navigate } = usePathname();
 
   const data = [
     {
-      title: "ข้อมูลผู้ใช้งาน",
+      title: t("sidebar.user_profile"),
       icon: info,
       iconSelected: infoBlue,
       navigate: "/profile",
     },
     {
-      title: "รายการคำสั่งซ่อม",
+      title: t("sidebar.order_list"),
       icon: order,
       iconSelected: orderBlue,
       navigate: "/orders",
     },
     {
-      title: "ประวัติการซ่อม",
+      title: t("sidebar.order_history"),
       icon: history,
       iconSelected: historyBlue,
       navigate: "/history",
@@ -35,7 +38,7 @@ function SidebarMenu() {
       id="sidebar"
       className="w-64 h-fit bg-white border border-gray-300 rounded-lg p-6 sticky top-[64px]"
     >
-      <h3 className="text-gray-700">บัญชีผู้ใช้</h3>
+      <h3 className="text-gray-700">{t("sidebar.user_profile_header")}</h3>
       <hr className="mt-5 mb-4 border-gray-300" />
       {data.map((item, index) => {
         return (

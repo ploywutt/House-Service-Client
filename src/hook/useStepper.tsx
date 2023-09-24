@@ -4,15 +4,18 @@ import GroupIcon from "../assets/icon/Group.svg";
 import PenGray from "../assets/icon/Pen_gray.svg";
 import CreditGray from "../assets/icon/Credit_gray.svg";
 
+import { useTranslation } from "react-i18next";
+
 function useStepper() {
+  const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(1);
 
   console.log("step", currentStep);
 
   const steppermenu = [
-    { icon: GroupIcon, label: "รายการ" },
-    { icon: PenGray, label: "กรอกข้อมูลบริการ" },
-    { icon: CreditGray, label: "ชำระเงิน" },
+    { icon: GroupIcon, label: t("stepper_first") },
+    { icon: PenGray, label: t("stepper_second") },
+    { icon: CreditGray, label: t("stepper_third") },
   ];
   const handleBack = () => {
     if (currentStep > 1) {
