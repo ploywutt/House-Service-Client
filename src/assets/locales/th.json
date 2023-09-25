@@ -157,5 +157,7 @@
     "checkout_page_cvv": "รหัส CVC / CVV",
     "checkout_page_cvv_please": "กรุณากรอกโค้ดส่วนลด (ถ้ามี)",
     "checkout_page_use_code": "ใช้โค้ด"
-  }
+  },
+  "service_footer_next": "ดำเนินการต่อ",
+  "service_footer_back": "ย้อนกลับ"
 }
