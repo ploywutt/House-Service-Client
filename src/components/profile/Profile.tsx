@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import nameIcon from "../../assets/icon/info.svg";
 import emailIcon from "../../assets/icon/email.svg";
 import phoneIcon from "../../assets/icon/phone.svg";
-import avatar from "../../assets/image/Avatar-image-profile.png";
+import avatar from "../../assets/image/null-avatar.svg";
 
 import { useTranslation } from "react-i18next";
 
@@ -24,6 +24,7 @@ function Profile(props) {
   const fullName = props.fetchData[0]?.name || "";
   const phone = props.fetchData[0]?.phone || "";
   const email = props.fetchData[0]?.email || "";
+  const profileUrl = props.fetchData[0]?.avatar_url || avatar;
 
   // const fullName = fetchData.fetchData[0].name;
   // const phone = fetchData.fetchData[0].phone;
@@ -54,7 +55,11 @@ function Profile(props) {
     >
       <div id="profile-content" className="flex gap-44 m-24 justify-evenly">
         <div id="avatar" className="flex flex-col gap-6 justify-center">
-          <img src={avatar} alt="avatar" />
+          <img
+            src={profileUrl}
+            alt="avatar"
+            className="w-[150px] h-[150px] rounded-full"
+          />
           <Button variant="secondary" onClick={() => navigate("/edit-profile")}>
             {t("edit_profile")}
           </Button>

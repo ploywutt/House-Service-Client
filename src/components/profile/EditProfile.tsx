@@ -2,7 +2,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 
-import avatar from "../../assets/image/Avatar-image-profile.png";
+import avatar from "../../assets/image/null-avatar.svg";
 
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
