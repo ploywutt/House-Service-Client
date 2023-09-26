@@ -8,12 +8,14 @@ import Subservice from "../components/service/Subservice";
 import ClientInput from "@/components/ClientInput";
 import CheckoutPage from "./CheckoutPage";
 import OrderDetail from "../components/OrderDetail";
-
+// import ClientInformation from "./ClientInformation";
 import useStepper from "@/hook/useStepper";
 import useFetchSubservice from "@/hook/useFetchSubservice";
 import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
+
+import CheckoutPage from "./CheckoutPage";
 
 function Servicedetail() {
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
