@@ -31,7 +31,11 @@ function ClientInput(props) {
               {t("stepper_second_details.stepper_detail_day")}
               <span className="text-utility-red">*</span>
             </label>
-            <DayPicker date={props.date} setDate={props.setDate} />
+            <DayPicker
+              date={props.date}
+              setDate={props.setDate}
+              thaiDate={props.thaiDate}
+            />
           </div>
           <div className="flex flex-col">
             <label htmlFor="time" className="py-0.5">

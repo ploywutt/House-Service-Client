@@ -15,7 +15,12 @@ type ServiceFooter = {
   date: Date | undefined;
   thaiDate: string;
   selectedTime: string;
-  address;
+  address: {
+    address: string;
+    selectedTambon: string;
+    selectedAmphure: string;
+    selectedProvince: string;
+  };
 };
 
 function ServiceFooterButton({

@@ -2,7 +2,6 @@ import { useState } from "react";
 
 function useDayPicker() {
   const [date, setDate] = useState<Date>();
-  console.log(date, typeof date);
 
   // สร้างวัตถุ Date จากวันที่ในรูปแบบเดิม
   const selectedDate = new Date(date);
@@ -29,7 +28,13 @@ function useDayPicker() {
   const year = selectedDate.getFullYear();
 
   // สร้างสตริงวันที่ในรูปแบบไทย
-  const thaiDate = `${day} ${thaiMonths[month]} ${year + 543}`;
+  let thaiDate = "";
+
+  if (selectedDate > new Date()) {
+    thaiDate = `${day} ${thaiMonths[month]} ${year + 543}`;
+  } else {
+    thaiDate = `ไม่สามารถเลือกวันนี้ได้`;
+  }
 
   return {
     thaiDate,

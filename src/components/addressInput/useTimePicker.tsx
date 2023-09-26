@@ -15,11 +15,13 @@ function useTimePicker() {
   };
 
   const hour: string[] = [];
-  for (let i = 0; i < 24; i++) {
+  for (let i = 0; i <= 17; i++) {
     if (i <= 9) {
       i = "0" + String(i);
     }
-    hour.push(String(i));
+    if (i >= 8) {
+      hour.push(String(i));
+    }
   }
 
   const minute: string[] = [];
@@ -27,7 +29,9 @@ function useTimePicker() {
     if (i <= 9) {
       i = "0" + String(i);
     }
-    minute.push(String(i));
+    if (i % 10 === 0) {
+      minute.push(String(i));
+    }
   }
 
   return {

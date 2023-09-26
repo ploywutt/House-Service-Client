@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import { format } from "date-fns";
 import calendaricon from "../../assets/icon/calendar.svg";
 
@@ -24,7 +23,9 @@ function DayPicker(props) {
           className={cn(
             "w-full h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-between items-center inline-flex focus:border focus:border-blue-500 text-base font-normal relative",
             !props.date &&
-              "text-muted-foreground text-gray-700 text-base font-normal"
+              "text-muted-foreground text-gray-700 text-base font-normal",
+            (props.date && props.thaiDate) === "ไม่สามารถเลือกวันนี้ได้" &&
+              "border border-utility-red text-utility-red hover:text-utility-red"
           )}
         >
           {props.date ? (
@@ -35,6 +36,9 @@ function DayPicker(props) {
           <img src={calendaricon} className="absolute right-4 " />
         </Button>
       </PopoverTrigger>
+      {props.thaiDate === "ไม่สามารถเลือกวันนี้ได้" && (
+        <h5 className="text-utility-red px-4">กรุณาเลือกวันถัดไป !</h5>
+      )}
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"

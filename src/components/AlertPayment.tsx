@@ -23,12 +23,14 @@ import axios from "axios";
 function AlertPayment(props) {
   const { t } = useTranslation();
 
+  const userEmail = useFetchUserEmail();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const dateObject = new Date(props.date);
   const isoDateString = dateObject.toISOString();
   const formattedDate = isoDateString.split("T")[0];
 
-  const userEmail = useFetchUserEmail();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
 
   const handleClick = async (event) => {
     event.preventDefault();
@@ -44,13 +46,14 @@ function AlertPayment(props) {
           subdistrict: props.address.selectedTambon,
           detail: null,
           user_email: userEmail,
-          status_id: 4,
+          status_id: 1,
           promotion_code: null,
           sub_service_orders: props.counts,
         }
       );
       setIsLoading(false);
       console.log("Order created successfully:", result);
+
       return result;
     } catch (error) {
       console.error("Order creation failed:", error);
@@ -61,11 +64,12 @@ function AlertPayment(props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="w-40 h-11" onClick={handleClick}>
+        <Button className="w-40 h-11">
           <p className="mr-2 ">{t("alert_payment.alert_payment_next")}</p>
           <img src={ArrowRight} alt="ArrowRight" />
         </Button>
       </AlertDialogTrigger>
+
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
@@ -91,7 +95,7 @@ function AlertPayment(props) {
                       {item.count > 0 && (
                         <>
                           <h4>{item.name}</h4>
-                          <h4>
+                          <h4 className="w-1/3">
                             {item.count} {item.unit}
                           </h4>
                         </>
@@ -148,8 +152,7 @@ function AlertPayment(props) {
           <AlertDialogCancel className="w-[194px] text-blue-600">
             {t("alert_payment.alert_payment_cancel")}
           </AlertDialogCancel>
-          <AlertDialogAction className="w-[194px]">
-            {" "}
+          <AlertDialogAction className="w-[194px]" onClick={handleClick}>
             {t("alert_payment.alert_payment_confirm")}
           </AlertDialogAction>
         </AlertDialogFooter>
