@@ -5,7 +5,7 @@ import creditcardBlueIcon from '../assets/icon/creditcardBlue.svg'
 import qrCodeIcon from "../assets/icon/qr_code.svg";
 import qrCodeBlueIcon from '../assets/icon/qrcodeblue.svg'
 
-import '../assets/css/CheckoutPage.css'
+import '../assets/css/checkout.css'
 
 interface FormData {
   creditCardNumber: string;
@@ -290,3 +290,4 @@ const CheckoutPage: React.FC = () => {
 };
 
 export default CheckoutPage;
+ 

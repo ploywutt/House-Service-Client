@@ -31,6 +31,7 @@
     "@types/lodash.debounce": "^4.0.7",
     "antd": "^5.9.0",
     "axios": "^1.5.0",
+    "card-validator": "^8.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
