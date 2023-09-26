@@ -16,33 +16,52 @@ import {
 
 import { useTranslation } from "react-i18next";
 
-// import useFetchUserEmail from "./useFetchUserEmail";
-// import { useState } from "react";
-// import axios from "axios";
+import useFetchUserEmail from "../hook/useFetchUserEmail";
+import { useState } from "react";
+import axios from "axios";
 
-// import useCreateOrder from "@/hook/usePostOrder";
-
-export function AlertPayment(props) {
+function AlertPayment(props) {
   const { t } = useTranslation();
-  // const createOrder = useCreateOrder();
 
-  // const handleClick = (event) => {
-  //   event.preventDefault();
-  //   createOrder({
-  //         counts={counts}
-  //         date={date}
-  //         selectedTime={selectedTime}
-  //         address={`${address} ${selectedTambon} ${selectedAmphure} ${selectedProvince}`}
-  //   });
-  // };
+  const dateObject = new Date(props.date);
+  const isoDateString = dateObject.toISOString();
+  const formattedDate = isoDateString.split("T")[0];
+
+  const userEmail = useFetchUserEmail();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleClick = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    try {
+      const result = await axios.post(
+        `http://localhost:4000/v1/user/orderdetails`,
+        {
+          working_time: `${formattedDate} ${props.selectedTime}`,
+          address: props.address.address,
+          province: props.address.selectedProvince,
+          district: props.address.selectedAmphure,
+          subdistrict: props.address.selectedTambon,
+          detail: null,
+          user_email: userEmail,
+          status_id: 4,
+          promotion_code: null,
+          sub_service_orders: props.counts,
+        }
+      );
+      setIsLoading(false);
+      console.log("Order created successfully:", result);
+      return result;
+    } catch (error) {
+      console.error("Order creation failed:", error);
+      setIsLoading(false);
+    }
+  };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          className="w-40 h-11"
-          // onClick={handleClick}
-        >
+        <Button className="w-40 h-11" onClick={handleClick}>
           <p className="mr-2 ">{t("alert_payment.alert_payment_next")}</p>
           <img src={ArrowRight} alt="ArrowRight" />
         </Button>
@@ -108,7 +127,10 @@ export function AlertPayment(props) {
               <a className="p3 text-gray-500">
                 {t("alert_payment.alert_payment_location")}
               </a>
-              <a className="p3 text-right text-black w-5/6">{props.address}</a>
+              <a className="p3 text-right text-black w-5/6">
+                {props.address.address} {props.address.selectedTambon}{" "}
+                {props.address.selectedAmphure} {props.address.selectedProvince}
+              </a>
             </div>
             <Separator className="w-96 border-gray-300" />
             <div

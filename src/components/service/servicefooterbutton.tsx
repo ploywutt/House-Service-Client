@@ -15,7 +15,7 @@ type ServiceFooter = {
   date: Date | undefined;
   thaiDate: string;
   selectedTime: string;
-  address: string;
+  address;
 };
 
 function ServiceFooterButton({

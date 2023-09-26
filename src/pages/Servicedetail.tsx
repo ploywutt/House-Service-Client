@@ -76,6 +76,15 @@ function Servicedetail() {
 
   const { thaiDate, date, setDate } = useDayPicker();
 
+  const addressInfo = {
+    address,
+    selectedTambon,
+    selectedAmphure,
+    selectedProvince,
+  };
+
+  console.log("address", addressInfo);
+
   return (
     <>
       <div className="flex flex-col h-[1150px]">
@@ -161,7 +170,7 @@ function Servicedetail() {
           date={date}
           thaiDate={thaiDate}
           selectedTime={selectedTime}
-          address={`${address} ${selectedTambon} ${selectedAmphure} ${selectedProvince}`}
+          address={addressInfo}
         ></ServiceFooterButton>
       </div>
     </>
