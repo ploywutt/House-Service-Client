@@ -21,7 +21,7 @@ const buttonVariants = cva(
         //   "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         link: "px-2 py-0.5 rounded-lg justify-start items-start inline-flex text-blue-600 text-base font-semibold underline leading-normal hover:text-blue-400 active:text-blue-800 disabled:text-gray-400 dark:text-slate-50",
         "outline-primary":
-          "border border-[#336DF2] text-[#336DF2] hover:bg-[#336DF2] hover:text-white",
+          "border border-[#336DF2] text-[#336DF2] hover:bg-[#336DF2] hover:text-white dark:text-white",
         myPrimary:
           "text-white bg-blue-600 hover:bg-blue-500 active:bg-blue-800  disabled:bg-gray-300 disabled:text-gray-100 no-underline",
         picker:

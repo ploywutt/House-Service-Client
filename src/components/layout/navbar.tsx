@@ -6,6 +6,7 @@ import { Bell, User2, ClipboardList, History, LogOut } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Switch } from "@/components/ui/switch";
+import { DarkMode } from "@/components/DarkMode";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -72,7 +73,7 @@ function Navbar() {
     <>
       <nav
         id="navbar"
-        className=" px-[16px] lg:px-52 md:px-[6rem] flex justify-between shadow-lg shadow-black-200 py-3 sticky  bg-white top-0 z-50"
+        className=" px-[16px] lg:px-52 md:px-[6rem] flex justify-between shadow-lg shadow-black-200 py-3 sticky  bg-white top-0 z-50 dark:bg-black dark:text-white"
       >
         <div className="flex items-center col-span-3">
           <img
@@ -114,8 +115,10 @@ function Navbar() {
             <div className="flex items-center">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <div className="flex items-center cursor-pointer">
-                    <div className="pr-5 text-gray-700">{user.name}</div>
+                  <div className="flex items-center cursor-pointer ">
+                    <div className="pr-5 text-gray-700 dark:text-white">
+                      {user.name}
+                    </div>
                     <Avatar>
                       <AvatarImage src={user.image} />
                       <AvatarFallback>CN</AvatarFallback>
@@ -123,22 +126,22 @@ function Navbar() {
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer">
+                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer dark:text-white">
                     <User2 className="pr-1 w-5" />
                     {t("user.profile")}
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer">
+                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer dark:text-white">
                     <ClipboardList className="pr-1 w-5" />
                     {t("user.order_list")}
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer">
+                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer dark:text-white">
                     <History className="pr-1 w-5" />
                     {t("user.history")}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={logout}
-                    className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer"
+                    className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer dark:text-white"
                   >
                     <LogOut className="pr-1 w-5" />
                     {t("user.logout")}
@@ -156,11 +159,14 @@ function Navbar() {
             className={
               "ml-4 relative before:absolute before:text-[12px] after:text-[12px] " +
               (i18n.language == "en"
-                ? "before:content-['EN'] before:text-white"
+                ? "before:content-['EN'] before:text-white before:dark:text-black"
                 : "after:content-['TH']")
             }
             onCheckedChange={changeLanguage}
           />
+          <div className="ml-2">
+            <DarkMode />
+          </div>
         </div>
       </nav>
     </>
