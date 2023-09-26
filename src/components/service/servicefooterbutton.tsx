@@ -45,7 +45,26 @@ function ServiceFooterButton({
         <img src={ArrowLeft} alt="ArrowLeft" />
         <p className="ml-2">{t("service_footer_back")}</p>
       </Button>
-      {currentStep < 3 ? (
+      {/* {currentStep < 3 ? (
+        <Button onClick={handleNext} variant="default" className="w-40 h-11 ">
+          <p className="mr-2 ">{t("service_footer_next")}</p>
+          <img src={ArrowRight} alt="ArrowRight" />
+        </Button>
+      ) : null} */}
+
+      {currentStep === 1 ? (
+        <Button
+          onClick={handleNext}
+          variant="default"
+          className="w-40 h-11 "
+          disabled={totalprice == 0}
+        >
+          <p className="mr-2 ">{t("service_footer_next")}</p>
+          <img src={ArrowRight} alt="ArrowRight" />
+        </Button>
+      ) : null}
+
+      {currentStep > 1 && currentStep < 3 ? (
         <Button onClick={handleNext} variant="default" className="w-40 h-11 ">
           <p className="mr-2 ">{t("service_footer_next")}</p>
           <img src={ArrowRight} alt="ArrowRight" />
