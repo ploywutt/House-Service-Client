@@ -20,7 +20,7 @@ function EditProfile(props) {
   const fullName = props.fetchData[0]?.name || "";
   const phone = props.fetchData[0]?.phone || "";
   const email = props.fetchData[0]?.email || "";
-  const urlFromSPB = props.fetchData[0]?.avatar_url;
+  const urlFromSPB = props.fetchData[0]?.avatar_url || avatar;
   // const urlFromSPB = `https://xgtmarqfhoqpodfgxvse.supabase.co/storage/v1/object/public/testing/HomeService/avatar/${currentUserEmail}`;
   // const imagePath = 'https://xgtmarqfhoqpodfgxvse.supabase.co/storage/v1/object/public/testing/HomeService/avatar/admin@mail.com'
 
@@ -30,7 +30,7 @@ function EditProfile(props) {
 
   useEffect(() => {
     setUrl(urlFromSPB);
-  }, []);
+  }, [urlFromSPB]);
 
   console.log(`urlFromSPB: ${urlFromSPB}`);
 
