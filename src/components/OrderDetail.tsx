@@ -46,7 +46,7 @@ function OrderDetail(props: {
       </div>
       <Separator className="my-4" />
       <div className="grid grid-cols-1 gap-5 py-2">
-        {props.date && (
+        {props.date && props.thaiDate !== "ไม่สามารถเลือกวันนี้ได้" && (
           <div className="flex flex-row justify-between">
             <p className="text-gray-500">
               {t("order_details.order_details_day")}
@@ -76,7 +76,7 @@ function OrderDetail(props: {
           </div>
         )}
       </div>
-      {(props.date ||
+      {((props.date && props.thaiDate !== "ไม่สามารถเลือกวันนี้ได้") ||
         props.selectedTime ||
         props.address ||
         props.selectedProvince) && <Separator className="my-4" />}

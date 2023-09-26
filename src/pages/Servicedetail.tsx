@@ -140,6 +140,8 @@ function Servicedetail() {
                       setSelectedTime={setSelectedTime}
                       date={date}
                       setDate={setDate}
+                      thaiDate={thaiDate}
+                      // valid={valid}
                     />
                   )}
                   {currentStep === 3 && <CheckoutPage />}
