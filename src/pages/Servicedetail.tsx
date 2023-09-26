@@ -15,8 +15,6 @@ import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
 
-import CheckoutPage from "./CheckoutPage";
-
 function Servicedetail() {
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
   const {

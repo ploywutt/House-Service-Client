@@ -88,7 +88,6 @@ const CheckoutPage: React.FC = () => {
       default:
         break;
     }
-  
     setErrors(updatedErrors);
   };
 
@@ -97,7 +96,29 @@ const CheckoutPage: React.FC = () => {
     checkPromotionCode(formData.discountCode);
   };
 
-  const handleSubmit = async (e) => {
+  // const checkPromotionCode = async (code) => {
+  //   try {
+  //     const response = await axios.get(`/api/promotion/${code}`);
+  //     setCodeValidationResult(response.data);
+  //   } catch (error) {
+  //     console.error('Error checking promotion code:', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (codeValidationResult) {
+  //     if (codeValidationResult.isExpired) {
+  //       console.log('Promotion code has expired');
+  //     } else if (codeValidationResult.isMaxUsageReached) {
+  //       console.log('Maximum usage reached for the promotion code');
+  //     } else {
+  //       console.log('Promotion code is valid');
+  //     }
+  //   }
+  // }, [codeValidationResult]);
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (paymentMethod === 'card') {
@@ -109,42 +130,52 @@ const CheckoutPage: React.FC = () => {
       ) {
         return;
       }
-
-
     } else if (paymentMethod === 'promptpay') {}
   };
 
   return (
     <div className="flex justify-center pt-12">
-      <div className="w-[735px] h-[auto]  bg-white rounded-lg border border-zinc-300 p-5">
-        <h1 className="text-grey-700cr">ชำระเงิน</h1>
-        <div className="flex flex-row">
-          <div className="flex flex-row">
-            <button
-              onClick={() => handlePaymentMethodChange('card')}
-              className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 ${
-                paymentMethod === 'card' ? 'bg-blue-200 border-blue-500' : ''
-              }`}
-            >
-              <div className="w-[35px] h-[35px] relative" />
-              <img src="/src/assets/icon/card.png" alt="Logo" />
-              <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
-                บัตรเครดิต
-              </span>
-            </button>
+          <div className="w-[735px] h-[auto] bg-white rounded-lg border border-zinc-300 p-5">
+            <h1 className="text-grey-700cr">ชำระเงิน</h1>
+            <div className="flex flex-row">
+              <div className="flex flex-row">
+                <button
+                  id='creditcard-btn'
+                  onClick={() => handlePaymentMethodChange('card')}
+                  className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 hover:bg-white hover:text-blue-500 focus:bg-blue-400 hover:border-blue-500
+                  focus:blue-500 ${
+                    paymentMethod === 'card' ? '' : ''
+                  }`}
+                >
+                  <div className="w-[35px] h-[35px] relative" />
+                  
+                  <img src={creditcardIcon} alt="Credit Card Icon" className='gray'/> 
+                  <img src={creditcardBlueIcon} alt="Credit Card Icon" className='blue'/> 
 
-            <button
-              onClick={() => handlePaymentMethodChange('promptpay')}
-              className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 ml-[24px] ${
-                paymentMethod === 'promptpay' ? 'bg-blue-200 border-blue-500 ' : ''
-              }`}
-            >
-              <div className="w-[35px] h-[35px] relative" />
-              <img src="/src/assets/icon/qr_code.png" alt="Logo" />
-              <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
-                พร้อมเพ
-              </span>
-            </button>
+
+                  <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
+                    บัตรเครดิต
+                  </span>
+                </button>
+
+                <button
+                  id='qrcode-btn'
+                  onClick={() => handlePaymentMethodChange('promptpay')}
+                  className={`ml-[24px] flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 hover:bg-white hover:text-blue-500 focus:bg-blue-400 hover:border-blue-500 
+                  focus:text-blue-500${
+                    paymentMethod === 'promptpay' ? '' : ''
+                  }`}
+                > 
+                  <div className="w-[35px] h-[35px] relative" />
+
+                  <img src={qrCodeIcon} alt="QR Code Icon" className="gray"/> 
+                  <img src={qrCodeBlueIcon} alt="QR Code Icon" className="blue"/> 
+
+
+                  <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
+                    พร้อมเพ
+                  </span>
+                </button>
           </div>
         </div>
 
