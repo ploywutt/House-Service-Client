@@ -5,6 +5,8 @@ import Phone from "@/assets/icon/phone.svg";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+import { Modals } from "@/components/Modal";
+
 function Footer() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -51,9 +53,16 @@ function Footer() {
             <Button variant="link" className="text-gray-800 no-underline">
               {t("footer.terms")}
             </Button>
-            <Button variant="link" className="text-gray-800 no-underline">
+            {/* <Button variant="link" className="text-gray-800 no-underline">
               {t("footer.privacy")}
-            </Button>
+            </Button>  */}
+            <Modals
+                variant="link"
+                className="text-gray-800 no-underline"
+                button="นโยบายความเป็นส่วนตัว"
+                title="นโยบายความเป็นส่วนตัว"
+                description="นโยบายความเป็นส่วนตัว ยาวๆ"
+              /> 
           </div>
         </div>
       </footer>

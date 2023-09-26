@@ -1,6 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import '/asset/css/CheckoutPage.css'
 
 :root {
   --color-primary-100: 231 238 255;

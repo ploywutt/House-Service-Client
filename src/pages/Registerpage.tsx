@@ -165,7 +165,7 @@ const Registerpage = () => {
               <span className="p3 mr-1 text-gray-900">และ</span>
               <Modals
                 variant="link"
-                className="p-0 h-0 mr-1"
+                className="p-0 h-0 mr-1 underline"
                 button="นโยบายความเป็นส่วนตัว"
                 title="นโยบายความเป็นส่วนตัว"
                 description="นโยบายความเป็นส่วนตัว ยาวๆ"
