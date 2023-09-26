@@ -153,6 +153,7 @@ function Servicedetail() {
                     selectedTambon={selectedTambon}
                     address={address}
                     selectedTime={selectedTime}
+                    //promotion={}
                   />
                 </div>
               </div>
