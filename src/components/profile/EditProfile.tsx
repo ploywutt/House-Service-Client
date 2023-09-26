@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import avatar from "../../assets/image/Avatar-image-profile.png";
 
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import supabase from "@/auth/supabaseauth";
 import axios from "axios";
 import useFetchUserEmail from "@/hook/useFetchUserEmail";
@@ -13,62 +13,138 @@ import useFetchUserEmail from "@/hook/useFetchUserEmail";
 function EditProfile(props) {
   const { t } = useTranslation();
 
-  const [file, setFile] = useState(null);
-  const [url, setUrl] = useState(avatar);
-  const [inputValues, setInputValues] = useState({});
-
-  console.log(inputValues);
-  console.log(file);
-
   const currentUserEmail = useFetchUserEmail();
   console.log(`edit ${currentUserEmail}`);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setInputValues({ ...inputValues, [name]: value });
-  };
-
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-    setUrl(URL.createObjectURL(event.target.files[0]));
-    const { name } = event.target;
-    setInputValues({
-      ...inputValues,
-      [name]: `${URL.createObjectURL(event.target.files[0])}`,
-    });
-  };
-
-  const handleUpload = async () => {
-    try {
-      const { data, error } = await supabase.storage
-        .from("images")
-        .upload(file.name, file);
-      if (error) throw error;
-      console.log("File uploaded: ", data.Key);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
-  const handleUpdate = async () => {
-    {
-      file && handleUpload();
-    }
-    try {
-      const response = await axios.put(
-        `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
-        inputValues
-      );
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   console.log(props.fetchData);
   const fullName = props.fetchData[0]?.name || "";
   const phone = props.fetchData[0]?.phone || "";
   const email = props.fetchData[0]?.email || "";
+  const urlFromSPB = props.fetchData[0]?.avatar_url || avatar;
+  // const urlFromSPB = `https://xgtmarqfhoqpodfgxvse.supabase.co/storage/v1/object/public/testing/HomeService/avatar/${currentUserEmail}`;
+
+  // useEffect(() => {
+  //   const urlFromSPB = props.fetchData[0]?.avatar_url || avatar;
+  // }, []);
+
+  useEffect(() => {
+    setUrl(urlFromSPB);
+  }, [urlFromSPB]);
+
+  console.log(`urlFromSPB: ${urlFromSPB}`);
+
+  const [file, setFile] = useState(null);
+  const [url, setUrl] = useState(urlFromSPB);
+  const [inputValues, setInputValues] = useState({});
+  const [passwordError, setPasswordError] = useState("");
+  const [rePasswordError, setRePasswordError] = useState("");
+
+  console.log(`url: ${url}`);
+
+  console.log(inputValues);
+  console.log(file);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setInputValues({ ...inputValues, [name]: value });
+
+    // Password validation
+    // if (name === "newPassword") {
+    //   if (value.length < 6) {
+    //     setPasswordError("Password must be at least 6 characters long.");
+    //   } else {
+    //     setPasswordError("");
+    //   }
+    // }
+  };
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+    setUrl(URL.createObjectURL(event.target.files[0]));
+    // const { name } = event.target;
+    // setInputValues({
+    //   ...inputValues,
+    //   [name]: `${URL.createObjectURL(event.target.files[0])}`,
+    // });
+  };
+
+  const handleUpload = async () => {
+    try {
+      const { error } = await supabase.storage
+        .from("testing")
+        .remove([`HomeService/avatar/${currentUserEmail}`]);
+      if (error) throw error;
+    } catch (error) {
+      console.log(`remove: ${error.message}`);
+    }
+
+    try {
+      console.log("File deleted successfully");
+      const { data, error } = await supabase.storage
+        .from("testing")
+        .upload(`HomeService/avatar/${currentUserEmail}`, file);
+      console.log("File uploaded: ", data);
+      if (error) throw error;
+    } catch (error) {
+      console.log(`upload: ${error.message}`);
+    }
+
+    try {
+      const supabaseAvatarUrl = await supabase.storage
+        .from("testing")
+        .getPublicUrl(`HomeService/avatar/${currentUserEmail}`);
+
+      console.log(supabaseAvatarUrl.data.publicUrl);
+
+      setInputValues({
+        ...inputValues,
+        avatar_url: supabaseAvatarUrl.data.publicUrl,
+      });
+    } catch (error) {
+      console.log(`getPublicUrl: ${error.message}`);
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
+        inputValues
+      );
+      console.log(response.data.message);
+    } catch (error) {
+      console.log(`getPublicUrl: ${error.message}`);
+    }
+  };
+
+  const handleUpdate = async () => {
+    if (file) {
+      if (inputValues.newPassword !== inputValues.reNewPassword) {
+        setRePasswordError("Passwords do not match.");
+        return; // Do not proceed with the update
+      } else {
+        setRePasswordError("");
+      }
+
+      handleUpload();
+    } else {
+      // Check if newPassword and reNewPassword match
+      if (inputValues.newPassword !== inputValues.reNewPassword) {
+        setRePasswordError("Passwords do not match.");
+        return; // Do not proceed with the update
+      } else {
+        setRePasswordError("");
+      }
+
+      try {
+        const response = await axios.put(
+          `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
+          inputValues
+        );
+        console.log(response.data.message);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    }
+  };
 
   const userInfo = [
     {
@@ -86,6 +162,9 @@ function EditProfile(props) {
       placeholder: email,
       varName: "email",
     },
+  ];
+
+  const userPasswordInfo = [
     {
       label: t("edit_profile_page.current_password"),
       placeholder: "xxxxxxxx",
@@ -154,16 +233,34 @@ function EditProfile(props) {
               />
             </div>
           ))}
+          <hr />
+          <h6 className="text-center text-gray-600">เปลี่ยนรหัสผ่าน</h6>
+          {userPasswordInfo.map((item, index) => (
+            <div id="input-container" key={index}>
+              <Label htmlFor={item.label}>{item.label}</Label>
+              <Input
+                id={item.varName}
+                name={item.varName}
+                placeholder={item.placeholder}
+                value={inputValues[item.varName]}
+                onChange={handleInputChange}
+                disabled={item.varName !== "password" && !inputValues.password}
+              />
+              {item.varName === "newPassword" && passwordError && (
+                <p className="text-red-500">{passwordError}</p>
+              )}
+              {item.varName === "reNewPassword" && rePasswordError && (
+                <p className="text-red-500">{rePasswordError}</p>
+              )}
+            </div>
+          ))}
 
           <div id="buttons" className="flex justify-between mt-20">
             <Button variant={"secondary"} className="px-2.5 py-6 w-[166px]">
               {t("edit_profile_page.cancel")}
             </Button>
-            <Button className="px-2.5 py-6 w-[166px]">
-              {t("edit_profile_page.save")}
-            </Button>
             <Button className="px-2.5 py-6 w-[166px]" onClick={handleUpdate}>
-              บันทึก
+              {t("edit_profile_page.save")}
             </Button>
           </div>
         </div>
