@@ -33,7 +33,7 @@ function useDayPicker() {
   if (selectedDate > new Date()) {
     thaiDate = `${day} ${thaiMonths[month]} ${year + 543}`;
   } else {
-    thaiDate = `ไม่สามารถเลือกวันนี้ได้`;
+    thaiDate = `รักของเรามันกลายเป็นอดีตไปแล้ว`;
   }
 
   return {

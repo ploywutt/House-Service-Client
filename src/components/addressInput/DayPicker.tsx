@@ -24,7 +24,8 @@ function DayPicker(props) {
             "w-full h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-between items-center inline-flex focus:border focus:border-blue-500 text-base font-normal relative",
             !props.date &&
               "text-muted-foreground text-gray-700 text-base font-normal",
-            (props.date && props.thaiDate) === "ไม่สามารถเลือกวันนี้ได้" &&
+            (props.date && props.thaiDate) ===
+              "รักของเรามันกลายเป็นอดีตไปแล้ว" &&
               "border border-utility-red text-utility-red hover:text-utility-red"
           )}
         >
@@ -36,7 +37,7 @@ function DayPicker(props) {
           <img src={calendaricon} className="absolute right-4 " />
         </Button>
       </PopoverTrigger>
-      {props.thaiDate === "ไม่สามารถเลือกวันนี้ได้" && (
+      {props.date && props.thaiDate === "รักของเรามันกลายเป็นอดีตไปแล้ว" && (
         <h5 className="text-utility-red px-4">กรุณาเลือกวันถัดไป !</h5>
       )}
       <PopoverContent className="w-auto p-0">

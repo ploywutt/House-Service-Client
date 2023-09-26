@@ -16,7 +16,7 @@ export default function useFetchSubservice() {
       );
       // console.log("res", response.data.data);
       setSubservice(response.data.data);
-      // console.log("name", response.data.data[0].services.service_name);
+      // console.log("name", response.data.data[0].services?.service_name);
       setServiceName(response.data.data[0].services?.service_name);
 
       setCounts(
