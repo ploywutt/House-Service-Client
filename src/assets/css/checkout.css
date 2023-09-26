@@ -1,3 +1,23 @@
-rect:hover {
-  fill: blue; /* เมื่อ hover ให้เปลี่ยนสีเป็นสีฟ้า */
+#creditcard-btn:hover .gray {
+  @apply hidden
+}
+
+#creditcard-btn .blue {
+  @apply hidden
+}
+
+#creditcard-btn:hover .blue {
+  @apply block
+}
+
+#qrcode-btn:hover .gray {
+  @apply hidden
+}
+
+#qrcode-btn .blue {
+  @apply hidden
+}
+
+#qrcode-btn:hover .blue {
+  @apply block
 }
