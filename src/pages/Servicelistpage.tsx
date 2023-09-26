@@ -29,8 +29,9 @@ import _debounce from "lodash.debounce";
 
 function Servicelistpage() {
   const { t } = useTranslation();
+  const [maxPriceDB, setMaxPriceDB] = useState(0);
   const [pagination, setPagination] = useState<Pagination>({
-    page: 1,
+    page: 0,
     pageSize: 16,
     totalPage: 0,
     totalRecord: 0,
@@ -39,7 +40,7 @@ function Servicelistpage() {
   const [selectcategory, setSelectcategory] = useState("");
   const [selectsortby, setSelectsortby] = useState("asc");
   const [minprice, setMinprice] = useState(0);
-  const [maxprice, setMaxprice] = useState(2000);
+  const [maxprice, setMaxprice] = useState(1000000);
   const [items, setItems] = useState<Services[]>([]);
   const [autocomplete, setAutocomplete] = useState<string[]>([]);
 
@@ -62,6 +63,13 @@ function Servicelistpage() {
     setMinprice(value[0]);
     setMaxprice(value[1]);
   };
+
+  const fetchprice = async () => {
+    const price = await ServiceAPI.maxprice();
+    setMaxPriceDB(price.data);
+    setMaxprice(price.data);
+  };
+
   const ChangeSelectedcategory = (event: string) => {
     setSelectcategory(event);
   };
@@ -70,26 +78,23 @@ function Servicelistpage() {
     setSelectsortby(event);
   };
 
-  const fetchData = async () => {
+  const fetchData = async (event = true) => {
     const response = await ServiceAPI.get(
-      pagination,
+      { ...pagination, page: event ? pagination.page + 1 : 1 },
       selectsortby,
       selectcategory,
       minprice,
       maxprice,
       searchtext
     );
-    setPagination(response.pagination);
+    window.scrollTo(0, 0);
+    setPagination(response.pagination); // ---------------------------------
     setItems((prevItems) => prevItems?.concat(response.data));
   };
 
   const searchData = async () => {
     setItems([]);
-    setPagination((prev) => ({
-      ...prev,
-      page: 1,
-    }));
-    fetchData();
+    fetchData(false);
   };
 
   const fetchAutoComplete = async (event: string) => {
@@ -107,11 +112,19 @@ function Servicelistpage() {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [pagination.page]);
+    (async () => {
+      await fetchprice();
+      setTimeout(() => {
+        fetchData();
+      }, 500);
+      await fetchCategories();
+    })();
+    const resetScroll = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("beforeunload", resetScroll);
 
-  useEffect(() => {
-    fetchCategories();
+    return () => window.removeEventListener("beforeunload", resetScroll);
   }, []);
 
   const debounceFunction = useCallback(_debounce(fetchAutoComplete, 400), []);
@@ -207,7 +220,7 @@ function Servicelistpage() {
                       className="my-3"
                       onValueChange={handleSlider}
                       defaultValue={[minprice, maxprice]}
-                      max={10000}
+                      max={maxPriceDB}
                       step={1}
                     />
                   </PopoverContent>
@@ -253,25 +266,32 @@ function Servicelistpage() {
         </StickyBox>
       </div>
       <div>
-        <InfiniteScroll
-          className="grid lg:grid-cols-4 md:grid-cols-2 lg:gap-14 gap-6 lg:px-[6rem] lg:pb-20 pb-10 px-4"
-          dataLength={items?.length || 0}
-          next={() => {
-            setPagination((prevItems) => ({
-              ...prevItems,
-              page: prevItems.page + 1,
-            }));
-          }}
-          hasMore={pagination.page < (pagination.totalPage || 0)}
-          loader={<div />}
-          scrollThreshold={0.4}
-        >
-          {items?.map((list, index) => (
-            <div key={index} className="flex">
-              <ProductCard items={list} />
-            </div>
-          ))}
-        </InfiniteScroll>
+        {items.length > 0 ? (
+          <InfiniteScroll
+            className="grid lg:grid-cols-4 md:grid-cols-2 lg:gap-14 gap-6 lg:px-[6rem] lg:pb-20 pb-10 px-4"
+            dataLength={items?.length || 0}
+            next={() => {
+              // setPagination((prevItems) => ({
+              //   ...prevItems,
+              //   page: prevItems.page + 1,
+              // }));
+              fetchData();
+            }}
+            hasMore={pagination.page < (pagination.totalPage || 0)}
+            loader={<div />}
+            scrollThreshold={0.4}
+          >
+            {items?.map((list, index) => (
+              <div key={index} className="flex">
+                <ProductCard items={list} />
+              </div>
+            ))}
+          </InfiniteScroll>
+        ) : (
+          <div className="w-full text-red-600 text-center mb-8">
+            {t("no_service_message")}
+          </div>
+        )}
       </div>
       <div className="footerLogo xl:px-[25rem] xl:py-[8rem] px-[16px] py-[32px] ">
         <div className="relative">

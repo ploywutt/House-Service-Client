@@ -13,10 +13,11 @@ export default function productCard({ items }: { items: Services }) {
   };
   const minPrice = items.min_price || 0;
   const maxPrice = items.max_price || 0;
+  const path = import.meta.env.VITE_SUPABASE_PICTURE;
   return (
-    <div className="border rounded-lg overflow-hidden">
-      <img src="https://picsum.photos/400/300" alt="Image" className="w-full" />
-      <div className="p-4 bg-white h-full">
+    <div className="border rounded-lg overflow-hidden w-full">
+      <img src={path + items.pic_service} alt="Image" className="w-full" />
+      <div className="p-4 bg-white h-full  dark:bg-gray-200">
         <Badge variant="blue" className="py-1 text-[0.75rem]">
           {items.category}
         </Badge>
@@ -26,14 +27,14 @@ export default function productCard({ items }: { items: Services }) {
         {minPrice > 0 && (
           <div className="text-gray-700 text-[0.875rem] flex items-center pb-2">
             <Tag className="w-[1rem] mr-2" />
-            {t("average_price")} {minPrice}{" "}
+            {t("average_price")} {minPrice}
             {maxPrice && maxPrice > minPrice ? `- ${maxPrice}` : ""} ฿
           </div>
         )}
 
         <Button
           variant="link"
-          className="underline text-blue-600 px-0"
+          className="underline text-blue-600 px-0 dark:text-gray-700"
           onClick={gotoservicedetail}
         >
           {t("service_selection")}

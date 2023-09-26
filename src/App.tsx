@@ -18,34 +18,37 @@ import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
 import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 function App() {
   return (
-    <I18nextProvider i18n={i18n}>
-      <Router>
-        <Routes>
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Homepage />}></Route>
-            <Route path="/servicelist" element={<Servicelistpage />}></Route>
-            <Route path="/shadcn" element={<Shadcn />}></Route>
-            <Route path="/orders" element={<OrderListPage />}></Route>
-            <Route path="/history" element={<HistoryPage />}></Route>
-            <Route path="/profile" element={<ProfilePage />}></Route>
-            <Route path="/edit-profile" element={<EditProfilePage />}></Route>
-          </Route>
-          <Route element={<NoFooter />}>
-            <Route path="/login" element={<LoginPage />}></Route>
-            <Route path="/register" element={<Registerpage />}></Route>
-            <Route path="/service/:id" element={<ServiceDetail />}></Route>
-            <Route path="/payment" element={<ServicePayment />}></Route>
-            {/* <Route path="/address" element={<ClientInformation />}></Route> */}
-          </Route>
-          <Route element={<ServiceFooter />}>
-            <Route path="/checkout" element={<CheckoutPage />}></Route>
-          </Route>
-        </Routes>
-      </Router>
-    </I18nextProvider>
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <I18nextProvider i18n={i18n}>
+        <Router>
+          <Routes>
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Homepage />}></Route>
+              <Route path="/servicelist" element={<Servicelistpage />}></Route>
+              <Route path="/shadcn" element={<Shadcn />}></Route>
+              <Route path="/orders" element={<OrderListPage />}></Route>
+              <Route path="/history" element={<HistoryPage />}></Route>
+              <Route path="/profile" element={<ProfilePage />}></Route>
+              <Route path="/edit-profile" element={<EditProfilePage />}></Route>
+            </Route>
+            <Route element={<NoFooter />}>
+              <Route path="/login" element={<LoginPage />}></Route>
+              <Route path="/register" element={<Registerpage />}></Route>
+              <Route path="/service/:id" element={<ServiceDetail />}></Route>
+              <Route path="/payment" element={<ServicePayment />}></Route>
+              {/* <Route path="/address" element={<ClientInformation />}></Route> */}
+            </Route>
+            <Route element={<ServiceFooter />}>
+              <Route path="/checkout" element={<CheckoutPage />}></Route>
+            </Route>
+          </Routes>
+        </Router>
+      </I18nextProvider>
+    </ThemeProvider>
   );
 }
 export default App;

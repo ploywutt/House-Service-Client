@@ -29,7 +29,7 @@ function Homepage() {
   return (
     <>
       <div className="banner">
-        <div className="flex items-center justify-between lg:pl-[12rem] pl-[4rem] md:pl-[6rem] lg:py-[5rem] py-[3rem] 2xl:pl-[26rem]">
+        <div className="flex items-center justify-between lg:pl-[12rem] pl-[4rem] md:pl-[6rem] lg:py-[5rem] py-[3rem] 2xl:pl-[26rem] dark:bg-black dark:text-white">
           <div>
             <div className="text-primary text-[2rem] lg:text-[4rem] font-bold">
               {t("banner_title1")}
@@ -38,7 +38,7 @@ function Homepage() {
               {t("banner_title2")}
             </div>
             <div
-              className="text-gray-700 text-[0.85rem] lg:text-[1.5rem] py-[2rem]"
+              className="text-gray-700 text-[0.85rem] lg:text-[1.5rem] py-[2rem] dark:text-white"
               dangerouslySetInnerHTML={{ __html: t("banner_title3") }}
             ></div>
             <Button
@@ -50,15 +50,11 @@ function Homepage() {
           </div>
         </div>
       </div>
-      <div className="lg:pb-[8rem] pb-[2rem]">
-        <div className="text-center text-blue-950 font-bold text-[2rem] pt-8 pb-6">
+      <div className="lg:pb-[8rem] pb-[2rem] dark:bg-black">
+        <div className="text-center text-blue-950 font-bold text-[2rem] pt-8 pb-6 dark:text-white">
           {t("popular_service")}
         </div>
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 2xl:px-52 xl:px-24 px-4">
-          {/* <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard /> */}
           {items.map((item) => (
             <ProductCard key={item.id} items={item}></ProductCard>
           ))}
@@ -69,7 +65,7 @@ function Homepage() {
           </Button>
         </div>
       </div>
-      <div className="footerLogo ">
+      <div className="footerLogo">
         <div className="relative">
           <div className="opacity-image">
             <img

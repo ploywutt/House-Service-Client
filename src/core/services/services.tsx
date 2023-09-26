@@ -29,6 +29,10 @@ class services {
     });
     return response.data;
   };
+  maxprice = async () => {
+    const response = await $axios.get("/v1/user/services/maxprice");
+    return response.data;
+  };
 }
 
 export default new services();
