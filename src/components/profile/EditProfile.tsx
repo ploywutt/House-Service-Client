@@ -20,8 +20,9 @@ function EditProfile(props) {
   const fullName = props.fetchData[0]?.name || "";
   const phone = props.fetchData[0]?.phone || "";
   const email = props.fetchData[0]?.email || "";
-  const urlFromSPB = props.fetchData[0]?.avatar_url || avatar;
+  const urlFromSPB = props.fetchData[0]?.avatar_url;
   // const urlFromSPB = `https://xgtmarqfhoqpodfgxvse.supabase.co/storage/v1/object/public/testing/HomeService/avatar/${currentUserEmail}`;
+  // const imagePath = 'https://xgtmarqfhoqpodfgxvse.supabase.co/storage/v1/object/public/testing/HomeService/avatar/admin@mail.com'
 
   // useEffect(() => {
   //   const urlFromSPB = props.fetchData[0]?.avatar_url || avatar;
@@ -29,7 +30,7 @@ function EditProfile(props) {
 
   useEffect(() => {
     setUrl(urlFromSPB);
-  }, [urlFromSPB]);
+  }, []);
 
   console.log(`urlFromSPB: ${urlFromSPB}`);
 
@@ -196,7 +197,7 @@ function EditProfile(props) {
             src={url}
             alt="avatar"
             id="avatar"
-            className="w-[150px] h-[150px] rounded-full"
+            className="w-[150px] h-[150px] rounded-full object-cover"
           />
           <div id="upload" className="flex flex-col gap-1">
             <input

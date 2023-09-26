@@ -58,7 +58,7 @@ function Profile(props) {
           <img
             src={profileUrl}
             alt="avatar"
-            className="w-[150px] h-[150px] rounded-full"
+            className="w-[150px] h-[150px] rounded-full object-cover"
           />
           <Button variant="secondary" onClick={() => navigate("/edit-profile")}>
             {t("edit_profile")}
