@@ -27,9 +27,17 @@ function ClientInput(props) {
       <div className="flex flex-col py-8">
         <div className="grid grid-cols-2 gap-4 gap-y-6">
           <div className="flex flex-col">
-            <label htmlFor="calendar" className="py-0.5">
-              {t("stepper_second_details.stepper_detail_day")}
-              <span className="text-utility-red">*</span>
+            <label htmlFor="calendar" className="py-0.5 flex justify-between">
+              <div>
+                {t("stepper_second_details.stepper_detail_day")}
+                <span className="text-utility-red">*</span>
+              </div>
+              <div>
+                {props.date &&
+                  props.thaiDate === "รักของเรามันกลายเป็นอดีตไปแล้ว" && (
+                    <h5 className="text-utility-red">กรุณาเลือกวันถัดไป !</h5>
+                  )}
+              </div>
             </label>
             <DayPicker
               date={props.date}
@@ -215,11 +223,13 @@ function ClientInput(props) {
             id="other"
             name="other"
             rows={3}
-            // cols="20"
             placeholder={t(
               "stepper_second_details.stepper_detail_comments_area"
             )}
             className="px-4 py-2.5 border rounded-lg border-gray-300 placeholder:text-gray-700 text-base focus:outline-none"
+            onChange={(e) => {
+              props.setDetail(e.target.value);
+            }}
           ></textarea>
         </div>
       </div>

@@ -21,6 +21,7 @@ type ServiceFooter = {
     selectedAmphure: string;
     selectedProvince: string;
   };
+  detail: string;
 };
 
 function ServiceFooterButton({
@@ -33,6 +34,7 @@ function ServiceFooterButton({
   thaiDate,
   selectedTime,
   address,
+  detail,
 }: ServiceFooter) {
   const { t } = useTranslation();
   return (
@@ -64,8 +66,21 @@ function ServiceFooterButton({
         </Button>
       ) : null}
 
-      {currentStep > 1 && currentStep < 3 ? (
-        <Button onClick={handleNext} variant="default" className="w-40 h-11 ">
+      {currentStep === 2 ? (
+        <Button
+          onClick={handleNext}
+          variant="default"
+          className="w-40 h-11"
+          disabled={
+            address.address === "" ||
+            address.selectedTambon === "" ||
+            address.selectedAmphure === "" ||
+            address.selectedProvince === "" ||
+            date === undefined ||
+            thaiDate === "รักของเรามันกลายเป็นอดีตไปแล้ว" ||
+            selectedTime === ""
+          }
+        >
           <p className="mr-2 ">{t("service_footer_next")}</p>
           <img src={ArrowRight} alt="ArrowRight" />
         </Button>
@@ -79,6 +94,7 @@ function ServiceFooterButton({
           thaiDate={thaiDate}
           selectedTime={selectedTime}
           address={address}
+          detail={detail}
         />
       )}
     </div>

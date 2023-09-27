@@ -1,6 +1,7 @@
 import { Separator } from "../components/ui/separator";
 import { Button } from "../components/ui/button";
 import InfoPay from "../assets/icon/info_pay.svg";
+import CheckSymbol from "../assets/icon/CheckSymbol.svg";
 import ArrowRight from "../assets/icon/arrow_right.png";
 import {
   AlertDialog,
@@ -13,24 +14,26 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Loader2 } from "lucide-react";
 
 import { useTranslation } from "react-i18next";
 
 import useFetchUserEmail from "../hook/useFetchUserEmail";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AlertPayment(props) {
   const { t } = useTranslation();
 
   const userEmail = useFetchUserEmail();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [confirm, setConfirm] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const dateObject = new Date(props.date);
   const isoDateString = dateObject.toISOString();
   const formattedDate = isoDateString.split("T")[0];
-
-  // const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
 
   const handleClick = async (event) => {
     event.preventDefault();
@@ -44,7 +47,7 @@ function AlertPayment(props) {
           province: props.address.selectedProvince,
           district: props.address.selectedAmphure,
           subdistrict: props.address.selectedTambon,
-          detail: null,
+          details: props.detail,
           user_email: userEmail,
           status_id: 1,
           promotion_code: null,
@@ -52,6 +55,7 @@ function AlertPayment(props) {
         }
       );
       setIsLoading(false);
+      setConfirm(true);
       console.log("Order created successfully:", result);
 
       return result;
@@ -73,12 +77,30 @@ function AlertPayment(props) {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            <div id="Info Payment" className="flex flex-col items-center">
-              <img src={InfoPay} alt="Info Payment Icon" />
-              <div id="Title" className="pt-8">
-                <h1>{t("alert_payment.alert_payment_header")}</h1>
+            {!confirm && !isLoading && (
+              <div id="Info Payment" className="flex flex-col items-center">
+                <img src={InfoPay} alt="Info Payment Icon" />
+                <div id="Title" className="pt-8">
+                  <h1>{t("alert_payment.alert_payment_header")}</h1>
+                </div>
               </div>
-            </div>
+            )}
+            {isLoading ? (
+              <div id="Info Payment" className="flex flex-col items-center">
+                <Loader2 className="h-12 animate-spin" />
+                <div id="Title" className="pt-8">
+                  <h1>กำลังดำเนินการชำระเงิน...</h1>
+                </div>
+              </div>
+            ) : null}
+            {confirm && !isLoading && (
+              <div id="Info Payment" className="flex flex-col items-center">
+                <img src={CheckSymbol} alt="Confirm Payment Icon" />
+                <div id="Title" className="pt-8">
+                  <h1>ชำระเงินเรียบร้อย !</h1>
+                </div>
+              </div>
+            )}
           </AlertDialogTitle>
           <AlertDialogDescription className="flex flex-col items-center p-4">
             <div className="flex flex-col ">
@@ -95,7 +117,7 @@ function AlertPayment(props) {
                       {item.count > 0 && (
                         <>
                           <h4>{item.name}</h4>
-                          <h4 className="w-1/3">
+                          <h4 className="w-1/3 text-end">
                             {item.count} {item.unit}
                           </h4>
                         </>
@@ -148,14 +170,31 @@ function AlertPayment(props) {
             </div>
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter className="flex pr-9">
-          <AlertDialogCancel className="w-[194px] text-blue-600">
-            {t("alert_payment.alert_payment_cancel")}
-          </AlertDialogCancel>
-          <AlertDialogAction className="w-[194px]" onClick={handleClick}>
-            {t("alert_payment.alert_payment_confirm")}
-          </AlertDialogAction>
-        </AlertDialogFooter>
+        {!confirm && (
+          <AlertDialogFooter className="flex pr-9">
+            <AlertDialogCancel className="w-[194px] text-blue-600">
+              {t("alert_payment.alert_payment_cancel")}
+            </AlertDialogCancel>
+            <AlertDialogAction className="w-[194px]" onClick={handleClick}>
+              {t("alert_payment.alert_payment_confirm")}
+              {/* {isLoading ? (
+                <Loader2 className="mx-2 h-4 w-4 animate-spin" />
+              ) : null} */}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        )}
+        {confirm && (
+          <AlertDialogFooter className="px-6">
+            <AlertDialogAction
+              className="w-full"
+              onClick={() => {
+                navigate("/orders");
+              }}
+            >
+              เช็ครายการซ่อม
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        )}
       </AlertDialogContent>
     </AlertDialog>
   );
