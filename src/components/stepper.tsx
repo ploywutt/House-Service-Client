@@ -40,7 +40,7 @@ function stepper({ value, currentStep, className }: Stepper) {
                 <div className="stepper-icon rounded-full border-2 p-2">
                   <ReactSVG src={val.icon} />
                 </div>
-                <div className="stepper-label text-center absolute top-14 w-[140px] left-[-46px]">
+                <div className="stepper-label text-center absolute top-14 w-[140px] left-[-46px] dark:text-white">
                   {val.label}
                 </div>
               </div>

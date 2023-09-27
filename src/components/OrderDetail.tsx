@@ -17,12 +17,12 @@ function OrderDetail(props: {
 }) {
   const { t } = useTranslation();
   return (
-    <div className="w-[349px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 sticky top-0 ">
+    <div className="w-[349px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 sticky top-0 dark:bg-gray-800">
       <div>
-        <h3 className="text-gray-700 mb-2">
+        <h3 className="text-gray-700 mb-2 dark:text-white">
           {t("order_details.order_details_summary")}
         </h3>
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           {props.counts.map(
             (
               item: { name: string; count: number; unit: string },
@@ -48,7 +48,7 @@ function OrderDetail(props: {
       <div className="grid grid-cols-1 gap-5 py-2">
         {props.date && props.thaiDate !== "รักของเรามันกลายเป็นอดีตไปแล้ว" && (
           <div className="flex flex-row justify-between">
-            <p className="text-gray-500">
+            <p className="text-gray-500 dark:text-white">
               {t("order_details.order_details_day")}
             </p>
             <h5>{props.thaiDate}</h5>
@@ -56,7 +56,7 @@ function OrderDetail(props: {
         )}
         {props.selectedTime && (
           <div className="flex flex-row justify-between">
-            <p className="text-gray-500">
+            <p className="text-gray-500 dark:text-white">
               {t("order_details.order_details_time")}
             </p>
             <h5>{props.selectedTime} น.</h5>
@@ -64,7 +64,7 @@ function OrderDetail(props: {
         )}
         {(props.address || props.selectedProvince) && (
           <div className="flex flex-row justify-between">
-            <p className="text-gray-500">
+            <p className="text-gray-500 dark:text-white">
               {t("order_details.order_details_location")}
             </p>
             <div className="w-[200px]">
@@ -81,10 +81,10 @@ function OrderDetail(props: {
         props.address ||
         props.selectedProvince) && <Separator className="my-4" />}
       <div className="flex flex-row justify-between">
-        <p className="text-gray-500">
+        <p className="text-gray-500 dark:text-white">
           {t("order_details.order_details_finale")}
         </p>
-        <h5>{props.totalprice.toFixed(2)} ฿</h5>
+        <h5 className="dark:text-white">{props.totalprice.toFixed(2)} ฿</h5>
       </div>
     </div>
   );

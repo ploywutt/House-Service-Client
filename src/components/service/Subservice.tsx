@@ -8,8 +8,10 @@ export default function Subservice(props) {
   const { t } = useTranslation();
 
   return (
-    <div className="w-[735px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 ">
-      <h3 className="text-gray-500 mb-8">{t("subservice_header")}</h3>
+    <div className="w-[735px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 dark:bg-gray-800 ">
+      <h3 className="text-gray-500 mb-8 dark:text-white">
+        {t("subservice_header")}
+      </h3>
 
       {props.subservice.map(
         (
@@ -31,14 +33,16 @@ export default function Subservice(props) {
               <div className="flex-col justify-start items-start flex">
                 <div className="w-full flex flex-row justify-between">
                   <div className="w-full mb-4 ">
-                    <h4 className=" text-black">{item.sub_service_name}</h4>
+                    <h4 className=" text-black dark:text-white">
+                      {item.sub_service_name}
+                    </h4>
                     <div className="justify-start items-center inline-flex">
                       <img
                         src={SellTag}
                         alt="Sell tag icon"
                         className="h-4 w-4 mr-2"
                       />
-                      <p className="text-gray-500">
+                      <p className="text-gray-500 dark:text-white">
                         {item.price_per_unit.toFixed(2)} ฿ / {item.unit}
                       </p>
                     </div>

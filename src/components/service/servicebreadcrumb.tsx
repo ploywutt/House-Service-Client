@@ -10,15 +10,17 @@ function BreadCrumb(props: { serviceName: string }) {
   };
 
   return (
-    <div className="w-fit h-fit bg-white flex flex-row justify-center items-center rounded-lg border border-gray-300 p-2">
+    <div className="w-fit h-fit bg-white flex flex-row justify-center items-center rounded-lg border border-gray-300 p-2 dark:bg-gray-800">
       <h5
         onClick={toservicelist}
-        className="text-gray-700 mr-2 p-2 cursor-pointer"
+        className="text-gray-700 mr-2 p-2 cursor-pointer dark:text-white"
       >
         {t("service_breadcrumb")}
       </h5>
       <img src={RightArrow} alt="Right Arrow" className="h-2 w-2" />
-      <h1 className="text-blue-600 ml-2 p-2">{props.serviceName}</h1>
+      <h1 className="text-blue-600 ml-2 p-2 dark:text-white">
+        {props.serviceName}
+      </h1>
     </div>
   );
 }
