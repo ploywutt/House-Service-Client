@@ -42,8 +42,8 @@ function EditProfile(props) {
 
   console.log(`url: ${url}`);
 
-  // console.log(inputValues);
-  console.log(file);
+  console.log("inputValues", inputValues);
+  console.log("file", file);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -106,31 +106,31 @@ function EditProfile(props) {
       console.log("Step 3: File downloaded successfully", downloadedData);
 
       // Step 4: Set the new avatar URL in the state
-      // setInputValues({
-      //   ...inputValues,
-      //   avatar_url: `${URL.createObjectURL(downloadedData)}`,
-      // });
+      setInputValues({
+        ...inputValues,
+        avatar_url: `${URL.createObjectURL(downloadedData)}`,
+      });
 
-      const createdUrl = URL.createObjectURL(downloadedData);
-      console.log("createdUrl", createdUrl);
+      // const createdUrl = URL.createObjectURL(downloadedData);
+      // console.log("createdUrl", createdUrl);
 
-      const { data: updateUrlData, error: updateUrlError } = await supabase
-        .from("Customer_profile")
-        .update({ avatar_url: createdUrl });
+      // const { data: updateUrlData, error: updateUrlError } = await supabase
+      //   .from("Customer_profile")
+      //   .update({ avatar_url: createdUrl });
 
-      if (updateUrlError) {
-        throw updateUrlError;
-      }
+      // if (updateUrlError) {
+      //   throw updateUrlError;
+      // }
 
-      console.log("Step 4: Avatar URL set in state", updateUrlData);
+      console.log("Step 4: Avatar URL set in state", url);
 
-      // Step 5: Update user profile with input values
+      Step 5: Update user profile with input values
       const response = await axios.put(
         `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
         inputValues
       );
 
-      console.log("Step 5: User profile updated successfully", response.data);
+      // console.log("Step 5: User profile updated successfully", response.data);
     } catch (error) {
       console.error("Error during avatar upload/update:", error.message);
     }
