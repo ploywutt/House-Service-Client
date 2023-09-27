@@ -37,12 +37,9 @@ function OrderListItem(props: any) {
             })
             .replace(String(workingDateTime.getFullYear()), String(thaiYear));
 
-          const hours = workingDateTime
-            .getUTCHours()
-            .toString()
-            .padStart(2, "0");
+          const hours = workingDateTime.getHours().toString().padStart(2, "0");
           const minutes = workingDateTime
-            .getUTCMinutes()
+            .getMinutes()
             .toString()
             .padStart(2, "0");
           const workingTime = `${hours}:${minutes}`;
