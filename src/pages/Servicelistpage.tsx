@@ -135,7 +135,7 @@ function Servicelistpage() {
 
   return (
     <>
-      <div className="flex flex-col pb-12">
+      <div className="flex flex-col pb-12 dark:bg-black">
         <div className="relative">
           <div className="list-image text-white">
             <div className="z-10 relative text-center py-[5rem]">
@@ -152,7 +152,7 @@ function Servicelistpage() {
         <StickyBox>
           <div
             className={
-              "flex bg-white 2xl:px-52 lg:px-28 items-center justify-between py-2 flex-col lg:flex-row"
+              "flex bg-white 2xl:px-52 lg:px-28 items-center justify-between py-2 flex-col lg:flex-row dark:bg-black"
             }
           >
             <div>
@@ -167,7 +167,7 @@ function Servicelistpage() {
               ></AutoComplete>
             </div>
             <div className="w-full px-[5rem] lg:px-0 lg:w-[10rem]">
-              <div className="text-[0.75rem] text-gray-700">
+              <div className="text-[0.75rem] text-gray-700 dark:text-white">
                 {t("service_categories")}
               </div>
               <div>
@@ -201,11 +201,13 @@ function Servicelistpage() {
               </div>
             </div>
             <div className="w-full px-[5rem] lg:px-0 lg:w-[8rem]">
-              <div className="text-[0.75rem] text-gray-700">{t("price")}</div>
+              <div className="text-[0.75rem] text-gray-700 dark:text-white">
+                {t("price")}
+              </div>
               <div className="w-full cursor-pointer select-none">
                 <Popover>
                   <PopoverTrigger asChild>
-                    <div className="flex justify-between items-center pr-3 py-2">
+                    <div className="flex justify-between items-center pr-3 py-2 dark:bg-black dark:text-white">
                       <div>
                         {minprice}-{maxprice}฿
                       </div>
@@ -228,7 +230,9 @@ function Servicelistpage() {
               </div>
             </div>
             <div className="w-full px-[5rem] lg:px-0 lg:w-[14rem]">
-              <div className="text-[0.75rem] text-gray-700">{t("sortby")}</div>
+              <div className="text-[0.75rem] text-gray-700 dark:text-white">
+                {t("sortby")}
+              </div>
               <div>
                 <Select
                   defaultValue={selectsortby}
@@ -268,7 +272,7 @@ function Servicelistpage() {
       <div>
         {items.length > 0 ? (
           <InfiniteScroll
-            className="grid lg:grid-cols-4 md:grid-cols-2 lg:gap-14 gap-6 lg:px-[6rem] lg:pb-20 pb-10 px-4"
+            className="grid lg:grid-cols-4 md:grid-cols-2 lg:gap-14 gap-6 lg:px-[6rem] lg:pb-20 pb-10 px-4 dark:bg-black"
             dataLength={items?.length || 0}
             next={() => {
               // setPagination((prevItems) => ({
@@ -288,12 +292,12 @@ function Servicelistpage() {
             ))}
           </InfiniteScroll>
         ) : (
-          <div className="w-full text-red-600 text-center mb-8">
+          <div className="w-full text-red-600 text-center mb-8 dark:bg-black">
             {t("no_service_message")}
           </div>
         )}
       </div>
-      <div className="footerLogo xl:px-[25rem] xl:py-[8rem] px-[16px] py-[32px] ">
+      <div className="footerLogo xl:px-[25rem] xl:py-[8rem] px-[16px] py-[32px] dark:bg-gray-800">
         <div className="relative">
           <div className="opacity-image"></div>
         </div>

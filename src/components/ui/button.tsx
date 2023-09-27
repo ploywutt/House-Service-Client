@@ -27,6 +27,7 @@ const buttonVariants = cva(
         picker:
           "text-zinc-800 bg-white hover:bg-gray-100 focus:text-white focus:bg-blue-600  disabled:bg-gray-300 disabled:text-gray-100 no-underline",
         bell: "rounded-full bg-gray-100 text-gray-800",
+        TermsAndPolicy: "text-gray-800 no-underline",
       },
       size: {
         default: "h-10 px-4 py-2",

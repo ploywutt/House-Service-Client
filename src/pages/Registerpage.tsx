@@ -6,6 +6,8 @@ import useRegister from "../hook/useRegister";
 import { Modals } from "@/components/Modal";
 import { Loader2 } from "lucide-react";
 import error from "../assets/icon/error_icon.png";
+import Terms from "@/components/Terms";
+import Policy from "@/components/PrivacyPolicy";
 
 import { useTranslation } from "react-i18next";
 
@@ -165,25 +167,25 @@ const Registerpage = () => {
               </span>
               <Modals
                 variant="link"
-                className="p-0 h-0 mr-1"
+                className="p-0 h-0 mr-1 text-sm font-semibold dark:text-gray-800"
                 button={t("register_page.register_terms")}
                 title={t("register_page.register_terms_popup")}
-                description="นโยบายความเป็นส่วนตัว ยาวๆ"
+                description={<Terms />}
               />
               <span className="p3 mr-1 text-gray-900">
                 {t("register_page.register_and_break")}
               </span>
               <Modals
                 variant="link"
-                className="p-0 h-0 mr-1"
+                className="p-0 h-0 mr-1 text-sm font-semibold dark:text-gray-800"
                 button={t("register_page.register_policy")}
                 title={t("register_page.register_policy_popup")}
-                description="นโยบายความเป็นส่วนตัว ยาวๆ"
+                description={<Policy />}
               />
             </label>
           </div>
           <Button
-            className="w-96 h-11 px-6 py-2.5 bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex m-8"
+            className="w-96 h-11 px-6 py-2.5 bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex m-8 dark:bg-black dark:text-white"
             type="submit"
           >
             {t("register_page.register_button")}
@@ -209,7 +211,11 @@ const Registerpage = () => {
             {t("register_page.register_google")}
           </Button>
 
-          <Button variant="link" onClick={() => navigate("/login")}>
+          <Button
+            variant="link"
+            className="dark:text-black"
+            onClick={() => navigate("/login")}
+          >
             {t("register_page.register_back_to_login")}
           </Button>
         </form>

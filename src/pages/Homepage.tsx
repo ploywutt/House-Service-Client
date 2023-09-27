@@ -65,7 +65,7 @@ function Homepage() {
           </Button>
         </div>
       </div>
-      <div className="footerLogo">
+      <div className="footerLogo dark:bg-gray-800">
         <div className="relative">
           <div className="opacity-image">
             <img
