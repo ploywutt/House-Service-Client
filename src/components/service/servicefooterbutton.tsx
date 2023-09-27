@@ -38,7 +38,7 @@ function ServiceFooterButton({
 }: ServiceFooter) {
   const { t } = useTranslation();
   return (
-    <div className="px-[160px] first-line:w-full h-[92px] flex justify-between items-center  bg-white">
+    <div className="px-[160px] first-line:w-full h-[92px] flex justify-between items-center bg-white dark:bg-gray-800">
       <Button
         onClick={handleBack}
         variant="secondary"

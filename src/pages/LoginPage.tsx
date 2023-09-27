@@ -83,7 +83,7 @@ const UserLogin = () => {
         </div>
         <div>
           <Button
-            className={`w-96 h-11 px-6 py-2.5 no-underline zmarker:rounded-lg justify-center items-center gap-2 inline-flex m-8`}
+            className={`w-96 h-11 px-6 py-2.5 no-underline zmarker:rounded-lg justify-center items-center gap-2 inline-flex m-8 dark:bg-gray-800 dark:text-white`}
             type="submit"
             onClick={handleLogin}
           >
@@ -115,7 +115,7 @@ const UserLogin = () => {
           <Button
             onClick={() => navigate("/register")}
             variant="link"
-            className="text-center text-blue-600 text-base font-semibold underline leading-normal"
+            className="text-center text-blue-600 text-base font-semibold underline leading-normal dark:text-gray-800"
           >
             {t("login_page.register_please")}
           </Button>
