@@ -1,23 +1,39 @@
 #creditcard-btn:hover .gray {
-  @apply hidden
+  @apply hidden;
 }
 
 #creditcard-btn .blue {
-  @apply hidden
+  @apply hidden;
 }
 
 #creditcard-btn:hover .blue {
-  @apply block
+  @apply block;
+}
+
+#creditcard-btn:focus .blue {
+  @apply block;
+}
+
+#creditcard-btn:focus .gray {
+  @apply hidden;
 }
 
 #qrcode-btn:hover .gray {
-  @apply hidden
+  @apply hidden;
 }
 
 #qrcode-btn .blue {
-  @apply hidden
+  @apply hidden;
 }
 
 #qrcode-btn:hover .blue {
-  @apply block
+  @apply block;
+}
+
+#qrcode-btn:focus .blue {
+  @apply block;
+}
+
+#qrcode-btn:focus .gray {
+  @apply hidden;
 }

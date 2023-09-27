@@ -9,7 +9,7 @@ export default function Subservice(props) {
 
   return (
     <div className="w-[735px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 dark:bg-gray-800 ">
-      <h3 className="text-gray-500 mb-8 dark:text-white">
+      <h3 className="text-gray-700 mb-8 dark:text-white">
         {t("subservice_header")}
       </h3>
 
