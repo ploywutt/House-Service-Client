@@ -9,6 +9,7 @@ function useFetchProvince() {
   const [selectedAmphure, setSelectedAmphure] = useState("");
   const [selectedTambon, setSelectedTambon] = useState("");
   const [address, setAddress] = useState("");
+  const [detail, setDetail] = useState("");
 
   const fetchProvince = async () => {
     try {
@@ -76,6 +77,8 @@ function useFetchProvince() {
     setSelectedTambon,
     address,
     setAddress,
+    detail,
+    setDetail,
   };
 }
 

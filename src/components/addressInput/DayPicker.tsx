@@ -37,9 +37,7 @@ function DayPicker(props) {
           <img src={calendaricon} className="absolute right-4 " />
         </Button>
       </PopoverTrigger>
-      {props.date && props.thaiDate === "รักของเรามันกลายเป็นอดีตไปแล้ว" && (
-        <h5 className="text-utility-red px-4">กรุณาเลือกวันถัดไป !</h5>
-      )}
+
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
