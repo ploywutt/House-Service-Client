@@ -42,7 +42,7 @@ function EditProfile(props) {
 
   console.log(`url: ${url}`);
 
-  console.log(inputValues);
+  // console.log(inputValues);
   console.log(file);
 
   const handleInputChange = (event) => {
@@ -71,53 +71,75 @@ function EditProfile(props) {
 
   const handleUpload = async () => {
     try {
-      const { error } = await supabase.storage
+      // Step 1: Remove the existing avatar image
+      const { error: removeError } = await supabase.storage
         .from("testing")
         .remove([`HomeService/avatar/${currentUserEmail}`]);
-      if (error) throw error;
-    } catch (error) {
-      console.log(`remove: ${error.message}`);
-    }
 
-    try {
-      console.log("File deleted successfully");
-      const { data, error } = await supabase.storage
+      if (removeError) {
+        throw removeError;
+      }
+
+      console.log("Step 1: File removed successfully");
+
+      // Step 2: Upload the new avatar image
+      const { data, error: uploadError } = await supabase.storage
         .from("testing")
         .upload(`HomeService/avatar/${currentUserEmail}`, file);
-      console.log("File uploaded: ", data);
-      if (error) throw error;
-    } catch (error) {
-      console.log(`upload: ${error.message}`);
-    }
 
-    try {
-      const supabaseAvatarUrl = await supabase.storage
-        .from("testing")
-        .getPublicUrl(`HomeService/avatar/${currentUserEmail}`);
+      if (uploadError) {
+        throw uploadError;
+      }
 
-      console.log(supabaseAvatarUrl.data.publicUrl);
+      console.log("Step 2: File uploaded successfully", data);
 
-      setInputValues({
-        ...inputValues,
-        avatar_url: supabaseAvatarUrl.data.publicUrl,
-      });
-    } catch (error) {
-      console.log(`getPublicUrl: ${error.message}`);
-    }
+      // Step 3: Download the new avatar image
+      const { data: downloadedData, error: downloadError } =
+        await supabase.storage
+          .from("testing")
+          .download(`HomeService/avatar/${currentUserEmail}`);
 
-    try {
+      if (downloadError) {
+        throw downloadError;
+      }
+
+      console.log("Step 3: File downloaded successfully", downloadedData);
+
+      // Step 4: Set the new avatar URL in the state
+      // setInputValues({
+      //   ...inputValues,
+      //   avatar_url: `${URL.createObjectURL(downloadedData)}`,
+      // });
+
+      const createdUrl = URL.createObjectURL(downloadedData);
+      console.log("createdUrl", createdUrl);
+
+      const { data: updateUrlData, error: updateUrlError } = await supabase
+        .from("Customer_profile")
+        .update({ avatar_url: createdUrl });
+
+      if (updateUrlError) {
+        throw updateUrlError;
+      }
+
+      console.log("Step 4: Avatar URL set in state", updateUrlData);
+
+      // Step 5: Update user profile with input values
       const response = await axios.put(
         `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
         inputValues
       );
-      console.log(response.data.message);
+
+      console.log("Step 5: User profile updated successfully", response.data);
     } catch (error) {
-      console.log(`getPublicUrl: ${error.message}`);
+      console.error("Error during avatar upload/update:", error.message);
     }
   };
 
   const handleUpdate = async () => {
+    // Step 1: Check if a file is selected for avatar update
     if (file) {
+      // Step 2: Check if newPassword and reNewPassword match
       if (inputValues.newPassword !== inputValues.reNewPassword) {
         setRePasswordError("Passwords do not match.");
         return; // Do not proceed with the update
@@ -125,9 +147,10 @@ function EditProfile(props) {
         setRePasswordError("");
       }
 
+      // Step 3: Upload the new avatar and update the profile
       handleUpload();
     } else {
-      // Check if newPassword and reNewPassword match
+      // Step 4: Check if newPassword and reNewPassword match
       if (inputValues.newPassword !== inputValues.reNewPassword) {
         setRePasswordError("Passwords do not match.");
         return; // Do not proceed with the update
@@ -136,13 +159,19 @@ function EditProfile(props) {
       }
 
       try {
+        // Step 5: Update user profile without avatar change
         const response = await axios.put(
           `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
           inputValues
         );
-        console.log(response.data.message);
+
+        // Step 6: Log the response data
+        console.log("Step 6: User profile updated successfully", response.data);
       } catch (error) {
-        console.log(error.response.data.message);
+        console.log(
+          "Error during profile update:",
+          error.response.data.message
+        );
       }
     }
   };
