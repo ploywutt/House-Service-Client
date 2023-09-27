@@ -6,10 +6,15 @@ export const OrderContext = createContext({});
 
 function OrderDetail(props: {
   selectedTime: string;
-  address: string;
-  selectedTambon: string;
-  selectedAmphure: string;
-  selectedProvince: string;
+  address: {
+    address: string;
+    selectedTambon: string;
+    selectedAmphure: string;
+    selectedProvince: string;
+  };
+  // selectedTambon: string;
+  // selectedAmphure: string;
+  // selectedProvince: string;
   thaiDate: string;
   date: Date | undefined;
   totalprice: number;
@@ -62,15 +67,15 @@ function OrderDetail(props: {
             <h5>{props.selectedTime} น.</h5>
           </div>
         )}
-        {(props.address || props.selectedProvince) && (
+        {(props.address.address || props.address.selectedProvince) && (
           <div className="flex flex-row justify-between">
             <p className="text-gray-500 dark:text-white">
               {t("order_details.order_details_location")}
             </p>
             <div className="w-[200px]">
-              <h5 className="text-end">{props.address}</h5>
+              <h5 className="text-end">{props.address.address}</h5>
               <h5 className="text-end">
-                {`${props.selectedTambon} ${props.selectedAmphure} ${props.selectedProvince}`}
+                {`${props.address.selectedTambon} ${props.address.selectedAmphure} ${props.address.selectedProvince}`}
               </h5>
             </div>
           </div>
@@ -78,8 +83,8 @@ function OrderDetail(props: {
       </div>
       {((props.date && props.thaiDate !== "รักของเรามันกลายเป็นอดีตไปแล้ว") ||
         props.selectedTime ||
-        props.address ||
-        props.selectedProvince) && <Separator className="my-4" />}
+        props.address.address ||
+        props.address.selectedProvince) && <Separator className="my-4" />}
       <div className="flex flex-row justify-between">
         <p className="text-gray-500 dark:text-white">
           {t("order_details.order_details_finale")}

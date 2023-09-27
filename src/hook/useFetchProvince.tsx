@@ -17,7 +17,7 @@ function useFetchProvince() {
       // console.log("provinces:", data.data);
       setProvinces(data.data);
     } catch (error) {
-      console.error(error, "Error 400");
+      console.error(error);
     }
   };
 
@@ -30,7 +30,7 @@ function useFetchProvince() {
         // console.log("amphures:", data.data);
         setAmphures(data.data);
       } catch (error) {
-        console.error(error, "Error 400");
+        console.error(error);
       }
     }
   };
@@ -44,7 +44,7 @@ function useFetchProvince() {
         // console.log("tambons:", data.data);
         setTambons(data.data);
       } catch (error) {
-        console.error(error, "Error 400");
+        console.error(error);
       }
     }
   };

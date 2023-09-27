@@ -87,7 +87,7 @@ function AlertPayment(props) {
             )}
             {isLoading ? (
               <div id="Info Payment" className="flex flex-col items-center">
-                <Loader2 className="h-12 animate-spin" />
+                <Loader2 className="h-24 animate-spin" />
                 <div id="Title" className="pt-8">
                   <h1>กำลังดำเนินการชำระเงิน...</h1>
                 </div>

@@ -85,8 +85,6 @@ function Servicedetail() {
     selectedProvince,
   };
 
-  console.log("address", addressInfo);
-
   return (
     <>
       <div className="flex flex-col h-[1150px]">
@@ -152,10 +150,7 @@ function Servicedetail() {
                     counts={counts}
                     date={date}
                     thaiDate={thaiDate}
-                    selectedProvince={selectedProvince}
-                    selectedAmphure={selectedAmphure}
-                    selectedTambon={selectedTambon}
-                    address={address}
+                    address={addressInfo}
                     selectedTime={selectedTime}
                     //promotion={}
                   />
