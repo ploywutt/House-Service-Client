@@ -99,7 +99,7 @@ function Servicedetail() {
               >
                 <BreadCrumb serviceName={serviceName} />
 
-                <div className="w-full h-[129px] bg-white  rounded-lg border border-gray-300">
+                <div className="w-full h-[129px] bg-white  rounded-lg border border-gray-300 dark:bg-gray-800">
                   <div>
                     <Stepper
                       value={steppermenu}
