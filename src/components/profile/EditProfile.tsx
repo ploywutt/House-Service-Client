@@ -130,7 +130,7 @@ function EditProfile(props) {
         inputValues
       );
 
-      // console.log("Step 5: User profile updated successfully", response.data);
+      console.log("Step 5: User profile updated successfully", response.data);
     } catch (error) {
       console.error("Error during avatar upload/update:", error.message);
     }
