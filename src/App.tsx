@@ -12,7 +12,7 @@ import Shadcn from "./pages/shadecn-test";
 import ServiceDetail from "./pages/Servicedetail";
 import OrderListPage from "./pages/OrderListPage";
 import CheckoutPage from "./pages/CheckoutPage";
-import ServicePayment from "./pages/Servicepayment";
+// import ServicePayment from "./pages/Servicepayment";
 import HistoryPage from "./pages/HistoryPage";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
@@ -39,7 +39,7 @@ function App() {
               <Route path="/login" element={<LoginPage />}></Route>
               <Route path="/register" element={<Registerpage />}></Route>
               <Route path="/service/:id" element={<ServiceDetail />}></Route>
-              <Route path="/payment" element={<ServicePayment />}></Route>
+              {/* <Route path="/payment" element={<ServicePayment />}></Route> */}
               {/* <Route path="/address" element={<ClientInformation />}></Route> */}
             </Route>
             <Route element={<ServiceFooter />}>

@@ -61,6 +61,8 @@ function Servicedetail() {
     setSelectedTambon,
     address,
     setAddress,
+    detail,
+    setDetail,
   } = useFetchProvince();
 
   const {
@@ -141,7 +143,7 @@ function Servicedetail() {
                       date={date}
                       setDate={setDate}
                       thaiDate={thaiDate}
-                      // valid={valid}
+                      setDetail={setDetail}
                     />
                   )}
                   {currentStep === 3 && <CheckoutPage />}
@@ -174,6 +176,7 @@ function Servicedetail() {
           thaiDate={thaiDate}
           selectedTime={selectedTime}
           address={addressInfo}
+          detail={detail}
         ></ServiceFooterButton>
       </div>
     </>
