@@ -138,50 +138,31 @@ const CheckoutPage: React.FC = () => {
     <div className="flex justify-center w-[735px] h-[auto] bg-white rounded-lg border border-zinc-300">
       <div>
         <h3 className="text-gray-700 py-4">ชำระเงิน</h3>
-        <div className="flex flex-row">
-          <div className="flex flex-row">
-            <button
-              id="creditcard-btn"
-              onClick={() => handlePaymentMethodChange("card")}
-              className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 hover:bg-white hover:text-blue-500 focus:bg-blue-400 hover:border-blue-500
-                  focus:blue-500 ${paymentMethod === "card" ? "" : ""}`}
-            >
-              <div className="w-[35px] h-[35px] relative" />
+        <div className="flex justify-between">
+          <button
+            id="creditcard-btn"
+            onClick={() => handlePaymentMethodChange("card")}
+            className="flex flex-col items-center justify-evenly w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 hover:bg-white hover:text-blue-500 hover:font-medium  hover:border-blue-600 focus:bg-blue-100 focus:text-blue-600 focus:border-blue-500"
+          >
+            <img src={creditcardIcon} alt="Credit Card Icon" className="gray" />
+            <img
+              src={creditcardBlueIcon}
+              alt="Credit Card Icon"
+              className="blue"
+            />
 
-              <img
-                src={creditcardIcon}
-                alt="Credit Card Icon"
-                className="gray"
-              />
-              <img
-                src={creditcardBlueIcon}
-                alt="Credit Card Icon"
-                className="blue"
-              />
+            <h5>บัตรเครดิต</h5>
+          </button>
 
-              <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
-                บัตรเครดิต
-              </span>
-            </button>
-
-            <button
-              id="qrcode-btn"
-              onClick={() => handlePaymentMethodChange("promptpay")}
-              className={`ml-[24px] flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 hover:bg-white hover:text-blue-500 focus:bg-blue-400 hover:border-blue-500 
-                  focus:text-blue-500${
-                    paymentMethod === "promptpay" ? "" : ""
-                  }`}
-            >
-              <div className="w-[35px] h-[35px] relative" />
-
-              <img src={qrCodeIcon} alt="QR Code Icon" className="gray" />
-              <img src={qrCodeBlueIcon} alt="QR Code Icon" className="blue" />
-
-              <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
-                พร้อมเพ
-              </span>
-            </button>
-          </div>
+          <button
+            id="qrcode-btn"
+            onClick={() => handlePaymentMethodChange("promptpay")}
+            className="flex flex-col items-center justify-evenly w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 hover:bg-white hover:text-blue-600 focus:bg-blue-100 hover:border-blue-500 focus:text-blue-600 focus:border-blue-500"
+          >
+            <img src={qrCodeIcon} alt="QR Code Icon" className="gray" />
+            <img src={qrCodeBlueIcon} alt="QR Code Icon" className="blue" />
+            <h5>พร้อมเพย์</h5>
+          </button>
         </div>
 
         {paymentMethod === "card" && (
@@ -198,10 +179,10 @@ const CheckoutPage: React.FC = () => {
                 value={formData.creditCardNumber}
                 onChange={handleInputChange}
                 placeholder="กรุณากรอกหมายเลขบัตรเครดิต"
-                className="w-[686px] h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700"
+                className="w-[686px] h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
               />
               {errors.creditCardNumber && (
-                <p className="text-red-500">{errors.creditCardNumber}</p>
+                <p className="text-utility-red">{errors.creditCardNumber}</p>
               )}
             </div>
             <div className="w-[686px] pt-[36px] flex flex-col gap-1">
@@ -216,10 +197,10 @@ const CheckoutPage: React.FC = () => {
                 value={formData.cardHolderName}
                 onChange={handleInputChange}
                 placeholder="กรุณากรอกชื่อบนบัตร"
-                className="w-[686px] h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700"
+                className="w-[686px] h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
               />
               {errors.cardHolderName && (
-                <p className="text-red-500">{errors.cardHolderName}</p>
+                <p className="text-utility-red">{errors.cardHolderName}</p>
               )}
             </div>
             <div className="w-[686px] h-auto pt-[36px] flex flex-row">
@@ -235,11 +216,11 @@ const CheckoutPage: React.FC = () => {
                   value={formData.expirationDate}
                   onChange={handleInputChange}
                   placeholder="MM/YY"
-                  className="w-[331px] h-auto px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700"
+                  className="w-[331px] h-auto px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
                   maxLength={5}
                 />
                 {errors.expirationDate && (
-                  <p className="text-red-500">{errors.expirationDate}</p>
+                  <p className="text-utility-red">{errors.expirationDate}</p>
                 )}
               </div>
               <div className="w-[331px] h-[72px] flex-col justify-start items-start gap-1 inline-flex ml-[24px]">
@@ -254,10 +235,10 @@ const CheckoutPage: React.FC = () => {
                   value={formData.cvc}
                   onChange={handleInputChange}
                   placeholder="xxx"
-                  className="w-[331px] h-auto px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700"
+                  className="w-[331px] h-auto px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
                   maxLength={3}
                 />
-                {errors.cvc && <p className="text-red-500">{errors.cvc}</p>}
+                {errors.cvc && <p className="text-utility-red">{errors.cvc}</p>}
               </div>
             </div>
           </div>
@@ -276,7 +257,6 @@ const CheckoutPage: React.FC = () => {
         )}
         <Separator className="mt-12 mb-9" />
         <div className="pb-10">
-          {/* <div className="w-full grow shrink basis-0 h-px bg-gray-300 mt-[44px]" /> */}
           <h5 className="text-slate-900 pb-1">Promotion Code</h5>
           <input
             type="text"
@@ -284,7 +264,7 @@ const CheckoutPage: React.FC = () => {
             value={discountCode}
             onChange={handleInputChange}
             placeholder="กรุณากรอกโค้ดส่วนลด (ถ้ามี)"
-            className="w-[331px] h-[auto] px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700"
+            className="w-[331px] h-[auto] px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
           />
           <button
             className="ButtonPrimaryMedium w-[90px] h-11 px-6 py-2.5 ml-[24px] bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex text-white"
