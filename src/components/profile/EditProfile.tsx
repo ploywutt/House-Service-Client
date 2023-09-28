@@ -55,89 +55,10 @@ function EditProfile(props) {
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
     setUrl(URL.createObjectURL(event.target.files[0]));
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // const { name } = event.target;
-    // setInputValues({
-    //   ...inputValues,
-    //   [name]: `${URL.createObjectURL(event.target.files[0])}`,
-    // });
-  };
-
-  const handleUpload = async () => {
-    try {
-      // Step 1: Remove the existing avatar image
-      const { error: removeError } = await supabase.storage
-        .from("testing")
-        .remove([`HomeService/avatar/${currentUserEmail}`]);
-
-      if (removeError) {
-        throw removeError;
-      }
-
-      console.log("Step 1: File removed successfully");
-
-      // Step 2: Upload the new avatar image
-      const { data, error: uploadError } = await supabase.storage
-        .from("testing")
-        .upload(`HomeService/avatar/${currentUserEmail}`, file);
-
-      if (uploadError) {
-        throw uploadError;
-      }
-
-      console.log("Step 2: File uploaded successfully", data);
-
-      // Step 3: Download the new avatar image
-      const { data: downloadedData, error: downloadError } =
-        await supabase.storage
-          .from("testing")
-          .download(`HomeService/avatar/${currentUserEmail}`);
-
-      if (downloadError) {
-        throw downloadError;
-      }
-
-      console.log("Step 3: File downloaded successfully", downloadedData);
-
-      // Step 4: Set the new avatar URL in the state
-      setInputValues({
-        ...inputValues,
-        avatar_url: `${URL.createObjectURL(downloadedData)}`,
-      });
-
-      // const createdUrl = URL.createObjectURL(downloadedData);
-      // console.log("createdUrl", createdUrl);
-
-      // const { data: updateUrlData, error: updateUrlError } = await supabase
-      //   .from("Customer_profile")
-      //   .update({ avatar_url: createdUrl });
-
-      // if (updateUrlError) {
-      //   throw updateUrlError;
-      // }
-
-      console.log("Step 4: Avatar URL set in state", url);
-
-      Step 5: Update user profile with input values
-      const response = await axios.put(
-        `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
-        inputValues
-      );
-
-      // console.log("Step 5: User profile updated successfully", response.data);
-    } catch (error) {
-      console.error("Error during avatar upload/update:", error.message);
-    }
-=======
->>>>>>> 11ed62e (fix(EditProfile): change the path to folder instead of file)
-=======
->>>>>>> 11ed62e99afbdd69963dcddfbf5fc9bcce5c4974
   };
 
   const handleUpdate = async () => {
     if (file) {
-<<<<<<< HEAD
       if (inputValues.newPassword !== inputValues.reNewPassword) {
         setRePasswordError("Passwords do not match.");
         return; // Do not proceed with the update
@@ -191,45 +112,17 @@ function EditProfile(props) {
       }
 
       try {
-=======
-      try {
-        const { data: uploadData, error: uploadFileError } =
-          await supabase.storage
-            .from("testing")
-            .upload(
-              `HomeService/avatar/${currentUserEmail}/${file.name}`,
-              file,
-              {
-                upsert: true,
-              }
-            );
-        if (uploadFileError) throw uploadFileError;
-        console.log("Step 1: Upload file successfully", uploadData);
-      } catch (error) {
-        console.log("Upload Error", error.message);
-      }
-
-      try {
->>>>>>> 11ed62e99afbdd69963dcddfbf5fc9bcce5c4974
         const { data } = supabase.storage
           .from("testing")
           .getPublicUrl(`HomeService/avatar/${currentUserEmail}/${file.name}`);
 
-<<<<<<< HEAD
         console.log("Step 4: Get URL successfully", data.publicUrl);
-=======
-        console.log("Step 2: Get URL successfully", data.publicUrl);
->>>>>>> 11ed62e99afbdd69963dcddfbf5fc9bcce5c4974
 
         const response = await axios.put(
           `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
           { avatar_url: data.publicUrl }
         );
-<<<<<<< HEAD
         console.log("Step 5: Update URL successfully", response);
-=======
-        console.log("Step 3: Update successfully", response);
->>>>>>> 11ed62e99afbdd69963dcddfbf5fc9bcce5c4974
       } catch (error) {
         console.log("Get URL Error", error.message);
       }
@@ -239,7 +132,6 @@ function EditProfile(props) {
           `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
           inputValues
         );
-<<<<<<< HEAD
         console.log("Step 6: Update input change successfully", data);
       } catch (error) {
         console.log("Update error", error.message);
@@ -263,13 +155,7 @@ function EditProfile(props) {
         );
       } catch (error) {
         console.log("Update error", error.message);
-=======
-        console.log("Step 3: Update successfully", data);
-      } catch (error) {
-        console.log("Update error", error.message);
->>>>>>> 11ed62e99afbdd69963dcddfbf5fc9bcce5c4974
       }
-    } else {
     }
   };
 
