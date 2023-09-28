@@ -134,6 +134,41 @@ function EditProfile(props) {
 
   const handleUpdate = async () => {
     if (file) {
+      if (inputValues.newPassword !== inputValues.reNewPassword) {
+        setRePasswordError("Passwords do not match.");
+        return; // Do not proceed with the update
+      } else {
+        setRePasswordError("");
+      }
+
+      try {
+        const { data: listData, error: listError } = await supabase.storage
+          .from("testing")
+          .list(`HomeService/avatar/${currentUserEmail}/`);
+
+        if (listError) throw listError;
+        console.log("Step 1: List Data", listData);
+
+        await Promise.all(
+          listData.map(async (item) => {
+            try {
+              const { error: removeError } = await supabase.storage
+                .from("testing")
+                .remove([
+                  `HomeService/avatar/${currentUserEmail}/${item.name}`,
+                ]);
+
+              if (removeError) throw removeError;
+              console.log("Step 2: Remove files");
+            } catch (removeError) {
+              console.log("Remove Error:", removeError);
+            }
+          })
+        );
+      } catch (error) {
+        console.error("Error listing files:", error);
+      }
+
       try {
         const { data: uploadData, error: uploadFileError } =
           await supabase.storage
@@ -146,7 +181,7 @@ function EditProfile(props) {
               }
             );
         if (uploadFileError) throw uploadFileError;
-        console.log("Step 1: Upload file successfully", uploadData);
+        console.log("Step 3: Upload file successfully", uploadData);
       } catch (error) {
         console.log("Upload Error", error.message);
       }
@@ -156,13 +191,13 @@ function EditProfile(props) {
           .from("testing")
           .getPublicUrl(`HomeService/avatar/${currentUserEmail}/${file.name}`);
 
-        console.log("Step 2: Get URL successfully", data.publicUrl);
+        console.log("Step 4: Get URL successfully", data.publicUrl);
 
         const response = await axios.put(
           `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
           { avatar_url: data.publicUrl }
         );
-        console.log("Step 3: Update successfully", response);
+        console.log("Step 5: Update URL successfully", response);
       } catch (error) {
         console.log("Get URL Error", error.message);
       }
@@ -172,11 +207,30 @@ function EditProfile(props) {
           `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
           inputValues
         );
-        console.log("Step 3: Update successfully", data);
+        console.log("Step 6: Update input change successfully", data);
       } catch (error) {
         console.log("Update error", error.message);
       }
     } else {
+      if (inputValues.newPassword !== inputValues.reNewPassword) {
+        setRePasswordError("Passwords do not match.");
+        return; // Do not proceed with the update
+      } else {
+        setRePasswordError("");
+      }
+
+      try {
+        const { data } = await axios.put(
+          `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
+          inputValues
+        );
+        console.log(
+          "Step 1 (without file): Update input change successfully",
+          data
+        );
+      } catch (error) {
+        console.log("Update error", error.message);
+      }
     }
   };
 
