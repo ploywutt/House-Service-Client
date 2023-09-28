@@ -21,12 +21,6 @@ function EditProfile(props) {
   const phone = props.fetchData[0]?.phone || "";
   const email = props.fetchData[0]?.email || "";
   const urlFromSPB = props.fetchData[0]?.avatar_url || avatar;
-  // const urlFromSPB = `https://xgtmarqfhoqpodfgxvse.supabase.co/storage/v1/object/public/testing/HomeService/avatar/${currentUserEmail}`;
-  // const imagePath = 'https://xgtmarqfhoqpodfgxvse.supabase.co/storage/v1/object/public/testing/HomeService/avatar/admin@mail.com'
-
-  // useEffect(() => {
-  //   const urlFromSPB = props.fetchData[0]?.avatar_url || avatar;
-  // }, []);
 
   useEffect(() => {
     setUrl(urlFromSPB);
@@ -41,7 +35,6 @@ function EditProfile(props) {
   const [rePasswordError, setRePasswordError] = useState("");
 
   console.log(`url: ${url}`);
-
   console.log("inputValues", inputValues);
   console.log("file", file);
 
@@ -62,117 +55,53 @@ function EditProfile(props) {
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
     setUrl(URL.createObjectURL(event.target.files[0]));
-    // const { name } = event.target;
-    // setInputValues({
-    //   ...inputValues,
-    //   [name]: `${URL.createObjectURL(event.target.files[0])}`,
-    // });
-  };
-
-  const handleUpload = async () => {
-    try {
-      // Step 1: Remove the existing avatar image
-      const { error: removeError } = await supabase.storage
-        .from("testing")
-        .remove([`HomeService/avatar/${currentUserEmail}`]);
-
-      if (removeError) {
-        throw removeError;
-      }
-
-      console.log("Step 1: File removed successfully");
-
-      // Step 2: Upload the new avatar image
-      const { data, error: uploadError } = await supabase.storage
-        .from("testing")
-        .upload(`HomeService/avatar/${currentUserEmail}`, file);
-
-      if (uploadError) {
-        throw uploadError;
-      }
-
-      console.log("Step 2: File uploaded successfully", data);
-
-      // Step 3: Download the new avatar image
-      const { data: downloadedData, error: downloadError } =
-        await supabase.storage
-          .from("testing")
-          .download(`HomeService/avatar/${currentUserEmail}`);
-
-      if (downloadError) {
-        throw downloadError;
-      }
-
-      console.log("Step 3: File downloaded successfully", downloadedData);
-
-      // Step 4: Set the new avatar URL in the state
-      setInputValues({
-        ...inputValues,
-        avatar_url: `${URL.createObjectURL(downloadedData)}`,
-      });
-
-      // const createdUrl = URL.createObjectURL(downloadedData);
-      // console.log("createdUrl", createdUrl);
-
-      // const { data: updateUrlData, error: updateUrlError } = await supabase
-      //   .from("Customer_profile")
-      //   .update({ avatar_url: createdUrl });
-
-      // if (updateUrlError) {
-      //   throw updateUrlError;
-      // }
-
-      console.log("Step 4: Avatar URL set in state", url);
-
-      Step 5: Update user profile with input values
-      const response = await axios.put(
-        `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
-        inputValues
-      );
-
-      console.log("Step 5: User profile updated successfully", response.data);
-    } catch (error) {
-      console.error("Error during avatar upload/update:", error.message);
-    }
   };
 
   const handleUpdate = async () => {
-    // Step 1: Check if a file is selected for avatar update
     if (file) {
-      // Step 2: Check if newPassword and reNewPassword match
-      if (inputValues.newPassword !== inputValues.reNewPassword) {
-        setRePasswordError("Passwords do not match.");
-        return; // Do not proceed with the update
-      } else {
-        setRePasswordError("");
-      }
-
-      // Step 3: Upload the new avatar and update the profile
-      handleUpload();
-    } else {
-      // Step 4: Check if newPassword and reNewPassword match
-      if (inputValues.newPassword !== inputValues.reNewPassword) {
-        setRePasswordError("Passwords do not match.");
-        return; // Do not proceed with the update
-      } else {
-        setRePasswordError("");
+      try {
+        const { data: uploadData, error: uploadFileError } =
+          await supabase.storage
+            .from("testing")
+            .upload(
+              `HomeService/avatar/${currentUserEmail}/${file.name}`,
+              file,
+              {
+                upsert: true,
+              }
+            );
+        if (uploadFileError) throw uploadFileError;
+        console.log("Step 1: Upload file successfully", uploadData);
+      } catch (error) {
+        console.log("Upload Error", error.message);
       }
 
       try {
-        // Step 5: Update user profile without avatar change
+        const { data } = supabase.storage
+          .from("testing")
+          .getPublicUrl(`HomeService/avatar/${currentUserEmail}/${file.name}`);
+
+        console.log("Step 2: Get URL successfully", data.publicUrl);
+
         const response = await axios.put(
+          `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
+          { avatar_url: data.publicUrl }
+        );
+        console.log("Step 3: Update successfully", response);
+      } catch (error) {
+        console.log("Get URL Error", error.message);
+      }
+
+      try {
+        const { data } = await axios.put(
           `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
           inputValues
         );
-
-        // Step 6: Log the response data
-        console.log("Step 6: User profile updated successfully", response.data);
+        console.log("Step 3: Update successfully", data);
       } catch (error) {
-        console.log(
-          "Error during profile update:",
-          error.response.data.message
-        );
+        console.log("Update error", error.message);
       }
+    } else {
     }
   };
 
