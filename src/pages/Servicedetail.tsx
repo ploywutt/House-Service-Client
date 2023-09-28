@@ -146,7 +146,9 @@ function Servicedetail() {
                       setDetail={setDetail}
                     />
                   )}
-                  {currentStep === 3 && <CheckoutPage />}
+                  {currentStep === 3 && (
+                    <CheckoutPage totalprice={totalprice} />
+                  )}
                   <OrderDetail
                     totalprice={totalprice}
                     counts={counts}

@@ -1,11 +1,13 @@
-import React, { useState, ChangeEvent } from 'react';
-import { number, expirationDate, cvv } from 'card-validator';
+import React, { useState, ChangeEvent } from "react";
+import { number, expirationDate, cvv } from "card-validator";
 import creditcardIcon from "../assets/icon/creditcard.svg";
-import creditcardBlueIcon from '../assets/icon/creditcardBlue.svg'
+import creditcardBlueIcon from "../assets/icon/creditcardBlue.svg";
 import qrCodeIcon from "../assets/icon/qr_code.svg";
-import qrCodeBlueIcon from '../assets/icon/qrcodeblue.svg'
+import qrCodeBlueIcon from "../assets/icon/qrcodeblue.svg";
+import axios from "axios";
 
-import '../assets/css/checkout.css'
+import "../assets/css/checkout.css";
+// import useCode from "@/hook/useCode";
 
 interface FormData {
   creditCardNumber: string;
@@ -22,7 +24,7 @@ interface Errors {
   cvc: string;
 }
 
-const CheckoutPage: React.FC = () => {
+const CheckoutPage: React.FC = (props: { totalprice: number }) => {
   const [paymentMethod, setPaymentMethod] = useState<string>("card");
   const [formData, setFormData] = useState<FormData>({
     creditCardNumber: "",
@@ -32,13 +34,13 @@ const CheckoutPage: React.FC = () => {
     discountCode: "",
   });
   const [errors, setErrors] = useState<Errors>({
-    creditCardNumber: '',
-    cardHolderName: '',
-    expirationDate: '',
-    cvc: '',
+    creditCardNumber: "",
+    cardHolderName: "",
+    expirationDate: "",
+    cvc: "",
   });
 
-  const [discountCode, setDiscountCode] = useState<string>('');
+  const [discountCode, setDiscountCode] = useState<string>("");
   const [isCodeApplied, setIsCodeApplied] = useState<boolean>(false);
 
   const handlePaymentMethodChange = (method: string) => {
@@ -52,37 +54,37 @@ const CheckoutPage: React.FC = () => {
     const updatedErrors = { ...errors };
 
     switch (name) {
-      case 'creditCardNumber':
+      case "creditCardNumber":
         const cardNumberValidation = number(value);
         if (!cardNumberValidation.isValid) {
-          updatedErrors.creditCardNumber = 'หมายเลขบัตรไม่ถูกต้อง';
+          updatedErrors.creditCardNumber = "หมายเลขบัตรไม่ถูกต้อง";
         } else {
-          updatedErrors.creditCardNumber = '';
+          updatedErrors.creditCardNumber = "";
         }
         break;
-      case 'cardHolderName':
-        if (value.trim() === '') {
-          updatedErrors.cardHolderName = 'ชื่อบนบัตรไม่ถูกต้อง';
+      case "cardHolderName":
+        if (value.trim() === "") {
+          updatedErrors.cardHolderName = "ชื่อบนบัตรไม่ถูกต้อง";
         } else if (value.length > 30) {
-          updatedErrors.cardHolderName = '';
+          updatedErrors.cardHolderName = "";
         } else {
-          updatedErrors.cardHolderName = '';
+          updatedErrors.cardHolderName = "";
         }
         break;
-      case 'expirationDate':
+      case "expirationDate":
         const expirationDateValidation = expirationDate(value);
         if (!expirationDateValidation.isValid) {
-          updatedErrors.expirationDate = 'วันหมดอายุไม่ถูกต้อง MM/YY';
+          updatedErrors.expirationDate = "วันหมดอายุไม่ถูกต้อง MM/YY";
         } else {
-          updatedErrors.expirationDate = '';
+          updatedErrors.expirationDate = "";
         }
         break;
-      case 'cvc':
+      case "cvc":
         const cvvValidation = cvv(value);
         if (!cvvValidation.isValid) {
-          updatedErrors.cvc = 'รหัส CVC / CVV ไม่ถูกต้อง';
+          updatedErrors.cvc = "รหัส CVC / CVV ไม่ถูกต้อง";
         } else {
-          updatedErrors.cvc = '';
+          updatedErrors.cvc = "";
         }
         break;
       default:
@@ -117,11 +119,10 @@ const CheckoutPage: React.FC = () => {
   //   }
   // }, [codeValidationResult]);
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (paymentMethod === 'card') {
+    if (paymentMethod === "card") {
       if (
         errors.creditCardNumber ||
         errors.cardHolderName ||
@@ -130,52 +131,91 @@ const CheckoutPage: React.FC = () => {
       ) {
         return;
       }
-    } else if (paymentMethod === 'promptpay') {}
+    } else if (paymentMethod === "promptpay") {
+    }
+  };
+
+  // ---------------------------------
+
+  // const { setCodeName, codeName } = useCode();
+
+  const [codeName, setCodeName] = useState<string>();
+  const [promoData, setPromoData] = useState<any>();
+  const [totalPriceWithDiscount, setTotalPriceWithDiscount] =
+    useState<number>();
+
+  console.log("codeName", codeName);
+
+  const handleOnClickPromotionCode = async () => {
+    try {
+      console.log("codeName in onCLick", codeName);
+      const { data } = await axios.get(
+        `http://localhost:4000/v1/user/promotions/${codeName}`
+      );
+      console.log("Promo Data:", data.data);
+      setPromoData(data.data);
+    } catch (error) {
+      console.error("Promo fetch error:", error);
+    }
+
+    const discount = data.data.discount_amount;
+    if (promoData.type === "Fixed") {
+      const totalPriceWithDiscount = props.totalprice - discount;
+      setTotalPriceWithDiscount(totalPriceWithDiscount);
+    } else if (promoData.type === "Percent") {
+      const totalPriceWithDiscount =
+        props.totalprice - props.totalprice * (discount / 100);
+      setTotalPriceWithDiscount(totalPriceWithDiscount);
+    }
   };
 
   return (
     <div className="flex justify-center pt-12">
-          <div className="w-[735px] h-[auto] bg-white rounded-lg border border-zinc-300 p-5">
-            <h1 className="text-grey-700cr">ชำระเงิน</h1>
-            <div className="flex flex-row">
-              <div className="flex flex-row">
-                <button
-                  id='creditcard-btn'
-                  onClick={() => handlePaymentMethodChange('card')}
-                  className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 hover:bg-white hover:text-blue-500 focus:bg-blue-400 hover:border-blue-500
-                  focus:blue-500 ${
-                    paymentMethod === 'card' ? '' : ''
-                  }`}
-                >
-                  <div className="w-[35px] h-[35px] relative" />
-                  
-                  <img src={creditcardIcon} alt="Credit Card Icon" className='gray'/> 
-                  <img src={creditcardBlueIcon} alt="Credit Card Icon" className='blue'/> 
+      <div className="w-[735px] h-[auto] bg-white rounded-lg border border-zinc-300 p-5">
+        <h1 className="text-grey-700cr">ชำระเงิน</h1>
+        <div className="flex flex-row">
+          <div className="flex flex-row">
+            <button
+              id="creditcard-btn"
+              onClick={() => handlePaymentMethodChange("card")}
+              className={`flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 hover:bg-white hover:text-blue-500 focus:bg-blue-400 hover:border-blue-500
+                  focus:blue-500 ${paymentMethod === "card" ? "" : ""}`}
+            >
+              <div className="w-[35px] h-[35px] relative" />
 
+              <img
+                src={creditcardIcon}
+                alt="Credit Card Icon"
+                className="gray"
+              />
+              <img
+                src={creditcardBlueIcon}
+                alt="Credit Card Icon"
+                className="blue"
+              />
 
-                  <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
-                    บัตรเครดิต
-                  </span>
-                </button>
+              <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
+                บัตรเครดิต
+              </span>
+            </button>
 
-                <button
-                  id='qrcode-btn'
-                  onClick={() => handlePaymentMethodChange('promptpay')}
-                  className={`ml-[24px] flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 hover:bg-white hover:text-blue-500 focus:bg-blue-400 hover:border-blue-500 
+            <button
+              id="qrcode-btn"
+              onClick={() => handlePaymentMethodChange("promptpay")}
+              className={`ml-[24px] flex flex-col items-center justify-center w-[331px] h-[86px] py-[13px] rounded-[5px] border border-gray-300 hover:bg-white hover:text-blue-500 focus:bg-blue-400 hover:border-blue-500 
                   focus:text-blue-500${
-                    paymentMethod === 'promptpay' ? '' : ''
+                    paymentMethod === "promptpay" ? "" : ""
                   }`}
-                > 
-                  <div className="w-[35px] h-[35px] relative" />
+            >
+              <div className="w-[35px] h-[35px] relative" />
 
-                  <img src={qrCodeIcon} alt="QR Code Icon" className="gray"/> 
-                  <img src={qrCodeBlueIcon} alt="QR Code Icon" className="blue"/> 
+              <img src={qrCodeIcon} alt="QR Code Icon" className="gray" />
+              <img src={qrCodeBlueIcon} alt="QR Code Icon" className="blue" />
 
-
-                  <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
-                    พร้อมเพ
-                  </span>
-                </button>
+              <span className="ml-[10px] text-sm font-semibold font-[Prompt]">
+                พร้อมเพ
+              </span>
+            </button>
           </div>
         </div>
 
@@ -233,8 +273,7 @@ const CheckoutPage: React.FC = () => {
               </div>
               <div className="w-[331px] h-[72px] flex-col justify-start items-start gap-1 inline-flex ml-[24px]">
                 <label htmlFor="cvc" className="">
-                  รหัส CVC / CVV{' '}
-                  <span className="text-utility-red">*</span>{' '}
+                  รหัส CVC / CVV <span className="text-utility-red">*</span>{" "}
                 </label>
                 <input
                   type="text"
@@ -245,24 +284,22 @@ const CheckoutPage: React.FC = () => {
                   className="w-[331px] h-auto px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex"
                   maxLength={3}
                 />
-                {errors.cvc && (
-                  <p className="text-red-500">{errors.cvc}</p>
-                )}
+                {errors.cvc && <p className="text-red-500">{errors.cvc}</p>}
               </div>
             </div>
           </div>
         )}
 
         {paymentMethod === "promptpay" && (
-                <div>
-                  <h3>Enter PromptPay Info</h3>
-                  <input
-                      type="text"
-                      name="promptPayId"
-                      value={formData.promptPayId}
-                      onChange={handleInputChange}
-                    />
-                </div>
+          <div>
+            <h3>Enter PromptPay Info</h3>
+            <input
+              type="text"
+              name="promptPayId"
+              value={formData.promptPayId}
+              onChange={handleInputChange}
+            />
+          </div>
         )}
 
         <div>
@@ -271,15 +308,17 @@ const CheckoutPage: React.FC = () => {
           <input
             type="text"
             name="discountCode"
-            value={discountCode}
-            onChange={handleInputChange}
+            value={codeName}
+            onChange={() => {
+              setCodeName(event.target.value);
+            }}
             placeholder="กรุณากรอกโค้ดส่วนลด (ถ้ามี)"
             className="w-[331px] h-[auto] px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex"
           />
 
           <button
             className="ButtonPrimaryMedium w-[90px] h-11 px-6 py-2.5 ml-[24px] bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex text-white"
-            onClick={handleUseCode}
+            onClick={handleOnClickPromotionCode}
           >
             ใช้โค้ด
           </button>
@@ -290,4 +329,3 @@ const CheckoutPage: React.FC = () => {
 };
 
 export default CheckoutPage;
- 
