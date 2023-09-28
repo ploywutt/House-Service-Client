@@ -1,10 +1,12 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { number, expirationDate, cvv } from "card-validator";
 import creditcardIcon from "../assets/icon/creditcard.svg";
 import creditcardBlueIcon from "../assets/icon/creditcardBlue.svg";
 import qrCodeIcon from "../assets/icon/qr_code.svg";
 import qrCodeBlueIcon from "../assets/icon/qrcodeblue.svg";
 import { Separator } from "../components/ui/separator";
+
+import axios from "axios";
 
 import "../assets/css/checkout.css";
 
@@ -23,7 +25,7 @@ interface Errors {
   cvc: string;
 }
 
-const CheckoutPage: React.FC = () => {
+const CheckoutPage: React.FC = (props: { totalprice: number }) => {
   const [paymentMethod, setPaymentMethod] = useState<string>("card");
   const [formData, setFormData] = useState<FormData>({
     creditCardNumber: "",
@@ -133,6 +135,46 @@ const CheckoutPage: React.FC = () => {
     } else if (paymentMethod === "promptpay") {
     }
   };
+
+  // ---------------------------------
+
+  // const { setCodeName, codeName } = useCode();
+
+  const [codeName, setCodeName] = useState<string>();
+  const [promoData, setPromoData] = useState<any>();
+  const [discount, setDiscount] = useState<number>();
+  const [type, setType] = useState<string>();
+  const [totalPriceWithDiscount, setTotalPriceWithDiscount] =
+    useState<number>();
+
+  console.log("codeName", codeName);
+  console.log("promoData state", promoData);
+  console.log("totalPriceWithDiscount", totalPriceWithDiscount);
+
+  const handleOnClickPromotionCode = async () => {
+    try {
+      console.log("codeName in onCLick", codeName);
+      const { data } = await axios.get(
+        `http://localhost:4000/v1/user/promotions/${codeName}`
+      );
+      console.log("Promo Data fetch:", data.data);
+      setPromoData(data.data);
+    } catch (error) {
+      console.error("Promo fetch error:", error);
+    }
+  };
+
+  useEffect(() => {
+    const discount = promoData?.discount_amount;
+    if (promoData?.type === "Fixed") {
+      const totalPriceWithDiscount = props.totalprice - discount;
+      setTotalPriceWithDiscount(totalPriceWithDiscount);
+    } else if (promoData?.type === "Percent") {
+      const totalPriceWithDiscount =
+        props.totalprice - props.totalprice * (discount / 100);
+      setTotalPriceWithDiscount(totalPriceWithDiscount);
+    }
+  }, [promoData]);
 
   return (
     <div className="flex justify-center w-[735px] h-[auto] bg-white rounded-lg border border-zinc-300">
@@ -261,14 +303,16 @@ const CheckoutPage: React.FC = () => {
           <input
             type="text"
             name="discountCode"
-            value={discountCode}
-            onChange={handleInputChange}
+            value={codeName}
+            onChange={() => {
+              setCodeName(event.target.value);
+            }}
             placeholder="กรุณากรอกโค้ดส่วนลด (ถ้ามี)"
             className="w-[331px] h-[auto] px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
           />
           <button
             className="ButtonPrimaryMedium w-[90px] h-11 px-6 py-2.5 ml-[24px] bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex text-white"
-            onClick={handleUseCode}
+            onClick={handleOnClickPromotionCode}
           >
             ใช้โค้ด
           </button>
