@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { number, expirationDate, cvv } from "card-validator";
 import creditcardIcon from "../assets/icon/creditcard.svg";
 import creditcardBlueIcon from "../assets/icon/creditcardBlue.svg";
@@ -135,6 +135,46 @@ const CheckoutPage: React.FC = (props: { totalprice: number }) => {
     } else if (paymentMethod === "promptpay") {
     }
   };
+
+  // ---------------------------------
+
+  // const { setCodeName, codeName } = useCode();
+
+  const [codeName, setCodeName] = useState<string>();
+  const [promoData, setPromoData] = useState<any>();
+  const [discount, setDiscount] = useState<number>();
+  const [type, setType] = useState<string>();
+  const [totalPriceWithDiscount, setTotalPriceWithDiscount] =
+    useState<number>();
+
+  console.log("codeName", codeName);
+  console.log("promoData state", promoData);
+  console.log("totalPriceWithDiscount", totalPriceWithDiscount);
+
+  const handleOnClickPromotionCode = async () => {
+    try {
+      console.log("codeName in onCLick", codeName);
+      const { data } = await axios.get(
+        `http://localhost:4000/v1/user/promotions/${codeName}`
+      );
+      console.log("Promo Data fetch:", data.data);
+      setPromoData(data.data);
+    } catch (error) {
+      console.error("Promo fetch error:", error);
+    }
+  };
+
+  useEffect(() => {
+    const discount = promoData?.discount_amount;
+    if (promoData?.type === "Fixed") {
+      const totalPriceWithDiscount = props.totalprice - discount;
+      setTotalPriceWithDiscount(totalPriceWithDiscount);
+    } else if (promoData?.type === "Percent") {
+      const totalPriceWithDiscount =
+        props.totalprice - props.totalprice * (discount / 100);
+      setTotalPriceWithDiscount(totalPriceWithDiscount);
+    }
+  }, [promoData]);
 
   return (
     <div className="flex justify-center w-[735px] h-[auto] bg-white rounded-lg border border-zinc-300">
