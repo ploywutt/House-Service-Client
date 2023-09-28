@@ -21,12 +21,6 @@ function EditProfile(props) {
   const phone = props.fetchData[0]?.phone || "";
   const email = props.fetchData[0]?.email || "";
   const urlFromSPB = props.fetchData[0]?.avatar_url || avatar;
-  // const urlFromSPB = `https://xgtmarqfhoqpodfgxvse.supabase.co/storage/v1/object/public/testing/HomeService/avatar/${currentUserEmail}`;
-  // const imagePath = 'https://xgtmarqfhoqpodfgxvse.supabase.co/storage/v1/object/public/testing/HomeService/avatar/admin@mail.com'
-
-  // useEffect(() => {
-  //   const urlFromSPB = props.fetchData[0]?.avatar_url || avatar;
-  // }, []);
 
   useEffect(() => {
     setUrl(urlFromSPB);
@@ -41,9 +35,8 @@ function EditProfile(props) {
   const [rePasswordError, setRePasswordError] = useState("");
 
   console.log(`url: ${url}`);
-
-  console.log(inputValues);
-  console.log(file);
+  console.log("inputValues", inputValues);
+  console.log("file", file);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -62,58 +55,6 @@ function EditProfile(props) {
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
     setUrl(URL.createObjectURL(event.target.files[0]));
-    // const { name } = event.target;
-    // setInputValues({
-    //   ...inputValues,
-    //   [name]: `${URL.createObjectURL(event.target.files[0])}`,
-    // });
-  };
-
-  const handleUpload = async () => {
-    try {
-      const { error } = await supabase.storage
-        .from("testing")
-        .remove([`HomeService/avatar/${currentUserEmail}`]);
-      if (error) throw error;
-    } catch (error) {
-      console.log(`remove: ${error.message}`);
-    }
-
-    try {
-      console.log("File deleted successfully");
-      const { data, error } = await supabase.storage
-        .from("testing")
-        .upload(`HomeService/avatar/${currentUserEmail}`, file);
-      console.log("File uploaded: ", data);
-      if (error) throw error;
-    } catch (error) {
-      console.log(`upload: ${error.message}`);
-    }
-
-    try {
-      const supabaseAvatarUrl = await supabase.storage
-        .from("testing")
-        .getPublicUrl(`HomeService/avatar/${currentUserEmail}`);
-
-      console.log(supabaseAvatarUrl.data.publicUrl);
-
-      setInputValues({
-        ...inputValues,
-        avatar_url: supabaseAvatarUrl.data.publicUrl,
-      });
-    } catch (error) {
-      console.log(`getPublicUrl: ${error.message}`);
-    }
-
-    try {
-      const response = await axios.put(
-        `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
-        inputValues
-      );
-      console.log(response.data.message);
-    } catch (error) {
-      console.log(`getPublicUrl: ${error.message}`);
-    }
   };
 
   const handleUpdate = async () => {
@@ -125,9 +66,77 @@ function EditProfile(props) {
         setRePasswordError("");
       }
 
-      handleUpload();
+      try {
+        const { data: listData, error: listError } = await supabase.storage
+          .from("testing")
+          .list(`HomeService/avatar/${currentUserEmail}/`);
+
+        if (listError) throw listError;
+        console.log("Step 1: List Data", listData);
+
+        await Promise.all(
+          listData.map(async (item) => {
+            try {
+              const { error: removeError } = await supabase.storage
+                .from("testing")
+                .remove([
+                  `HomeService/avatar/${currentUserEmail}/${item.name}`,
+                ]);
+
+              if (removeError) throw removeError;
+              console.log("Step 2: Remove files");
+            } catch (removeError) {
+              console.log("Remove Error:", removeError);
+            }
+          })
+        );
+      } catch (error) {
+        console.error("Error listing files:", error);
+      }
+
+      try {
+        const { data: uploadData, error: uploadFileError } =
+          await supabase.storage
+            .from("testing")
+            .upload(
+              `HomeService/avatar/${currentUserEmail}/${file.name}`,
+              file,
+              {
+                upsert: true,
+              }
+            );
+        if (uploadFileError) throw uploadFileError;
+        console.log("Step 3: Upload file successfully", uploadData);
+      } catch (error) {
+        console.log("Upload Error", error.message);
+      }
+
+      try {
+        const { data } = supabase.storage
+          .from("testing")
+          .getPublicUrl(`HomeService/avatar/${currentUserEmail}/${file.name}`);
+
+        console.log("Step 4: Get URL successfully", data.publicUrl);
+
+        const response = await axios.put(
+          `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
+          { avatar_url: data.publicUrl }
+        );
+        console.log("Step 5: Update URL successfully", response);
+      } catch (error) {
+        console.log("Get URL Error", error.message);
+      }
+
+      try {
+        const { data } = await axios.put(
+          `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
+          inputValues
+        );
+        console.log("Step 6: Update input change successfully", data);
+      } catch (error) {
+        console.log("Update error", error.message);
+      }
     } else {
-      // Check if newPassword and reNewPassword match
       if (inputValues.newPassword !== inputValues.reNewPassword) {
         setRePasswordError("Passwords do not match.");
         return; // Do not proceed with the update
@@ -136,13 +145,16 @@ function EditProfile(props) {
       }
 
       try {
-        const response = await axios.put(
+        const { data } = await axios.put(
           `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
           inputValues
         );
-        console.log(response.data.message);
+        console.log(
+          "Step 1 (without file): Update input change successfully",
+          data
+        );
       } catch (error) {
-        console.log(error.response.data.message);
+        console.log("Update error", error.message);
       }
     }
   };
