@@ -177,9 +177,7 @@ function AlertPayment(props) {
             </AlertDialogCancel>
             <AlertDialogAction className="w-[194px]" onClick={handleClick}>
               {t("alert_payment.alert_payment_confirm")}
-              {/* {isLoading ? (
-                <Loader2 className="mx-2 h-4 w-4 animate-spin" />
-              ) : null} */}
+          
             </AlertDialogAction>
           </AlertDialogFooter>
         )}
