@@ -49,13 +49,14 @@ export default function useFetchSubservice() {
     }
   };
 
-  console.log(counts);
+  console.log("counts hook", counts);
 
   const calculateTotalPrice = () => {
     return counts.reduce((total, item) => total + item.price * item.count, 0);
   };
 
   const totalprice = calculateTotalPrice();
+  console.log("totalprice hook", totalprice);
 
   // console.log(calculateTotalPrice());
   // console.log(`Hook: ${subservice}`);
