@@ -16,6 +16,7 @@ interface FormData {
   expirationDate: string;
   cvc: string;
   discountCode: string;
+  promptPayId: string;
 }
 
 interface Errors {
@@ -25,7 +26,14 @@ interface Errors {
   cvc: string;
 }
 
-const CheckoutPage: React.FC = (props: { totalprice: number }) => {
+interface CheckoutPageProps {
+  setOrderTotalPrice: (totalPrice: number) => void;
+  setType: (type: any) => void;
+  setDiscount: (discount: number) => void;
+  totalprice: number;
+}
+
+const CheckoutPage: React.FC<CheckoutPageProps> = (props) => {
   const [paymentMethod, setPaymentMethod] = useState<string>("card");
   const [formData, setFormData] = useState<FormData>({
     creditCardNumber: "",
@@ -33,6 +41,7 @@ const CheckoutPage: React.FC = (props: { totalprice: number }) => {
     expirationDate: "",
     cvc: "",
     discountCode: "",
+    promptPayId: "",
   });
   const [errors, setErrors] = useState<Errors>({
     creditCardNumber: "",
@@ -94,10 +103,10 @@ const CheckoutPage: React.FC = (props: { totalprice: number }) => {
     setErrors(updatedErrors);
   };
 
-  const handleUseCode = () => {
-    setIsCodeApplied(true);
-    checkPromotionCode(formData.discountCode);
-  };
+  // const handleUseCode = () => {
+  //   setIsCodeApplied(true);
+  //   checkPromotionCode(formData.discountCode);
+  // };
 
   // const checkPromotionCode = async (code) => {
   //   try {
@@ -120,21 +129,21 @@ const CheckoutPage: React.FC = (props: { totalprice: number }) => {
   //   }
   // }, [codeValidationResult]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
 
-    if (paymentMethod === "card") {
-      if (
-        errors.creditCardNumber ||
-        errors.cardHolderName ||
-        errors.expirationDate ||
-        errors.cvc
-      ) {
-        return;
-      }
-    } else if (paymentMethod === "promptpay") {
-    }
-  };
+  //   if (paymentMethod === "card") {
+  //     if (
+  //       errors.creditCardNumber ||
+  //       errors.cardHolderName ||
+  //       errors.expirationDate ||
+  //       errors.cvc
+  //     ) {
+  //       return;
+  //     }
+  //   } else if (paymentMethod === "promptpay") {
+  //   }
+  // };
 
   // ---------------------------------
 
@@ -149,6 +158,10 @@ const CheckoutPage: React.FC = (props: { totalprice: number }) => {
   console.log("promoData state", promoData);
   console.log("totalPriceWithDiscount", totalPriceWithDiscount);
   console.log("หน้า CheckoutPage", props.totalprice);
+
+  const handlePromoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCodeName(event.target.value);
+  };
 
   const handleOnClickPromotionCode = async () => {
     try {
@@ -308,9 +321,7 @@ const CheckoutPage: React.FC = (props: { totalprice: number }) => {
             type="text"
             name="discountCode"
             value={codeName}
-            onChange={() => {
-              setCodeName(event.target.value);
-            }}
+            onChange={handleInputChange}
             placeholder="กรุณากรอกโค้ดส่วนลด (ถ้ามี)"
             className="w-[331px] h-[auto] px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
           />

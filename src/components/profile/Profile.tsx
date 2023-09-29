@@ -11,7 +11,7 @@ import avatar from "../../assets/image/null-avatar.svg";
 
 import { useTranslation } from "react-i18next";
 
-function Profile(props) {
+function Profile(props: { fetchData: any }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   // const currentUserEmail = useFetchUserEmail();
