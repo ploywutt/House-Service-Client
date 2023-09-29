@@ -6,7 +6,7 @@ import ServiceFooterButton from "@/components/service/servicefooterbutton";
 
 import Subservice from "../components/service/Subservice";
 import ClientInput from "@/components/ClientInput";
-import CheckoutPage from "./CheckoutPage";
+// import CheckoutPage from "./CheckoutPage";
 import OrderDetail from "../components/OrderDetail";
 
 import useStepper from "@/hook/useStepper";
@@ -18,6 +18,18 @@ import usePathname from "@/hook/usePathname";
 import { useEffect } from "react";
 
 import supabase from "@/auth/supabaseauth";
+import CheckoutForm from "./PaymentForm";
+
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+import axios from "axios";
+import { useState } from "react";
+const stripePromise = loadStripe(
+  'pk_test_51NoyonCDxlniS9dCBN6RYaHIX5nk6GSeZL1WWdG5ve8gDmXgivmABDRW1fyzpye5n4Bu7KOHJUWLo9dZUTwHS9nx00aaI9Z2WZ'
+);
+
+
 
 function Servicedetail() {
   const { pathname, navigate } = usePathname();
@@ -38,6 +50,32 @@ function Servicedetail() {
     }
     fetchUser();
   }, []);
+
+  const [clientSecret, setClientSecret] = useState('');
+    const createPaymentIntent = async () => {
+      const data = await axios.post(
+        'http://localhost:4000/create-payment-intent',
+      {price:500000}
+      );
+      console.log(data.data);
+      setClientSecret(data.data.clientSecret);
+    };
+    
+    useEffect(() => {
+      createPaymentIntent();
+    }, []);
+
+    const appearance = {
+      theme: 'stripe',
+      variables: {
+        colorPrimary: '#C70039',
+        colorBackground: '#fff',
+      },
+    };
+    const options = {
+      clientSecret,
+      appearance,
+    };
 
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
   const {
@@ -87,6 +125,9 @@ function Servicedetail() {
 
   return (
     <>
+    
+     {clientSecret && (
+      <Elements options={options} stripe={stripePromise}>
       <div className="flex flex-col h-[1150px]">
         <div className="relative">
           <div className="service-detail-banner w-full h-60">
@@ -144,8 +185,10 @@ function Servicedetail() {
                       setDetail={setDetail}
                     />
                   )}
+
                   {currentStep === 3 && (
-                    <CheckoutPage totalprice={totalprice} />
+                    // <CheckoutPage totalprice={totalprice} />
+                    <CheckoutForm/>
                   )}
                   <OrderDetail
                     totalprice={totalprice}
@@ -176,6 +219,8 @@ function Servicedetail() {
           detail={detail}
         ></ServiceFooterButton>
       </div>
+    </Elements>
+ )}    
     </>
   );
 }

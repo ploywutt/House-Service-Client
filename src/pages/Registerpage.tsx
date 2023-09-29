@@ -219,6 +219,7 @@ const Registerpage = () => {
             {t("register_page.register_back_to_login")}
           </Button>
         </form>
+        
       </div>
     </div>
   );
