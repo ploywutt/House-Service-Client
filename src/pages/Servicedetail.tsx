@@ -16,6 +16,7 @@ import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
 import usePathname from "@/hook/usePathname";
+import useCheckoutForm from "@/hook/useTest";
 import { useEffect, useState } from "react";
 
 import supabase from "@/auth/supabaseauth";
@@ -74,6 +75,16 @@ function Servicedetail() {
     clientSecret,
     appearance,
   };
+
+  // const {
+  //   message,
+  //   setMessage,
+  //   isLoading,
+  //   setIsLoading,
+  //   handleSubmit,
+  //   stripe,
+  //   elements,
+  // } = useCheckoutForm();
 
   //-------------------------------------------------------------------------//
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
@@ -186,8 +197,17 @@ function Servicedetail() {
 
                       {currentStep === 3 && (
                         // <CheckoutPage totalprice={totalprice} />
-                        <CheckoutForm />
+                        <CheckoutForm
+                        // message={message}
+                        // setMessage={setMessage}
+                        // isLoading={isLoading}
+                        // setIsLoading={setIsLoading}
+                        // handleSubmit={handleSubmit}
+                        // stripe={stripe}
+                        // elements={elements}
+                        />
                       )}
+
                       <OrderDetail
                         totalprice={totalprice}
                         counts={counts}

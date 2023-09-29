@@ -98,73 +98,90 @@
 //   );
 // }
 // export default PaymentForm;
-import { useEffect, useState } from "react";
+
+//----------------------------------------------------------------//
+
+// import { useEffect, useState } from "react";
 import {
   PaymentElement,
-  useStripe,
-  useElements,
+  // useStripe,
+  // useElements,
 } from "@stripe/react-stripe-js";
 
-export default function CheckoutForm() {
-  const stripe = useStripe();
-  const elements = useElements();
-  const [message, setMessage] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+import useCheckoutForm from "../hook/useTest";
+
+// import { CardElement } from "@stripe/react-stripe-js";
+
+export default function CheckoutForm(s) {
+  // const stripe = useStripe();
+  // const elements = useElements();
+  // const [message, setMessage] = useState(null);
+  // const [isLoading, setIsLoading] = useState(false);
   //  const [clientSecret, setClientsecret] =useState(null);
 
-  useEffect(() => {
-    if (!stripe) {
-      return;
-    }
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      "payment_intent_client_secret"
-    );
-    // setClientsecret(clientSecret);
+  // useEffect(() => {
+  //   if (!stripe) {
+  //     return;
+  //   }
+  //   const clientSecret = new URLSearchParams(window.location.search).get(
+  //     "payment_intent_client_secret"
+  //   );
+  // setClientsecret(clientSecret);
 
-    if (!clientSecret) {
-      return;
-    }
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      console.log("payment intent", paymentIntent);
-      switch (paymentIntent.status) {
-        case "succeeded":
-          setMessage("Payment succeeded!");
-          // เขียนจากหน้าบ้านเพื่อ post เข้า database
-          break;
-        case "processing":
-          setMessage("Your payment is processing.");
-          break;
-        case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
-          break;
-        default:
-          setMessage("Something went wrong.");
-          break;
-      }
-    });
-  }, [stripe]);
+  //   if (!clientSecret) {
+  //     return;
+  //   }
+  //   stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+  //     console.log("payment intent", paymentIntent);
+  //     switch (paymentIntent.status) {
+  //       case "succeeded":
+  //         setMessage("Payment succeeded!");
+  //         // เขียนจากหน้าบ้านเพื่อ post เข้า database
+  //         break;
+  //       case "processing":
+  //         setMessage("Your payment is processing.");
+  //         break;
+  //       case "requires_payment_method":
+  //         setMessage("Your payment was not successful, please try again.");
+  //         break;
+  //       default:
+  //         setMessage("Something went wrong.");
+  //         break;
+  //     }
+  //   });
+  // }, [stripe]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!stripe || !elements) {
-      return;
-    }
-    setIsLoading(true);
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: "http://localhost:5174/checkout",
-      },
-    });
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (!stripe || !elements) {
+  //     return;
+  //   }
+  //   setIsLoading(true);
+  //   const { error } = await stripe.confirmPayment({
+  //     elements,
+  //     confirmParams: {
+  //       return_url: "http://localhost:5174/checkout",
+  //     },
+  //   });
 
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-    } else {
-      setMessage("An unexpected error occurred.");
-    }
+  //   if (error.type === "card_error" || error.type === "validation_error") {
+  //     setMessage(error.message);
+  //   } else {
+  //     setMessage("An unexpected error occurred.");
+  //   }
 
-    setIsLoading(false);
-  };
+  //   setIsLoading(false);
+  // };
+
+  const {
+    message,
+    setMessage,
+    isLoading,
+    setIsLoading,
+    handleSubmit,
+    stripe,
+    elements,
+  } = useCheckoutForm();
 
   return (
     <div className="flex flex-col w-[735px] bg-white border border-zinc-300  p-5 rounded-lg">

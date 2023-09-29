@@ -23,6 +23,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import useCheckoutForm from "../hook/useTest";
+
 function AlertPayment(props) {
   const { t } = useTranslation();
 
@@ -64,6 +66,16 @@ function AlertPayment(props) {
       setIsLoading(false);
     }
   };
+
+  const {
+    // message,
+    // setMessage,
+    // isLoading,
+    // setIsLoading,
+    handleSubmit,
+    // stripe,
+    // elements,
+  } = useCheckoutForm();
 
   return (
     <AlertDialog>
@@ -175,9 +187,8 @@ function AlertPayment(props) {
             <AlertDialogCancel className="w-[194px] text-blue-600">
               {t("alert_payment.alert_payment_cancel")}
             </AlertDialogCancel>
-            <AlertDialogAction className="w-[194px]" onClick={handleClick}>
+            <AlertDialogAction className="w-[194px]" onClick={handleSubmit}>
               {t("alert_payment.alert_payment_confirm")}
-          
             </AlertDialogAction>
           </AlertDialogFooter>
         )}
