@@ -11,7 +11,6 @@ import Shadcn from "./pages/shadecn-test";
 // import ClientInformation from "./pages/ClientInformation";
 import ServiceDetail from "./pages/Servicedetail";
 import OrderListPage from "./pages/OrderListPage";
-import CheckoutPage from "./pages/CheckoutPage";
 // import ServicePayment from "./pages/Servicepayment";
 import HistoryPage from "./pages/HistoryPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -19,6 +18,7 @@ import EditProfilePage from "./pages/EditProfilePage";
 import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import CheckoutForm from "./pages/CheckoutForm";
 
 function App() {
   return (
@@ -43,7 +43,7 @@ function App() {
               {/* <Route path="/address" element={<ClientInformation />}></Route> */}
             </Route>
             <Route element={<ServiceFooter />}>
-              <Route path="/checkout" element={<CheckoutPage />}></Route>
+              <Route path="/checkout" element={<CheckoutForm/>}></Route>
             </Route>
           </Routes>
         </Router>
