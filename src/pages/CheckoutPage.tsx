@@ -142,14 +142,13 @@ const CheckoutPage: React.FC = (props: { totalprice: number }) => {
 
   const [codeName, setCodeName] = useState<string>();
   const [promoData, setPromoData] = useState<any>();
-  const [discount, setDiscount] = useState<number>();
-  const [type, setType] = useState<string>();
   const [totalPriceWithDiscount, setTotalPriceWithDiscount] =
     useState<number>();
 
   console.log("codeName", codeName);
   console.log("promoData state", promoData);
   console.log("totalPriceWithDiscount", totalPriceWithDiscount);
+  console.log("หน้า CheckoutPage", props.totalprice);
 
   const handleOnClickPromotionCode = async () => {
     try {
@@ -166,13 +165,18 @@ const CheckoutPage: React.FC = (props: { totalprice: number }) => {
 
   useEffect(() => {
     const discount = promoData?.discount_amount;
+    props.setDiscount(discount);
+    const type = promoData?.type;
+    props.setType(type);
     if (promoData?.type === "Fixed") {
       const totalPriceWithDiscount = props.totalprice - discount;
       setTotalPriceWithDiscount(totalPriceWithDiscount);
+      props.setOrderTotalPrice(totalPriceWithDiscount);
     } else if (promoData?.type === "Percent") {
       const totalPriceWithDiscount =
         props.totalprice - props.totalprice * (discount / 100);
       setTotalPriceWithDiscount(totalPriceWithDiscount);
+      props.setOrderTotalPrice(totalPriceWithDiscount);
     }
   }, [promoData]);
 

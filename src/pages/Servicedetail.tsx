@@ -15,7 +15,7 @@ import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
 import usePathname from "@/hook/usePathname";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import supabase from "@/auth/supabaseauth";
 
@@ -85,6 +85,14 @@ function Servicedetail() {
     selectedProvince,
   };
 
+  const [orderTotalPrice, setOrderTotalPrice] = useState<number>();
+  const [discount, setDiscount] = useState<number>();
+  const [type, setType] = useState<string>();
+  console.log("orderTotalPrice", orderTotalPrice);
+  console.log("discount", discount);
+  console.log("type", type);
+  console.log("หน้ารวม", totalprice, counts);
+
   return (
     <>
       <div className="flex flex-col h-[1150px]">
@@ -145,7 +153,12 @@ function Servicedetail() {
                     />
                   )}
                   {currentStep === 3 && (
-                    <CheckoutPage totalprice={totalprice} />
+                    <CheckoutPage
+                      totalprice={totalprice}
+                      setOrderTotalPrice={setOrderTotalPrice}
+                      setDiscount={setDiscount}
+                      setType={setType}
+                    />
                   )}
                   <OrderDetail
                     totalprice={totalprice}
@@ -154,7 +167,10 @@ function Servicedetail() {
                     thaiDate={thaiDate}
                     address={addressInfo}
                     selectedTime={selectedTime}
-                    //promotion={}
+                    //promotion
+                    discount={discount}
+                    orderTotalPrice={orderTotalPrice}
+                    type={type}
                   />
                 </div>
               </div>
@@ -174,6 +190,9 @@ function Servicedetail() {
           selectedTime={selectedTime}
           address={addressInfo}
           detail={detail}
+          orderTotalPrice={orderTotalPrice}
+          discount={discount}
+          type={type}
         ></ServiceFooterButton>
       </div>
     </>

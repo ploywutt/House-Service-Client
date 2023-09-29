@@ -19,8 +19,13 @@ function OrderDetail(props: {
   date: Date | undefined;
   totalprice: number;
   counts: { name: string; count: number; unit: string }[];
+  orderTotalPrice: number;
+  discount: number;
+  type: string;
 }) {
   const { t } = useTranslation();
+
+  console.log("หน้า OrderDetal", props.totalprice);
   return (
     <div className="w-[349px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 sticky top-0 dark:bg-gray-800">
       <div>
@@ -84,12 +89,37 @@ function OrderDetail(props: {
       {((props.date && props.thaiDate !== "รักของเรามันกลายเป็นอดีตไปแล้ว") ||
         props.selectedTime ||
         props.address.address ||
-        props.address.selectedProvince) && <Separator className="my-4" />}
-      <div className="flex flex-row justify-between">
-        <p className="text-gray-500 dark:text-white">
-          {t("order_details.order_details_finale")}
-        </p>
-        <h5 className="dark:text-white">{props.totalprice.toFixed(2)} ฿</h5>
+        props.address.selectedProvince) && <Separator className="my-7" />}
+
+      <div id="totalprice-promotion" className="flex flex-col gap-3">
+        {props.discount && props.type === "Fixed" && (
+          <div className="flex flex-row justify-between">
+            <p className="text-gray-500 dark:text-white">Promotion code</p>
+            <h5 className="dark:text-white text-utility-red">
+              -{props.discount.toFixed(2)} ฿
+            </h5>
+          </div>
+        )}
+        {props.discount && props.type === "Percent" && (
+          <div className="flex flex-row justify-between">
+            <p className="text-gray-500 dark:text-white">Promotion code</p>
+            <h5 className="dark:text-white text-utility-red">
+              -{props.discount} %
+            </h5>
+          </div>
+        )}
+        <div className="flex flex-row justify-between">
+          <p className="text-gray-500 dark:text-white">
+            {t("order_details.order_details_finale")}
+          </p>
+          {props.totalprice && props.orderTotalPrice ? (
+            <h5 className="dark:text-white">
+              {props.orderTotalPrice?.toFixed(2)} ฿
+            </h5>
+          ) : (
+            <h5 className="dark:text-white">{props.totalprice.toFixed(2)} ฿</h5>
+          )}
+        </div>
       </div>
     </div>
   );

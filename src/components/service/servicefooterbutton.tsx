@@ -22,6 +22,9 @@ type ServiceFooter = {
     selectedProvince: string;
   };
   detail: string;
+  orderTotalPrice: number;
+  discount: number;
+  type: string;
 };
 
 function ServiceFooterButton({
@@ -35,6 +38,9 @@ function ServiceFooterButton({
   selectedTime,
   address,
   detail,
+  orderTotalPrice,
+  discount,
+  type,
 }: ServiceFooter) {
   const { t } = useTranslation();
   return (
@@ -89,6 +95,9 @@ function ServiceFooterButton({
           selectedTime={selectedTime}
           address={address}
           detail={detail}
+          orderTotalPrice={orderTotalPrice}
+          discount={discount}
+          type={type}
         />
       )}
     </div>

@@ -158,8 +158,48 @@ function AlertPayment(props) {
                 {props.address.selectedAmphure} {props.address.selectedProvince}
               </a>
             </div>
-            <Separator className="w-96 border-gray-300" />
+            <Separator className="w-96 border-gray-300 mb-4" />
+
             <div
+              id="totalprice-promotion"
+              className="flex flex-col gap-3 w-full px-5"
+            >
+              {props.discount && props.type === "Fixed" && (
+                <div className="flex flex-row justify-between">
+                  <p className="text-gray-500 dark:text-white">
+                    Promotion code
+                  </p>
+                  <h5 className="dark:text-white text-utility-red">
+                    -{props.discount.toFixed(2)} ฿
+                  </h5>
+                </div>
+              )}
+              {props.discount && props.type === "Percent" && (
+                <div className="flex flex-row justify-between">
+                  <p className="text-gray-500 dark:text-white">
+                    Promotion code
+                  </p>
+                  <h5 className="dark:text-white text-utility-red">
+                    -{props.discount} %
+                  </h5>
+                </div>
+              )}
+              <div className="flex flex-row justify-between">
+                <p className="text-gray-500 dark:text-white">
+                  {t("order_details.order_details_finale")}
+                </p>
+                {props.totalprice && props.orderTotalPrice ? (
+                  <h5 className="dark:text-white">
+                    {props.orderTotalPrice?.toFixed(2)} ฿
+                  </h5>
+                ) : (
+                  <h5 className="dark:text-white">
+                    {props.totalprice.toFixed(2)} ฿
+                  </h5>
+                )}
+              </div>
+            </div>
+            {/* <div
               id="Sum"
               className="flex flex-row justify-between w-[422px] p-4 pb-8"
             >
@@ -167,7 +207,7 @@ function AlertPayment(props) {
                 {t("alert_payment.alert_payment_finale")}
               </a>
               <h5>{props.totalprice.toFixed(2)} ฿</h5>
-            </div>
+            </div> */}
           </AlertDialogDescription>
         </AlertDialogHeader>
         {!confirm && (
