@@ -6,8 +6,9 @@ import ServiceFooterButton from "@/components/service/servicefooterbutton";
 
 import Subservice from "../components/service/Subservice";
 import ClientInput from "@/components/ClientInput";
-// import CheckoutPage from "./CheckoutPage";
 import OrderDetail from "../components/OrderDetail";
+import CheckoutForm from "./PaymentForm";
+// import CheckoutPage from "./CheckoutPage";
 
 import useStepper from "@/hook/useStepper";
 import useFetchSubservice from "@/hook/useFetchSubservice";
@@ -15,21 +16,18 @@ import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
 import usePathname from "@/hook/usePathname";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import supabase from "@/auth/supabaseauth";
-import CheckoutForm from "./PaymentForm";
 
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
 import axios from "axios";
-import { useState } from "react";
+
 const stripePromise = loadStripe(
-  'pk_test_51NoyonCDxlniS9dCBN6RYaHIX5nk6GSeZL1WWdG5ve8gDmXgivmABDRW1fyzpye5n4Bu7KOHJUWLo9dZUTwHS9nx00aaI9Z2WZ'
+  "pk_test_51NoyonCDxlniS9dCBN6RYaHIX5nk6GSeZL1WWdG5ve8gDmXgivmABDRW1fyzpye5n4Bu7KOHJUWLo9dZUTwHS9nx00aaI9Z2WZ"
 );
-
-
 
 function Servicedetail() {
   const { pathname, navigate } = usePathname();
@@ -45,38 +43,39 @@ function Servicedetail() {
           navigate("/login");
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
     fetchUser();
   }, []);
 
-  const [clientSecret, setClientSecret] = useState('');
-    const createPaymentIntent = async () => {
-      const data = await axios.post(
-        'http://localhost:4000/create-payment-intent',
-      {price:500000}
-      );
-      console.log(data.data);
-      setClientSecret(data.data.clientSecret);
-    };
-    
-    useEffect(() => {
-      createPaymentIntent();
-    }, []);
+  const [clientSecret, setClientSecret] = useState("");
+  const createPaymentIntent = async () => {
+    const data = await axios.post(
+      "http://localhost:4000/create-payment-intent",
+      { price: 500000 }
+    );
+    console.log(data.data);
+    setClientSecret(data.data.clientSecret);
+  };
 
-    const appearance = {
-      theme: 'stripe',
-      variables: {
-        colorPrimary: '#C70039',
-        colorBackground: '#fff',
-      },
-    };
-    const options = {
-      clientSecret,
-      appearance,
-    };
+  useEffect(() => {
+    createPaymentIntent();
+  }, []);
 
+  const appearance = {
+    theme: "stripe",
+    variables: {
+      colorPrimary: "#336DF2",
+      colorBackground: "#fff",
+    },
+  };
+  const options = {
+    clientSecret,
+    appearance,
+  };
+
+  //-------------------------------------------------------------------------//
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
   const {
     serviceName,
@@ -125,102 +124,101 @@ function Servicedetail() {
 
   return (
     <>
-    
-     {clientSecret && (
-      <Elements options={options} stripe={stripePromise}>
-      <div className="flex flex-col h-[1150px]">
-        <div className="relative">
-          <div className="service-detail-banner w-full h-60">
-            <section>
-              <div
-                id="container-1"
-                className="z-10 relative flex flex-col gap-12 px-52 py-[5rem]"
-              >
-                <BreadCrumb serviceName={serviceName} />
+      {clientSecret && (
+        <Elements options={options} stripe={stripePromise}>
+          <div className="flex flex-col h-[1150px]">
+            <div className="relative">
+              <div className="service-detail-banner w-full h-60">
+                <section>
+                  <div
+                    id="container-1"
+                    className="z-10 relative flex flex-col gap-12 px-52 py-[5rem]"
+                  >
+                    <BreadCrumb serviceName={serviceName} />
 
-                <div className="w-full h-[129px] bg-white  rounded-lg border border-gray-300 dark:bg-gray-800">
-                  <div>
-                    <Stepper
-                      value={steppermenu}
-                      currentStep={currentStep}
-                      className="w-[50rem]"
-                    ></Stepper>
+                    <div className="w-full h-[129px] bg-white  rounded-lg border border-gray-300 dark:bg-gray-800">
+                      <div>
+                        <Stepper
+                          value={steppermenu}
+                          currentStep={currentStep}
+                          className="w-[50rem]"
+                        ></Stepper>
+                      </div>
+                    </div>
+                    <div
+                      id="container-2"
+                      className="flex flex-row justify-between h-full"
+                    >
+                      {currentStep === 1 && (
+                        <Subservice
+                          subservice={subservice}
+                          counts={counts}
+                          handleDecrement={handleDecrement}
+                          handleIncrement={handleIncrement}
+                        />
+                      )}
+                      {currentStep === 2 && (
+                        <ClientInput
+                          provinces={provinces}
+                          amphures={amphures}
+                          tambons={tambons}
+                          selectedProvince={selectedProvince}
+                          setSelectedProvince={setSelectedProvince}
+                          setSelectedAmphure={setSelectedAmphure}
+                          selectedAmphure={selectedAmphure}
+                          setSelectedTambon={setSelectedTambon}
+                          selectedTambon={selectedTambon}
+                          setAddress={setAddress}
+                          hour={hour}
+                          minute={minute}
+                          handleHour={handleHour}
+                          handleMinute={handleMinute}
+                          clickHour={clickHour}
+                          clickMinute={clickMinute}
+                          selectedTime={selectedTime}
+                          setSelectedTime={setSelectedTime}
+                          date={date}
+                          setDate={setDate}
+                          thaiDate={thaiDate}
+                          setDetail={setDetail}
+                        />
+                      )}
+
+                      {currentStep === 3 && (
+                        // <CheckoutPage totalprice={totalprice} />
+                        <CheckoutForm />
+                      )}
+                      <OrderDetail
+                        totalprice={totalprice}
+                        counts={counts}
+                        date={date}
+                        thaiDate={thaiDate}
+                        address={addressInfo}
+                        selectedTime={selectedTime}
+                        //promotion={}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div
-                  id="container-2"
-                  className="flex flex-row justify-between h-full"
-                >
-                  {currentStep === 1 && (
-                    <Subservice
-                      subservice={subservice}
-                      counts={counts}
-                      handleDecrement={handleDecrement}
-                      handleIncrement={handleIncrement}
-                    />
-                  )}
-                  {currentStep === 2 && (
-                    <ClientInput
-                      provinces={provinces}
-                      amphures={amphures}
-                      tambons={tambons}
-                      selectedProvince={selectedProvince}
-                      setSelectedProvince={setSelectedProvince}
-                      setSelectedAmphure={setSelectedAmphure}
-                      selectedAmphure={selectedAmphure}
-                      setSelectedTambon={setSelectedTambon}
-                      selectedTambon={selectedTambon}
-                      setAddress={setAddress}
-                      hour={hour}
-                      minute={minute}
-                      handleHour={handleHour}
-                      handleMinute={handleMinute}
-                      clickHour={clickHour}
-                      clickMinute={clickMinute}
-                      selectedTime={selectedTime}
-                      setSelectedTime={setSelectedTime}
-                      date={date}
-                      setDate={setDate}
-                      thaiDate={thaiDate}
-                      setDetail={setDetail}
-                    />
-                  )}
-
-                  {currentStep === 3 && (
-                    // <CheckoutPage totalprice={totalprice} />
-                    <CheckoutForm/>
-                  )}
-                  <OrderDetail
-                    totalprice={totalprice}
-                    counts={counts}
-                    date={date}
-                    thaiDate={thaiDate}
-                    address={addressInfo}
-                    selectedTime={selectedTime}
-                    //promotion={}
-                  />
-                </div>
+                </section>
               </div>
-            </section>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="fixed bottom-0 z-10 w-full">
-        <ServiceFooterButton
-          handleBack={handleBack}
-          handleNext={handleNext}
-          currentStep={currentStep}
-          totalprice={totalprice}
-          counts={counts}
-          date={date}
-          thaiDate={thaiDate}
-          selectedTime={selectedTime}
-          address={addressInfo}
-          detail={detail}
-        ></ServiceFooterButton>
-      </div>
-    </Elements>
- )}    
+          <div className="fixed bottom-0 z-10 w-full">
+            <ServiceFooterButton
+              handleBack={handleBack}
+              handleNext={handleNext}
+              currentStep={currentStep}
+              totalprice={totalprice}
+              counts={counts}
+              date={date}
+              thaiDate={thaiDate}
+              selectedTime={selectedTime}
+              address={addressInfo}
+              detail={detail}
+            ></ServiceFooterButton>
+          </div>
+        </Elements>
+      )}
     </>
   );
 }
