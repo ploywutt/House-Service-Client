@@ -1,4 +1,4 @@
-function PageHeader(props) {
+function PageHeader(props: { title: string }) {
   return (
     <header
       id="title-bg"
