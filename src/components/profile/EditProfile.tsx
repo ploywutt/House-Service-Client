@@ -10,7 +10,29 @@ import supabase from "@/auth/supabaseauth";
 import axios from "axios";
 import useFetchUserEmail from "@/hook/useFetchUserEmail";
 
-function EditProfile(props) {
+interface InputValues {
+  [key: string]: string | undefined;
+  name?: string;
+  phone?: string;
+  email?: string;
+  password?: string;
+  newPassword?: string;
+  reNewPassword?: string;
+}
+
+interface UserInfo {
+  label: string;
+  placeholder: string;
+  varName: string;
+}
+
+interface UserPasswordInfo {
+  label: string;
+  placeholder: string;
+  varName: string;
+}
+
+function EditProfile(props: { fetchData: any }) {
   const { t } = useTranslation();
 
   const currentUserEmail = useFetchUserEmail();
@@ -28,17 +50,17 @@ function EditProfile(props) {
 
   console.log(`urlFromSPB: ${urlFromSPB}`);
 
-  const [file, setFile] = useState(null);
-  const [url, setUrl] = useState(urlFromSPB);
-  const [inputValues, setInputValues] = useState({});
-  const [passwordError, setPasswordError] = useState("");
-  const [rePasswordError, setRePasswordError] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [url, setUrl] = useState<string>(urlFromSPB);
+  const [inputValues, setInputValues] = useState<InputValues>({});
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [rePasswordError, setRePasswordError] = useState<string>("");
 
-  console.log(`url: ${url}`);
+  console.log("url:", url);
   console.log("inputValues", inputValues);
   console.log("file", file);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: any) => {
     const { name, value } = event.target;
     setInputValues({ ...inputValues, [name]: value });
 
@@ -52,7 +74,7 @@ function EditProfile(props) {
     // }
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = (event: any) => {
     setFile(event.target.files[0]);
     setUrl(URL.createObjectURL(event.target.files[0]));
   };
@@ -107,7 +129,7 @@ function EditProfile(props) {
             );
         if (uploadFileError) throw uploadFileError;
         console.log("Step 3: Upload file successfully", uploadData);
-      } catch (error) {
+      } catch (error: any) {
         console.log("Upload Error", error.message);
       }
 
@@ -123,7 +145,7 @@ function EditProfile(props) {
           { avatar_url: data.publicUrl }
         );
         console.log("Step 5: Update URL successfully", response);
-      } catch (error) {
+      } catch (error: any) {
         console.log("Get URL Error", error.message);
       }
 
@@ -133,7 +155,7 @@ function EditProfile(props) {
           inputValues
         );
         console.log("Step 6: Update input change successfully", data);
-      } catch (error) {
+      } catch (error: any) {
         console.log("Update error", error.message);
       }
     } else {
@@ -153,13 +175,13 @@ function EditProfile(props) {
           "Step 1 (without file): Update input change successfully",
           data
         );
-      } catch (error) {
+      } catch (error: any) {
         console.log("Update error", error.message);
       }
     }
   };
 
-  const userInfo = [
+  const userInfo: UserInfo[] = [
     {
       label: t("edit_profile_page.name_fullname"),
       placeholder: fullName,
@@ -177,7 +199,7 @@ function EditProfile(props) {
     },
   ];
 
-  const userPasswordInfo = [
+  const userPasswordInfo: UserPasswordInfo[] = [
     {
       label: t("edit_profile_page.current_password"),
       placeholder: "xxxxxxxx",
