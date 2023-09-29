@@ -210,7 +210,7 @@ export default function CheckoutForm(s) {
           <button
             disabled={isLoading || !stripe || !elements}
             id="submit"
-            className="w-[150px] text-white flex justify-between px-[24px] mt[24px] mb-[32px] bg-blue-600 rounded-md p-3"
+            className="w-[150px] text-white flex justify-between px-[24px] mt[24px] mb-[32px] bg-blue-600 rounded-md p-3 hidden"
           >
             <span id="button-text">
               {isLoading ? (

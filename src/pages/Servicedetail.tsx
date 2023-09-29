@@ -16,7 +16,7 @@ import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
 import usePathname from "@/hook/usePathname";
-import useCheckoutForm from "@/hook/useTest";
+// import useCheckoutForm from "@/hook/useTest";
 import { useEffect, useState } from "react";
 
 import supabase from "@/auth/supabaseauth";
@@ -27,7 +27,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 
 const stripePromise = loadStripe(
-  "pk_test_51NoyonCDxlniS9dCBN6RYaHIX5nk6GSeZL1WWdG5ve8gDmXgivmABDRW1fyzpye5n4Bu7KOHJUWLo9dZUTwHS9nx00aaI9Z2WZ"
+  "pk_test_51NozskHa6CHfGgr1Mlek2lwtRJjpDwWxNA0gn2HOsVJpCHvdw8IU3SC49hc4w38V8tAW8i3AexxQD7PJ9JACmlt800wDbJcXNt"
 );
 
 function Servicedetail() {

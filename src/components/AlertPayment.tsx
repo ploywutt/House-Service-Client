@@ -19,7 +19,7 @@ import { Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import useFetchUserEmail from "../hook/useFetchUserEmail";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -39,6 +39,7 @@ function AlertPayment(props) {
 
   const handleClick = async (event) => {
     event.preventDefault();
+
     setIsLoading(true);
     try {
       const result = await axios.post(
