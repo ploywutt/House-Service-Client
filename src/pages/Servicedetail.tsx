@@ -19,6 +19,13 @@ import { useEffect, useState } from "react";
 
 import supabase from "@/auth/supabaseauth";
 
+interface AddressInfo {
+  address: string;
+  selectedTambon: string;
+  selectedAmphure: string;
+  selectedProvince: string;
+}
+
 function Servicedetail() {
   const { pathname, navigate } = usePathname();
 
@@ -27,6 +34,7 @@ function Servicedetail() {
       try {
         const { data, error } = await supabase.auth.getSession();
         console.log(data);
+        if (error) throw error;
         if (data.session) {
           navigate(pathname);
         } else {
@@ -78,7 +86,7 @@ function Servicedetail() {
 
   const { thaiDate, date, setDate } = useDayPicker();
 
-  const addressInfo = {
+  const addressInfo: AddressInfo = {
     address,
     selectedTambon,
     selectedAmphure,
@@ -168,14 +176,10 @@ function Servicedetail() {
                     thaiDate={thaiDate}
                     address={addressInfo}
                     selectedTime={selectedTime}
-<<<<<<< Updated upstream
                     //promotion
                     discount={discount}
                     orderTotalPrice={orderTotalPrice}
                     type={type}
-=======
-                    //promotion คูปอง กับ ราคาที่ลดแล้ว
->>>>>>> Stashed changes
                   />
                 </div>
               </div>

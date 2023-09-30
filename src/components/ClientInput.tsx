@@ -12,7 +12,7 @@ import TimePicker from "./addressInput/TimePicker";
 
 import { useTranslation } from "react-i18next";
 
-function ClientInput(props) {
+function ClientInput(props: any) {
   const { t } = useTranslation();
   console.log(props.selectedProvince);
 

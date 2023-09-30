@@ -23,7 +23,25 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function AlertPayment(props) {
+interface AlertPaymentProps {
+  date: string;
+  selectedTime: string;
+  address: {
+    address: string;
+    selectedProvince: string;
+    selectedAmphure: string;
+    selectedTambon: string;
+  };
+  detail: string;
+  counts: { name: string; count: number; unit: string }[];
+  thaiDate: string;
+  discount: number | null;
+  type: "Fixed" | "Percent" | string;
+  totalprice: number;
+  orderTotalPrice?: number;
+}
+
+function AlertPayment(props: AlertPaymentProps) {
   const { t } = useTranslation();
 
   const userEmail = useFetchUserEmail();
@@ -35,7 +53,7 @@ function AlertPayment(props) {
   const isoDateString = dateObject.toISOString();
   const formattedDate = isoDateString.split("T")[0];
 
-  const handleClick = async (event) => {
+  const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setIsLoading(true);
     try {

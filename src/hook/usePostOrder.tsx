@@ -3,7 +3,7 @@ import useFetchUserEmail from "./useFetchUserEmail";
 import { useState } from "react";
 import axios from "axios";
 
-const useCreateOrder = async (data) => {
+const useCreateOrder = async (data: any) => {
   const userEmail = useFetchUserEmail();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

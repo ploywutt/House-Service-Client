@@ -4,7 +4,18 @@ import Counter from "../service/Counter";
 
 import { useTranslation } from "react-i18next";
 
-export default function Subservice(props) {
+interface SubserviceProps {
+  subservice: {
+    sub_service_name: string;
+    price_per_unit: number;
+    unit: string;
+  }[];
+  counts: { count: number }[];
+  handleIncrement: (index: number) => void;
+  handleDecrement: (index: number) => void;
+}
+
+export default function Subservice(props: SubserviceProps) {
   const { t } = useTranslation();
 
   return (

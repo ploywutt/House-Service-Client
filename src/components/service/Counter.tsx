@@ -2,12 +2,19 @@ import PlusIcon from "../../assets/icon/plus_icon.png";
 import NegativeIcon from "../../assets/icon/negative_icon.png";
 import useFetchSubservice from "@/hook/useFetchSubservice";
 
+interface CounterProps {
+  index: number;
+  count: number;
+  handleIncrement: (index: number) => void;
+  handleDecrement: (index: number) => void;
+}
+
 export default function Counter({
   index,
   count,
   handleIncrement,
   handleDecrement,
-}) {
+}: CounterProps) {
   // const { handleIncrement, handleDecrement, counts } = useFetchSubservice();
 
   // const incrementCount = () => {

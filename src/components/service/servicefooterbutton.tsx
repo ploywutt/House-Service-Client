@@ -22,9 +22,9 @@ type ServiceFooter = {
     selectedProvince: string;
   };
   detail: string;
-  orderTotalPrice: number;
-  discount: number;
-  type: string;
+  orderTotalPrice: number | undefined;
+  discount: number | undefined;
+  type: string | undefined;
 };
 
 function ServiceFooterButton({
@@ -90,14 +90,14 @@ function ServiceFooterButton({
         <AlertPayment
           totalprice={totalprice}
           counts={counts}
-          date={date}
+          date={date ? date.toISOString() : ""}
           thaiDate={thaiDate}
           selectedTime={selectedTime}
           address={address}
           detail={detail}
           orderTotalPrice={orderTotalPrice}
-          discount={discount}
-          type={type}
+          discount={discount || null}
+          type={type || ""}
         />
       )}
     </div>

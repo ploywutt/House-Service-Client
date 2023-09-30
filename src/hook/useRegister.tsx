@@ -14,7 +14,6 @@ const useRegister = () => {
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-
   const handleChange = async (e: any) => {
     const { name, value } = e.target;
     setFormData({
@@ -36,8 +35,9 @@ const useRegister = () => {
       const { data, error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
-      })
-      console.log(`Create user ${data} success`)
+      });
+      if (error) throw error;
+      console.log(`Create user ${data} success`);
       setIsValid(true);
       navigate("/");
     } catch (error: any) {
@@ -57,7 +57,7 @@ const useRegister = () => {
       console.error(error);
     }
   }
-  
+
   return {
     handleChange,
     handleSubmit,
@@ -71,4 +71,3 @@ const useRegister = () => {
 };
 
 export default useRegister;
-

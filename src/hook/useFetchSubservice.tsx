@@ -2,11 +2,27 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+interface Subservice {
+  price_per_unit: number;
+  sub_service_name: string;
+  unit: string;
+  services?: {
+    service_name: string;
+  };
+}
+
+interface Count {
+  count: number;
+  price: number;
+  name: string;
+  unit: string;
+}
+
 export default function useFetchSubservice() {
   const { id } = useParams();
 
-  const [subservice, setSubservice] = useState([]);
-  const [counts, setCounts] = useState([]);
+  const [subservice, setSubservice] = useState<Subservice[]>([]);
+  const [counts, setCounts] = useState<Count[]>([]);
   const [serviceName, setServiceName] = useState<string>("");
 
   const fetchSubService = async () => {
@@ -20,7 +36,7 @@ export default function useFetchSubservice() {
       setServiceName(response.data.data[0].services?.service_name);
 
       setCounts(
-        response.data.data.map((item) => ({
+        response.data.data.map((item: Subservice) => ({
           count: 0,
           price: item.price_per_unit,
           name: item.sub_service_name,
