@@ -2,9 +2,7 @@ import supabase from "@/auth/supabaseauth";
 import { useState, useEffect } from "react";
 
 function useFetchUserEmail() {
-  const [currentUserEmail, setCurrentUserEmail] = useState<any>("");
-
-  // console.log(currentUserEmail);
+  const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchUser() {
@@ -12,14 +10,15 @@ function useFetchUserEmail() {
         const {
           data: { user },
         } = await supabase.auth.getUser();
-        console.log(user.email);
-        setCurrentUserEmail(user?.email);
+        console.log(user?.email);
+        setCurrentUserEmail(user?.email || null);
       } catch (error) {
         console.error(error);
       }
     }
     fetchUser();
   }, []);
+
   return currentUserEmail;
 }
 

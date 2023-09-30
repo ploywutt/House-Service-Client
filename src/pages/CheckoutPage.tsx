@@ -33,7 +33,7 @@ interface CheckoutPageProps {
   totalprice: number;
 }
 
-const CheckoutPage: React.FC<CheckoutPageProps> = (props) => {
+const CheckoutPage = (props: CheckoutPageProps) => {
   const [paymentMethod, setPaymentMethod] = useState<string>("card");
   const [formData, setFormData] = useState<FormData>({
     creditCardNumber: "",
@@ -321,7 +321,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = (props) => {
             type="text"
             name="discountCode"
             value={codeName}
-            onChange={handleInputChange}
+            onChange={handlePromoChange}
             placeholder="กรุณากรอกโค้ดส่วนลด (ถ้ามี)"
             className="w-[331px] h-[auto] px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
           />

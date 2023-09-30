@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 export const OrderContext = createContext({});
 
-function OrderDetail(props: {
+interface OrderDetailProps {
   selectedTime: string;
   address: {
     address: string;
@@ -12,17 +12,16 @@ function OrderDetail(props: {
     selectedAmphure: string;
     selectedProvince: string;
   };
-  // selectedTambon: string;
-  // selectedAmphure: string;
-  // selectedProvince: string;
   thaiDate: string;
   date: Date | undefined;
   totalprice: number;
   counts: { name: string; count: number; unit: string }[];
-  orderTotalPrice: number;
-  discount: number;
-  type: string;
-}) {
+  orderTotalPrice: number | undefined;
+  discount: number | undefined;
+  type: string | undefined;
+}
+
+function OrderDetail(props: OrderDetailProps) {
   const { t } = useTranslation();
 
   console.log("หน้า OrderDetal", props.totalprice);

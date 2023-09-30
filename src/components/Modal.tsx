@@ -11,7 +11,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
-export function Modals(props) {
+interface ModalsProps {
+  variant: any;
+  className?: string;
+  button: any;
+  title: string;
+  description: string;
+}
+
+export function Modals(props: ModalsProps) {
   const { t } = useTranslation();
   return (
     <AlertDialog>

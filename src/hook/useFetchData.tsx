@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useFetchData(endpoint, currentUserEmail) {
+function useFetchData(endpoint: string, currentUserEmail: string) {
   const [fetchData, setFetchData] = useState<any>([]);
 
   useEffect(() => {

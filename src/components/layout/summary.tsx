@@ -3,6 +3,15 @@ import { useTranslation } from "react-i18next";
 
 const { t } = useTranslation();
 
+interface SummaryProps {
+  productList: string[];
+  date: string;
+  time: string;
+  location: string;
+  totalAmount: number;
+  promotionCode: string;
+}
+
 const Summary = ({
   productList,
   date,
@@ -10,7 +19,7 @@ const Summary = ({
   location,
   totalAmount,
   promotionCode,
-}) => {
+}: SummaryProps) => {
   const [formattedProductList, setFormattedProductList] = useState([]);
 
   // useEffect(() => {
