@@ -55,7 +55,7 @@ function Servicedetail() {
     const createPaymentIntent = async () => {
       const data = await axios.post(
         'http://localhost:4000/create-payment-intent',
-      {price:500000}
+        {price:500000}
       );
       console.log(data.data);
       setClientSecret(data.data.clientSecret);
@@ -125,7 +125,7 @@ function Servicedetail() {
 
   return (
     <>
-    
+     //
      {clientSecret && (
       <Elements options={options} stripe={stripePromise}>
       <div className="flex flex-col h-[1150px]">
@@ -187,7 +187,7 @@ function Servicedetail() {
                   )}
 
                   {currentStep === 3 && (
-                    // <CheckoutPage totalprice={totalprice} />
+
                     <CheckoutForm/>
                   )}
                   <OrderDetail
@@ -197,7 +197,7 @@ function Servicedetail() {
                     thaiDate={thaiDate}
                     address={addressInfo}
                     selectedTime={selectedTime}
-                    //promotion={}
+                    
                   />
                 </div>
               </div>
@@ -220,8 +220,10 @@ function Servicedetail() {
         ></ServiceFooterButton>
       </div>
     </Elements>
+    //
  )}    
-    </>
+
+  </>
   );
 }
 

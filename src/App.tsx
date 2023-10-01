@@ -19,10 +19,15 @@ import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import CheckoutForm from "./pages/CheckoutForm";
+// import { useEffect,useContext ,createContext } from "react";
+
+import { PayProvider } from "./hook/PayContext";
+import SuccessPage from "./components/success";
 
 function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <PayProvider>
       <I18nextProvider i18n={i18n}>
         <Router>
           <Routes>
@@ -37,10 +42,9 @@ function App() {
             </Route>
             <Route element={<NoFooter />}>
               <Route path="/login" element={<LoginPage />}></Route>
-              <Route path="/register" element={<Registerpage />}></Route>
+              <Route path="/register" element={<Registerpage />}></Route>   
               <Route path="/service/:id" element={<ServiceDetail />}></Route>
-              {/* <Route path="/payment" element={<ServicePayment />}></Route> */}
-              {/* <Route path="/address" element={<ClientInformation />}></Route> */}
+              <Route path="/success" element={<SuccessPage />}></Route>
             </Route>
             <Route element={<ServiceFooter />}>
               <Route path="/checkout" element={<CheckoutForm/>}></Route>
@@ -48,6 +52,7 @@ function App() {
           </Routes>
         </Router>
       </I18nextProvider>
+      </PayProvider>
     </ThemeProvider>
   );
 }

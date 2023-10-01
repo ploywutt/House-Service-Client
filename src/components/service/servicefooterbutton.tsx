@@ -1,10 +1,9 @@
 import { Button } from "../ui/button";
 import ArrowLeft from "../../assets/icon/arrow_left.png";
 import ArrowRight from "../../assets/icon/arrow_right.png";
-
 import AlertPayment from "../AlertPayment";
-
 import { useTranslation } from "react-i18next";
+import Success from "../success";
 
 type ServiceFooter = {
   handleBack?: () => void;
@@ -90,7 +89,16 @@ function ServiceFooterButton({
           address={address}
           detail={detail}
         />
+        
       )}
+          {/* <Success
+                  totalprice={totalprice}
+                  counts={counts}
+                  date={date}        
+                  thaiDate={thaiDate}
+                  selectedTime={selectedTime}
+                  address={address}
+                  detail={detail}/> */}
     </div>
   );
 }

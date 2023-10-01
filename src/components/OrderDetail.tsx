@@ -1,7 +1,6 @@
 import { Separator } from "./ui/separator";
 import { createContext } from "react";
 import { useTranslation } from "react-i18next";
-
 export const OrderContext = createContext({});
 
 function OrderDetail(props: {
@@ -12,9 +11,7 @@ function OrderDetail(props: {
     selectedAmphure: string;
     selectedProvince: string;
   };
-  // selectedTambon: string;
-  // selectedAmphure: string;
-  // selectedProvince: string;
+
   thaiDate: string;
   date: Date | undefined;
   totalprice: number;
