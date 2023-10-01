@@ -72,6 +72,7 @@ function ClientInput(props: any) {
             <Input
               type="text"
               id="address"
+              value={props.address}
               name="address"
               placeholder={t(
                 "stepper_second_details.stepper_detail_location_please"
@@ -102,11 +103,7 @@ function ClientInput(props: any) {
                 </SelectTrigger>
               ) : (
                 <SelectTrigger className="w-full text-slate-950 dark:text-white">
-                  <SelectValue
-                    placeholder={t(
-                      "stepper_second_details.stepper_detail_province_please"
-                    )}
-                  />
+                  <SelectValue placeholder={props.selectedProvince} />
                 </SelectTrigger>
               )}
               <SelectContent className="h-96">
@@ -147,11 +144,7 @@ function ClientInput(props: any) {
                 </SelectTrigger>
               ) : (
                 <SelectTrigger className="w-full text-slate-950 dark:text-white">
-                  <SelectValue
-                    placeholder={t(
-                      "stepper_second_details.stepper_detail_select_district"
-                    )}
-                  />
+                  <SelectValue placeholder={props.selectedAmphure} />
                 </SelectTrigger>
               )}
 
@@ -194,11 +187,7 @@ function ClientInput(props: any) {
                 </SelectTrigger>
               ) : (
                 <SelectTrigger className="w-full text-slate-950 dark:text-white">
-                  <SelectValue
-                    placeholder={t(
-                      "stepper_second_details.stepper_detail_select_town"
-                    )}
-                  />
+                  <SelectValue placeholder={props.selectedAmphure} />
                 </SelectTrigger>
               )}
 
@@ -224,6 +213,7 @@ function ClientInput(props: any) {
           <textarea
             id="other"
             name="other"
+            value={props.detail}
             rows={3}
             placeholder={t(
               "stepper_second_details.stepper_detail_comments_area"

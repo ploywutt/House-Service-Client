@@ -25,6 +25,12 @@ type ServiceFooter = {
   orderTotalPrice: number | undefined;
   discount: number | undefined;
   type: string | undefined;
+  formData: {
+    cardHolderName: string;
+    creditCardNumber: string;
+    expirationDate: string;
+    cvc: string;
+  };
 };
 
 function ServiceFooterButton({
@@ -41,6 +47,7 @@ function ServiceFooterButton({
   orderTotalPrice,
   discount,
   type,
+  formData,
 }: ServiceFooter) {
   const { t } = useTranslation();
   return (
@@ -98,6 +105,7 @@ function ServiceFooterButton({
           orderTotalPrice={orderTotalPrice}
           discount={discount || null}
           type={type || ""}
+          formData={formData}
         />
       )}
     </div>

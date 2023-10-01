@@ -26,6 +26,22 @@ interface AddressInfo {
   selectedProvince: string;
 }
 
+interface FormData {
+  creditCardNumber: string;
+  cardHolderName: string;
+  expirationDate: string;
+  cvc: string;
+  discountCode: string;
+  promptPayId: string;
+}
+
+interface Errors {
+  creditCardNumber: string;
+  cardHolderName: string;
+  expirationDate: string;
+  cvc: string;
+}
+
 function Servicedetail() {
   const { pathname, navigate } = usePathname();
 
@@ -93,13 +109,26 @@ function Servicedetail() {
     selectedProvince,
   };
 
+  const [paymentMethod, setPaymentMethod] = useState<string>("card");
+  const [formData, setFormData] = useState<FormData>({
+    creditCardNumber: "",
+    cardHolderName: "",
+    expirationDate: "",
+    cvc: "",
+    discountCode: "",
+    promptPayId: "",
+  });
+
+  console.log(formData);
+  const [errors, setErrors] = useState<Errors>({
+    creditCardNumber: "",
+    cardHolderName: "",
+    expirationDate: "",
+    cvc: "",
+  });
   const [orderTotalPrice, setOrderTotalPrice] = useState<number>();
   const [discount, setDiscount] = useState<number>();
   const [type, setType] = useState<string>();
-  console.log("orderTotalPrice", orderTotalPrice);
-  console.log("discount", discount);
-  console.log("type", type);
-  console.log("หน้ารวม", totalprice, counts);
 
   return (
     <>
@@ -146,6 +175,7 @@ function Servicedetail() {
                       setSelectedTambon={setSelectedTambon}
                       selectedTambon={selectedTambon}
                       setAddress={setAddress}
+                      address={address}
                       hour={hour}
                       minute={minute}
                       handleHour={handleHour}
@@ -158,6 +188,7 @@ function Servicedetail() {
                       setDate={setDate}
                       thaiDate={thaiDate}
                       setDetail={setDetail}
+                      detail={detail}
                     />
                   )}
                   {currentStep === 3 && (
@@ -166,9 +197,15 @@ function Servicedetail() {
                       setOrderTotalPrice={setOrderTotalPrice}
                       setDiscount={setDiscount}
                       setType={setType}
+                      paymentMethod={paymentMethod}
+                      setPaymentMethod={setPaymentMethod}
+                      formData={formData}
+                      setFormData={setFormData}
+                      errors={errors}
+                      setErrors={setErrors}
                     />
                   )}
-                  {/* ก้อนขวา */}
+
                   <OrderDetail
                     totalprice={totalprice}
                     counts={counts}
@@ -176,7 +213,6 @@ function Servicedetail() {
                     thaiDate={thaiDate}
                     address={addressInfo}
                     selectedTime={selectedTime}
-                    //promotion
                     discount={discount}
                     orderTotalPrice={orderTotalPrice}
                     type={type}
@@ -202,6 +238,7 @@ function Servicedetail() {
           orderTotalPrice={orderTotalPrice}
           discount={discount}
           type={type}
+          formData={formData}
         ></ServiceFooterButton>
       </div>
     </>

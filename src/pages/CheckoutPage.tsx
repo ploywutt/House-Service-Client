@@ -11,59 +11,43 @@ import axios from "axios";
 
 import "../assets/css/checkout.css";
 
-interface FormData {
-  creditCardNumber: string;
-  cardHolderName: string;
-  expirationDate: string;
-  cvc: string;
-  discountCode: string;
-  promptPayId: string;
-}
-
-interface Errors {
-  creditCardNumber: string;
-  cardHolderName: string;
-  expirationDate: string;
-  cvc: string;
-}
-
 interface CheckoutPageProps {
   setOrderTotalPrice: (totalPrice: number) => void;
   setType: (type: any) => void;
   setDiscount: (discount: number) => void;
   totalprice: number;
+  paymentMethod: string;
+  setPaymentMethod: (method: string) => void;
+  formData: {
+    creditCardNumber: string;
+    cardHolderName: string;
+    expirationDate: string;
+    cvc: string;
+    discountCode: string;
+    promptPayId: string;
+  };
+  errors: {
+    creditCardNumber: string;
+    cardHolderName: string;
+    expirationDate: string;
+    cvc: string;
+  };
+  setFormData(data: any): void;
+  setErrors(errors: any): void;
 }
 
 const CheckoutPage = (props: CheckoutPageProps) => {
   const { t } = useTranslation();
-  const [paymentMethod, setPaymentMethod] = useState<string>("card");
-  const [formData, setFormData] = useState<FormData>({
-    creditCardNumber: "",
-    cardHolderName: "",
-    expirationDate: "",
-    cvc: "",
-    discountCode: "",
-    promptPayId: "",
-  });
-  const [errors, setErrors] = useState<Errors>({
-    creditCardNumber: "",
-    cardHolderName: "",
-    expirationDate: "",
-    cvc: "",
-  });
-
-  const [discountCode, setDiscountCode] = useState<string>("");
-  const [isCodeApplied, setIsCodeApplied] = useState<boolean>(false);
 
   const handlePaymentMethodChange = (method: string) => {
-    setPaymentMethod(method);
+    props.setPaymentMethod(method);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    props.setFormData({ ...props.formData, [name]: value });
 
-    const updatedErrors = { ...errors };
+    const updatedErrors = { ...props.errors };
 
     switch (name) {
       case "creditCardNumber":
@@ -102,54 +86,8 @@ const CheckoutPage = (props: CheckoutPageProps) => {
       default:
         break;
     }
-    setErrors(updatedErrors);
+    props.setErrors(updatedErrors);
   };
-
-  // const handleUseCode = () => {
-  //   setIsCodeApplied(true);
-  //   checkPromotionCode(formData.discountCode);
-  // };
-
-  // const checkPromotionCode = async (code) => {
-  //   try {
-  //     const response = await axios.get(`/api/promotion/${code}`);
-  //     setCodeValidationResult(response.data);
-  //   } catch (error) {
-  //     console.error('Error checking promotion code:', error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (codeValidationResult) {
-  //     if (codeValidationResult.isExpired) {
-  //       console.log('Promotion code has expired');
-  //     } else if (codeValidationResult.isMaxUsageReached) {
-  //       console.log('Maximum usage reached for the promotion code');
-  //     } else {
-  //       console.log('Promotion code is valid');
-  //     }
-  //   }
-  // }, [codeValidationResult]);
-
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   if (paymentMethod === "card") {
-  //     if (
-  //       errors.creditCardNumber ||
-  //       errors.cardHolderName ||
-  //       errors.expirationDate ||
-  //       errors.cvc
-  //     ) {
-  //       return;
-  //     }
-  //   } else if (paymentMethod === "promptpay") {
-  //   }
-  // };
-
-  // ---------------------------------
-
-  // const { setCodeName, codeName } = useCode();
 
   const [codeName, setCodeName] = useState<string>();
   const [promoData, setPromoData] = useState<any>();
@@ -228,7 +166,7 @@ const CheckoutPage = (props: CheckoutPageProps) => {
           </button>
         </div>
 
-        {paymentMethod === "card" && (
+        {props.paymentMethod === "card" && (
           <div>
             <div className="w-[686px] pt-[36px] flex flex-col gap-1">
               <label htmlFor="creditCardNumber" className=" text-slate-900">
@@ -240,13 +178,15 @@ const CheckoutPage = (props: CheckoutPageProps) => {
               <input
                 type="text"
                 name="creditCardNumber"
-                value={formData.creditCardNumber}
+                value={props.formData.creditCardNumber}
                 onChange={handleInputChange}
                 placeholder={t("checkout_page.checkout_page_credit_please")}
                 className="w-[686px] h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
               />
-              {errors.creditCardNumber && (
-                <p className="text-utility-red">{errors.creditCardNumber}</p>
+              {props.errors.creditCardNumber && (
+                <p className="text-utility-red">
+                  {props.errors.creditCardNumber}
+                </p>
               )}
             </div>
             <div className="w-[686px] pt-[36px] flex flex-col gap-1">
@@ -259,15 +199,17 @@ const CheckoutPage = (props: CheckoutPageProps) => {
               <input
                 type="text"
                 name="cardHolderName"
-                value={formData.cardHolderName}
+                value={props.formData.cardHolderName}
                 onChange={handleInputChange}
                 placeholder={t(
                   "checkout_page.checkout_page_credit_name_please"
                 )}
                 className="w-[686px] h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
               />
-              {errors.cardHolderName && (
-                <p className="text-utility-red">{errors.cardHolderName}</p>
+              {props.errors.cardHolderName && (
+                <p className="text-utility-red">
+                  {props.errors.cardHolderName}
+                </p>
               )}
             </div>
             <div className="w-[686px] h-auto pt-[36px] flex flex-row">
@@ -281,14 +223,16 @@ const CheckoutPage = (props: CheckoutPageProps) => {
                 <input
                   type="text"
                   name="expirationDate"
-                  value={formData.expirationDate}
+                  value={props.formData.expirationDate}
                   onChange={handleInputChange}
                   placeholder="MM/YY"
                   className="w-[331px] h-auto px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
                   maxLength={5}
                 />
-                {errors.expirationDate && (
-                  <p className="text-utility-red">{errors.expirationDate}</p>
+                {props.errors.expirationDate && (
+                  <p className="text-utility-red">
+                    {props.errors.expirationDate}
+                  </p>
                 )}
               </div>
               <div className="w-[331px] h-[72px] flex-col justify-start items-start gap-1 inline-flex ml-[24px]">
@@ -301,25 +245,27 @@ const CheckoutPage = (props: CheckoutPageProps) => {
                 <input
                   type="text"
                   name="cvc"
-                  value={formData.cvc}
+                  value={props.formData.cvc}
                   onChange={handleInputChange}
                   placeholder="xxx"
                   className="w-[331px] h-auto px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
                   maxLength={3}
                 />
-                {errors.cvc && <p className="text-utility-red">{errors.cvc}</p>}
+                {props.errors.cvc && (
+                  <p className="text-utility-red">{props.errors.cvc}</p>
+                )}
               </div>
             </div>
           </div>
         )}
 
-        {paymentMethod === "promptpay" && (
+        {props.paymentMethod === "promptpay" && (
           <div>
             <h3>Enter PromptPay Info</h3>
             <input
               type="text"
               name="promptPayId"
-              value={formData.promptPayId}
+              value={props.formData.promptPayId}
               onChange={handleInputChange}
             />
           </div>
