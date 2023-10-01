@@ -86,7 +86,7 @@ function AlertPayment(props: AlertPaymentProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="w-40 h-11">
+        <Button className="w-40 h-11 dark:bg-black dark:text-white">
           <p className="mr-2 ">{t("alert_payment.alert_payment_next")}</p>
           <img src={ArrowRight} alt="ArrowRight" />
         </Button>
@@ -98,7 +98,7 @@ function AlertPayment(props: AlertPaymentProps) {
             {!confirm && !isLoading && (
               <div id="Info Payment" className="flex flex-col items-center">
                 <img src={InfoPay} alt="Info Payment Icon" />
-                <div id="Title" className="pt-8">
+                <div id="Title" className="pt-8 dark:text-white">
                   <h1>{t("alert_payment.alert_payment_header")}</h1>
                 </div>
               </div>
@@ -107,7 +107,7 @@ function AlertPayment(props: AlertPaymentProps) {
               <div id="Info Payment" className="flex flex-col items-center">
                 <Loader2 className="h-24 animate-spin" />
                 <div id="Title" className="pt-8">
-                  <h1>กำลังดำเนินการชำระเงิน...</h1>
+                  <h1>{t("checkout_processing")}</h1>
                 </div>
               </div>
             ) : null}
@@ -115,12 +115,12 @@ function AlertPayment(props: AlertPaymentProps) {
               <div id="Info Payment" className="flex flex-col items-center">
                 <img src={CheckSymbol} alt="Confirm Payment Icon" />
                 <div id="Title" className="pt-8">
-                  <h1>ชำระเงินเรียบร้อย !</h1>
+                  <h1>{t("checkout_finished")}</h1>
                 </div>
               </div>
             )}
           </AlertDialogTitle>
-          <AlertDialogDescription className="flex flex-col items-center p-4">
+          <AlertDialogDescription className="flex flex-col items-center p-4 dark:text-white">
             <div className="flex flex-col ">
               {props.counts.map(
                 (
@@ -153,7 +153,9 @@ function AlertPayment(props: AlertPaymentProps) {
               <a className="p3 text-gray-500">
                 {t("alert_payment.alert_payment_day")}
               </a>
-              <a className="p3 text-right text-black">{props.thaiDate}</a>
+              <a className="p3 text-right text-black dark:text-white">
+                {props.thaiDate}
+              </a>
             </div>
             <div
               id="Time"
@@ -162,7 +164,9 @@ function AlertPayment(props: AlertPaymentProps) {
               <a className="p3 text-gray-500">
                 {t("alert_payment.alert_payment_time")}
               </a>
-              <a className="p3 text-right text-black">{props.selectedTime}</a>
+              <a className="p3 text-right text-black dark:text-white">
+                {props.selectedTime}
+              </a>
             </div>
             <div
               id="Place"
@@ -171,7 +175,7 @@ function AlertPayment(props: AlertPaymentProps) {
               <a className="p3 text-gray-500">
                 {t("alert_payment.alert_payment_location")}
               </a>
-              <a className="p3 text-right text-black w-5/6">
+              <a className="p3 text-right text-black dark:text-white w-5/6">
                 {props.address.address} {props.address.selectedTambon}{" "}
                 {props.address.selectedAmphure} {props.address.selectedProvince}
               </a>
@@ -203,7 +207,7 @@ function AlertPayment(props: AlertPaymentProps) {
                 </div>
               )}
               <div className="flex flex-row justify-between">
-                <p className="text-gray-500 dark:text-white">
+                <p className="text-gray-500">
                   {t("order_details.order_details_finale")}
                 </p>
                 {props.totalprice && props.orderTotalPrice ? (
@@ -249,7 +253,7 @@ function AlertPayment(props: AlertPaymentProps) {
                 navigate("/orders");
               }}
             >
-              เช็ครายการซ่อม
+              {t("checkout_page.checkout_page_check_order_list")}
             </AlertDialogAction>
           </AlertDialogFooter>
         )}

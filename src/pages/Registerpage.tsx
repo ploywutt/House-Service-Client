@@ -44,7 +44,9 @@ const Registerpage = () => {
               <br />
               <Input
                 className={`${
-                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                  !isValid
+                    ? "border-[#C82438]"
+                    : "focus:border-blue-600 dark:text-white"
                 }`}
                 type="text"
                 id="name"
@@ -74,7 +76,9 @@ const Registerpage = () => {
               <br />
               <Input
                 className={
-                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                  !isValid
+                    ? "border-[#C82438]"
+                    : "focus:border-blue-600 dark:text-white"
                 }
                 type="tel"
                 id="phone"
@@ -104,7 +108,9 @@ const Registerpage = () => {
               <br />
               <Input
                 className={
-                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                  !isValid
+                    ? "border-[#C82438]"
+                    : "focus:border-blue-600 dark:text-white"
                 }
                 type="email"
                 id="email"
@@ -134,7 +140,9 @@ const Registerpage = () => {
               <br />
               <Input
                 className={
-                  !isValid ? "border-[#C82438]" : "focus:border-blue-600"
+                  !isValid
+                    ? "border-[#C82438]"
+                    : "focus:border-blue-600 dark:text-white"
                 }
                 type="password"
                 id="password"
@@ -185,7 +193,7 @@ const Registerpage = () => {
             </label>
           </div>
           <Button
-            className="w-96 h-11 px-6 py-2.5 bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex m-8 dark:bg-black dark:text-white"
+            className="w-96 h-11 px-6 py-2.5 bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex m-8 dark:bg-black dark:text-white hover:dark:bg-gray-600"
             type="submit"
           >
             {t("register_page.register_button")}

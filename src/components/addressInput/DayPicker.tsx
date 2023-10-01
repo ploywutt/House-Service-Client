@@ -21,7 +21,7 @@ function DayPicker(props) {
           id="calendar"
           variant={"outline"}
           className={cn(
-            "w-full h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-between items-center inline-flex focus:border focus:border-blue-500 text-base font-normal relative",
+            "w-full h-11 px-4 py-2.5 bg-white dark:text-white rounded-lg border border-gray-300 justify-between items-center inline-flex focus:border focus:border-blue-500 text-base font-normal relative",
             !props.date &&
               "text-muted-foreground text-gray-700 text-base font-normal",
             (props.date && props.thaiDate) ===

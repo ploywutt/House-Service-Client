@@ -281,6 +281,7 @@ function EditProfile(props: { fetchData: any }) {
               <Label htmlFor={item.label}>{item.label}</Label>
               <Input
                 id={item.varName}
+                className="dark:text-white"
                 name={item.varName}
                 placeholder={item.placeholder}
                 value={inputValues[item.varName]}
@@ -289,12 +290,13 @@ function EditProfile(props: { fetchData: any }) {
             </div>
           ))}
           <hr />
-          <h6 className="text-center text-gray-600">เปลี่ยนรหัสผ่าน</h6>
+          <h6 className="text-center text-gray-600">{t("change_password")}</h6>
           {userPasswordInfo.map((item, index) => (
             <div id="input-container" key={index}>
               <Label htmlFor={item.label}>{item.label}</Label>
               <Input
                 id={item.varName}
+                className="dark:text-white"
                 name={item.varName}
                 placeholder={item.placeholder}
                 value={inputValues[item.varName]}

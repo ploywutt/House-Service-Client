@@ -156,7 +156,8 @@
     "checkout_page_expired_date": "Expired Date",
     "checkout_page_cvv": "CVC / CVV",
     "checkout_page_cvv_please": "Promotion Code (optional)",
-    "checkout_page_use_code": "Submit"
+    "checkout_page_use_code": "Submit",
+    "checkout_page_check_order_list": "Check Orders"
   },
   "service_footer_next": "Proceed",
   "service_footer_back": "Back",
@@ -178,5 +179,9 @@
     "policy_security_details": "We take reasonable measures to protect your personal information from unauthorized access, disclosure, alteration, or destruction. However, no data transmission or storage system can be guaranteed to be 100% secure.",
     "policy_choice": "<strong>Your Choices</strong>",
     "policy_choice_details": "You have the right to access, correct, or delete your personal information. You can do this by contacting us at contact@homeservices.co. You may also have choices regarding the collection of certain information, such as disabling cookies in your web browser."
-  }
+  },
+  "change_password": "Change Password",
+  "please_choose_next_day": "Please Choose Your Next Day !",
+  "checkout_processing": "Processing...",
+  "checkout_finished": "Payment Complete !"
 }

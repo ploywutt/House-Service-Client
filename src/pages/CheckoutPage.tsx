@@ -5,6 +5,7 @@ import creditcardBlueIcon from "../assets/icon/creditcardBlue.svg";
 import qrCodeIcon from "../assets/icon/qr_code.svg";
 import qrCodeBlueIcon from "../assets/icon/qrcodeblue.svg";
 import { Separator } from "../components/ui/separator";
+import { useTranslation } from "react-i18next";
 
 import axios from "axios";
 
@@ -34,6 +35,7 @@ interface CheckoutPageProps {
 }
 
 const CheckoutPage = (props: CheckoutPageProps) => {
+  const { t } = useTranslation();
   const [paymentMethod, setPaymentMethod] = useState<string>("card");
   const [formData, setFormData] = useState<FormData>({
     creditCardNumber: "",
@@ -196,7 +198,9 @@ const CheckoutPage = (props: CheckoutPageProps) => {
   return (
     <div className="flex justify-center w-[735px] h-[auto] bg-white rounded-lg border border-zinc-300">
       <div>
-        <h3 className="text-gray-700 py-4">ชำระเงิน</h3>
+        <h3 className="text-gray-700 py-4">
+          {t("checkout_page.checkout_page_checkout")}
+        </h3>
         <div className="flex justify-between">
           <button
             id="creditcard-btn"
@@ -210,7 +214,7 @@ const CheckoutPage = (props: CheckoutPageProps) => {
               className="blue"
             />
 
-            <h5>บัตรเครดิต</h5>
+            <h5>{t("checkout_page.checkout_page_credit")}</h5>
           </button>
 
           <button
@@ -220,7 +224,7 @@ const CheckoutPage = (props: CheckoutPageProps) => {
           >
             <img src={qrCodeIcon} alt="QR Code Icon" className="gray" />
             <img src={qrCodeBlueIcon} alt="QR Code Icon" className="blue" />
-            <h5>พร้อมเพย์</h5>
+            <h5>{t("checkout_page.checkout_page_promptpay")}</h5>
           </button>
         </div>
 
@@ -229,7 +233,8 @@ const CheckoutPage = (props: CheckoutPageProps) => {
             <div className="w-[686px] pt-[36px] flex flex-col gap-1">
               <label htmlFor="creditCardNumber" className=" text-slate-900">
                 <h5>
-                  หมายเลขบัตรเครดิต <span className="text-utility-red">*</span>
+                  {t("checkout_page.checkout_page_credit_number")}
+                  <span className="text-utility-red">*</span>
                 </h5>
               </label>
               <input
@@ -237,7 +242,7 @@ const CheckoutPage = (props: CheckoutPageProps) => {
                 name="creditCardNumber"
                 value={formData.creditCardNumber}
                 onChange={handleInputChange}
-                placeholder="กรุณากรอกหมายเลขบัตรเครดิต"
+                placeholder={t("checkout_page.checkout_page_credit_please")}
                 className="w-[686px] h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
               />
               {errors.creditCardNumber && (
@@ -247,7 +252,8 @@ const CheckoutPage = (props: CheckoutPageProps) => {
             <div className="w-[686px] pt-[36px] flex flex-col gap-1">
               <label htmlFor="cardHolderName" className="text-slate-900">
                 <h5>
-                  ชื่อบนบัตรเครดิต <span className="text-utility-red">*</span>
+                  {t("checkout_page.checkout_page_credit_name")}
+                  <span className="text-utility-red">*</span>
                 </h5>
               </label>
               <input
@@ -255,7 +261,9 @@ const CheckoutPage = (props: CheckoutPageProps) => {
                 name="cardHolderName"
                 value={formData.cardHolderName}
                 onChange={handleInputChange}
-                placeholder="กรุณากรอกชื่อบนบัตร"
+                placeholder={t(
+                  "checkout_page.checkout_page_credit_name_please"
+                )}
                 className="w-[686px] h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
               />
               {errors.cardHolderName && (
@@ -266,7 +274,8 @@ const CheckoutPage = (props: CheckoutPageProps) => {
               <div className="w-[331px] h-[72px] flex-col justify-start items-start gap-1 inline-flex">
                 <label htmlFor="expirationDate" className="text-slate-900">
                   <h5>
-                    วันหมดอายุ <span className="text-utility-red">*</span>
+                    {t("checkout_page.checkout_page_expired_date")}
+                    <span className="text-utility-red">*</span>
                   </h5>
                 </label>
                 <input
@@ -285,7 +294,8 @@ const CheckoutPage = (props: CheckoutPageProps) => {
               <div className="w-[331px] h-[72px] flex-col justify-start items-start gap-1 inline-flex ml-[24px]">
                 <label htmlFor="cvc" className="text-slate-900">
                   <h5>
-                    รหัส CVC / CVV <span className="text-utility-red">*</span>
+                    {t("checkout_page.checkout_page_cvv")}
+                    <span className="text-utility-red">*</span>
                   </h5>
                 </label>
                 <input
@@ -322,14 +332,14 @@ const CheckoutPage = (props: CheckoutPageProps) => {
             name="discountCode"
             value={codeName}
             onChange={handlePromoChange}
-            placeholder="กรุณากรอกโค้ดส่วนลด (ถ้ามี)"
+            placeholder={t("checkout_page.checkout_page_cvv_please")}
             className="w-[331px] h-[auto] px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
           />
           <button
             className="ButtonPrimaryMedium w-[90px] h-11 px-6 py-2.5 ml-[24px] bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex text-white"
             onClick={handleOnClickPromotionCode}
           >
-            ใช้โค้ด
+            {t("checkout_page.checkout_page_use_code")}
           </button>
         </div>
       </div>

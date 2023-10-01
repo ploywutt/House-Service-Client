@@ -42,6 +42,7 @@ function Homepage() {
               dangerouslySetInnerHTML={{ __html: t("banner_title3") }}
             ></div>
             <Button
+              onClick={toservicelist}
               variant="myPrimary"
               className="lg:text-[1.25rem] text-[0.95rem] lg:px-[2rem] py-[1.5rem]"
             >

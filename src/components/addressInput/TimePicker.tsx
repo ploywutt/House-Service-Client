@@ -30,7 +30,7 @@ function TimePicker(props: {
           variant={"outline"}
           id="time"
           className={cn(
-            "w-full h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-between items-center inline-flex focus:border focus:border-blue-500 text-base font-normal relative",
+            "w-full h-11 px-4 py-2.5 bg-white rounded-lg border dark:text-white border-gray-300 justify-between items-center inline-flex focus:border focus:border-blue-500 text-base font-normal relative",
             !props.selectedTime &&
               "text-muted-foreground text-gray-700 text-base font-normal"
           )}

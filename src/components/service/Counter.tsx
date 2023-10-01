@@ -36,7 +36,7 @@ export default function Counter({
         <img src={NegativeIcon} alt="Negative Icon" className="h-4 w-4" />
       </button>
       <div className="grow shrink py-2 justify-center items-center">
-        <h5 className="text-center text-gray-600">{count}</h5>
+        <h5 className="text-center text-gray-600 dark:text-white">{count}</h5>
       </div>
       <button
         // onClick={handleIncrement}

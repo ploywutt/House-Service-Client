@@ -26,7 +26,7 @@ function OrderDetail(props: OrderDetailProps) {
 
   console.log("หน้า OrderDetal", props.totalprice);
   return (
-    <div className="w-[349px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 sticky top-0 dark:bg-gray-800">
+    <div className="w-[349px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 sticky top-0 dark:bg-gray-800 dark:text-white">
       <div>
         <h3 className="text-gray-700 mb-2 dark:text-white">
           {t("order_details.order_details_summary")}

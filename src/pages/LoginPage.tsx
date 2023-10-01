@@ -38,7 +38,7 @@ const UserLogin = () => {
               </span>
             </label>
             <Input
-              className={`w-96 h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex ${
+              className={`w-96 h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 dark:text-white justify-start items-center gap-2.5 inline-flex ${
                 !isValid ? "border-[#C82438]" : "focus:border-blue-600"
               }`}
               type="email"
@@ -64,7 +64,7 @@ const UserLogin = () => {
               </span>
             </label>
             <Input
-              className={`w-96 h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex ${
+              className={`w-96 h-11 px-4 py-2.5 bg-white rounded-lg border border-gray-300 dark:text-white justify-start items-center gap-2.5 inline-flex ${
                 !isValid ? "border-[#C82438]" : "focus:border-blue-600"
               }`}
               type="password"
@@ -83,7 +83,7 @@ const UserLogin = () => {
         </div>
         <div>
           <Button
-            className={`w-96 h-11 px-6 py-2.5 no-underline zmarker:rounded-lg justify-center items-center gap-2 inline-flex m-8 dark:bg-gray-800 dark:text-white`}
+            className={`w-96 h-11 px-6 py-2.5 no-underline zmarker:rounded-lg justify-center items-center gap-2 inline-flex m-8 dark:bg-gray-800 dark:text-white hover:dark:bg-gray-600`}
             type="submit"
             onClick={handleLogin}
           >

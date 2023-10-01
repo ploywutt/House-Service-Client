@@ -29,7 +29,7 @@ const Summary = ({
   // }, [productList]);
 
   return (
-    <div className="w-[349px] h-fit pl-6 pr-[21px] pt-4 pb-7 bg-white rounded-lg border border-zinc-300 flex-col justify-start items-start gap-[18px] inline-flex ml-[36px] ">
+    <div className="w-[349px] h-fit pl-6 pr-[21px] pt-4 pb-7 bg-white rounded-lg border border-zinc-300 flex-col justify-start items-start gap-[18px] inline-flex ml-[36px] dark:text-white">
       <h2>{t("summary_page.summary")}</h2>
       <table>
         <tbody className="w-[304px] h-[282px] flex-col justify-start items-start gap-6 inline-flex">
