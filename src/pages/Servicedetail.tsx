@@ -16,20 +16,19 @@ import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
 import usePathname from "@/hook/usePathname";
-// import useCheckoutForm from "@/hook/useTest";
 import { useEffect, useState } from "react";
 
 import supabase from "@/auth/supabaseauth";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-
-import axios from "axios";
+import useClientSecretStripe from "@/hook/useClientSecretStripe";
 
 const stripePromise = loadStripe(
   "pk_test_51NozskHa6CHfGgr1Mlek2lwtRJjpDwWxNA0gn2HOsVJpCHvdw8IU3SC49hc4w38V8tAW8i3AexxQD7PJ9JACmlt800wDbJcXNt"
 );
 
+//login----------------------------------------------------//
 function Servicedetail() {
   const { pathname, navigate } = usePathname();
 
@@ -50,19 +49,23 @@ function Servicedetail() {
     fetchUser();
   }, []);
 
-  const [clientSecret, setClientSecret] = useState("");
-  const createPaymentIntent = async () => {
-    const data = await axios.post(
-      "http://localhost:4000/create-payment-intent",
-      { price: 500000 }
-    );
-    console.log(data.data);
-    setClientSecret(data.data.clientSecret);
-  };
+  //stripe----------------------------------------------------//
+
+  const { clientSecret, createPaymentIntent } = useClientSecretStripe();
 
   useEffect(() => {
     createPaymentIntent();
   }, []);
+
+  // const [clientSecret, setClientSecret] = useState("");
+  // const createPaymentIntent = async () => {
+  //   const data = await axios.post(
+  //     "http://localhost:4000/create-payment-intent",
+  //     { price: 500000 }
+  //   );
+  //   console.log("stripe", data.data);
+  //   setClientSecret(data.data.clientSecret);
+  // };
 
   const appearance = {
     theme: "stripe",
@@ -71,20 +74,11 @@ function Servicedetail() {
       colorBackground: "#fff",
     },
   };
-  const options = {
-    clientSecret,
-    appearance,
-  };
 
-  // const {
-  //   message,
-  //   setMessage,
-  //   isLoading,
-  //   setIsLoading,
-  //   handleSubmit,
-  //   stripe,
-  //   elements,
-  // } = useCheckoutForm();
+  const options = {
+    appearance,
+    clientSecret,
+  };
 
   //-------------------------------------------------------------------------//
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
@@ -196,15 +190,14 @@ function Servicedetail() {
                       )}
 
                       {currentStep === 3 && (
-                        // <CheckoutPage totalprice={totalprice} />
                         <CheckoutForm
-                        // message={message}
-                        // setMessage={setMessage}
-                        // isLoading={isLoading}
-                        // setIsLoading={setIsLoading}
-                        // handleSubmit={handleSubmit}
-                        // stripe={stripe}
-                        // elements={elements}
+                          totalprice={totalprice}
+                          counts={counts}
+                          date={date}
+                          thaiDate={thaiDate}
+                          selectedTime={selectedTime}
+                          address={address}
+                          detail={detail}
                         />
                       )}
 
@@ -223,6 +216,7 @@ function Servicedetail() {
               </div>
             </div>
           </div>
+
           <div className="fixed bottom-0 z-10 w-full">
             <ServiceFooterButton
               handleBack={handleBack}

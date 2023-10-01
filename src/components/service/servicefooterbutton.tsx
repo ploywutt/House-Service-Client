@@ -80,7 +80,7 @@ function ServiceFooterButton({
         </Button>
       ) : null}
 
-      {currentStep === 3 && (
+      {/* {currentStep === 3 && (
         <AlertPayment
           totalprice={totalprice}
           counts={counts}
@@ -90,7 +90,7 @@ function ServiceFooterButton({
           address={address}
           detail={detail}
         />
-      )}
+      )} */}
     </div>
   );
 }

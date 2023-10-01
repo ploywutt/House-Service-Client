@@ -23,7 +23,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import useCheckoutForm from "../hook/useTest";
+// import useCheckoutForm from "../hook/useTest";
+import useClientSecretStripe from "@/hook/useClientSecretStripe";
 
 function AlertPayment(props) {
   const { t } = useTranslation();
@@ -37,7 +38,15 @@ function AlertPayment(props) {
   const isoDateString = dateObject.toISOString();
   const formattedDate = isoDateString.split("T")[0];
 
-  const handleClick = async (event) => {
+  // const { createPaymentIntent } = useClientSecretStripe();
+  // const { handleSubmit } = useCheckoutForm();
+
+  const handleCombo = async (event) => {
+    props.handleSubmit(event);
+    // createOrderToDB(event);
+  };
+
+  const createOrderToDB = async (event) => {
     event.preventDefault();
 
     setIsLoading(true);
@@ -67,16 +76,6 @@ function AlertPayment(props) {
       setIsLoading(false);
     }
   };
-
-  const {
-    // message,
-    // setMessage,
-    // isLoading,
-    // setIsLoading,
-    handleSubmit,
-    // stripe,
-    // elements,
-  } = useCheckoutForm();
 
   return (
     <AlertDialog>
@@ -188,7 +187,7 @@ function AlertPayment(props) {
             <AlertDialogCancel className="w-[194px] text-blue-600">
               {t("alert_payment.alert_payment_cancel")}
             </AlertDialogCancel>
-            <AlertDialogAction className="w-[194px]" onClick={handleSubmit}>
+            <AlertDialogAction className="w-[194px]" onClick={handleCombo}>
               {t("alert_payment.alert_payment_confirm")}
             </AlertDialogAction>
           </AlertDialogFooter>

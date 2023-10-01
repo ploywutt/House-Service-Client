@@ -12,37 +12,37 @@ export default function useCheckoutForm() {
   const [isLoading, setIsLoading] = useState(false);
   //  const [clientSecret, setClientsecret] =useState(null);
 
-  useEffect(() => {
-    if (!stripe) {
-      return;
-    }
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      "payment_intent_client_secret"
-    );
-    // setClientsecret(clientSecret);
+  // useEffect(() => {
+  //   if (!stripe) {
+  //     return;
+  //   }
+  //   const clientSecret = new URLSearchParams(window.location.search).get(
+  //     "payment_intent_client_secret"
+  //   );
+  // setClientsecret(clientSecret);
 
-    if (!clientSecret) {
-      return;
-    }
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      console.log("payment intent", paymentIntent);
-      switch (paymentIntent.status) {
-        case "succeeded":
-          setMessage("Payment succeeded!");
-          // เขียนจากหน้าบ้านเพื่อ post เข้า database
-          break;
-        case "processing":
-          setMessage("Your payment is processing.");
-          break;
-        case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
-          break;
-        default:
-          setMessage("Something went wrong.");
-          break;
-      }
-    });
-  }, [stripe]);
+  //   if (!clientSecret) {
+  //     return;
+  //   }
+  //   stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+  //     console.log("payment intent", paymentIntent);
+  //     switch (paymentIntent.status) {
+  //       case "succeeded":
+  //         setMessage("Payment succeeded!");
+  //         // เขียนจากหน้าบ้านเพื่อ post เข้า database
+  //         break;
+  //       case "processing":
+  //         setMessage("Your payment is processing.");
+  //         break;
+  //       case "requires_payment_method":
+  //         setMessage("Your payment was not successful, please try again.");
+  //         break;
+  //       default:
+  //         setMessage("Something went wrong.");
+  //         break;
+  //     }
+  //   });
+  // }, [stripe]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +53,7 @@ export default function useCheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:5174/checkout",
+        return_url: "http://localhost:5173/orders",
       },
     });
 
