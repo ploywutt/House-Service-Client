@@ -1,6 +1,17 @@
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 
 import avatar from "../../assets/image/null-avatar.svg";
 
@@ -9,6 +20,7 @@ import { useEffect, useState } from "react";
 import supabase from "@/auth/supabaseauth";
 import axios from "axios";
 import useFetchUserEmail from "@/hook/useFetchUserEmail";
+import { useNavigate } from "react-router-dom";
 
 interface InputValues {
   [key: string]: string | undefined;
@@ -33,12 +45,15 @@ interface UserPasswordInfo {
 }
 
 function EditProfile(props: { fetchData: any }) {
+  console.log(props.fetchData);
+
   const { t } = useTranslation();
 
   const currentUserEmail = useFetchUserEmail();
   console.log(`edit ${currentUserEmail}`);
 
-  console.log(props.fetchData);
+  const navigate = useNavigate();
+
   const fullName = props.fetchData[0]?.name || "";
   const phone = props.fetchData[0]?.phone || "";
   const email = props.fetchData[0]?.email || "";
@@ -77,6 +92,10 @@ function EditProfile(props: { fetchData: any }) {
   const handleFileChange = (event: any) => {
     setFile(event.target.files[0]);
     setUrl(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const handleCancle = () => {
+    navigate("/profile");
   };
 
   const handleUpdate = async () => {
@@ -179,6 +198,7 @@ function EditProfile(props: { fetchData: any }) {
         console.log("Update error", error.message);
       }
     }
+    window.location.reload();
   };
 
   const userInfo: UserInfo[] = [
@@ -293,12 +313,50 @@ function EditProfile(props: { fetchData: any }) {
           ))}
 
           <div id="buttons" className="flex justify-between mt-20">
-            <Button variant={"secondary"} className="px-2.5 py-6 w-[166px]">
+            <Button
+              variant={"secondary"}
+              className="px-2.5 py-6 w-[166px]"
+              onClick={handleCancle}
+            >
               {t("edit_profile_page.cancel")}
             </Button>
-            <Button className="px-2.5 py-6 w-[166px]" onClick={handleUpdate}>
-              {t("edit_profile_page.save")}
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger className="w-[166px] px-6 py-2.5 bg-blue-600 rounded-lg justify-center items-center inline-flex text-center text-white text-base font-medium leading-normal hover:bg-blue-500 active:bg-blue-800 disabled:bg-gray-300 disabled:text-gray-100 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90 ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300">
+                {t("edit_profile_page.save")}
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                {Object.keys(inputValues).length === 0 && !file ? (
+                  <>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>ไม่พบข้อมูลอัพเดท!</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        กรุณากรอกข้อมูลที่ต้องการจะเปลี่ยนแปลง
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogAction>ปิด</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </>
+                ) : (
+                  <>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        ยืนยันการเปลี่ยนแปลงข้อมูล
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        กรุณากดปุ่มยืนยันเพื่ออัพเดทข้อมูล
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>ยกเลิก</AlertDialogCancel>
+                      <AlertDialogAction onClick={handleUpdate}>
+                        ยืนยัน
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </>
+                )}
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
       </div>
