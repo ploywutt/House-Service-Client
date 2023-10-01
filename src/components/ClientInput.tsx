@@ -35,7 +35,9 @@ function ClientInput(props: any) {
               <div>
                 {props.date &&
                   props.thaiDate === "รักของเรามันกลายเป็นอดีตไปแล้ว" && (
-                    <h5 className="text-utility-red">กรุณาเลือกวันถัดไป !</h5>
+                    <h5 className="text-utility-red">
+                      {t("please_choose_next_day")}
+                    </h5>
                   )}
               </div>
             </label>
@@ -74,7 +76,7 @@ function ClientInput(props: any) {
               placeholder={t(
                 "stepper_second_details.stepper_detail_location_please"
               )}
-              className="hover:bg-slate-100 placeholder:hover:text-slate-900"
+              className="hover:bg-slate-100 placeholder:hover:text-slate-900 dark:text-white"
               required
               onChange={(e) => props.setAddress(e.target.value)}
             />
@@ -99,7 +101,7 @@ function ClientInput(props: any) {
                   />
                 </SelectTrigger>
               ) : (
-                <SelectTrigger className="w-full text-slate-950">
+                <SelectTrigger className="w-full text-slate-950 dark:text-white">
                   <SelectValue
                     placeholder={t(
                       "stepper_second_details.stepper_detail_province_please"
@@ -144,7 +146,7 @@ function ClientInput(props: any) {
                   />
                 </SelectTrigger>
               ) : (
-                <SelectTrigger className="w-full text-slate-950">
+                <SelectTrigger className="w-full text-slate-950 dark:text-white">
                   <SelectValue
                     placeholder={t(
                       "stepper_second_details.stepper_detail_select_district"
@@ -191,7 +193,7 @@ function ClientInput(props: any) {
                   />
                 </SelectTrigger>
               ) : (
-                <SelectTrigger className="w-full text-slate-950">
+                <SelectTrigger className="w-full text-slate-950 dark:text-white">
                   <SelectValue
                     placeholder={t(
                       "stepper_second_details.stepper_detail_select_town"

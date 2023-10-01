@@ -148,7 +148,7 @@
   "checkout_page": {
     "checkout_page_checkout": "ชำระเงิน",
     "checkout_page_credit": "บัตรเครดิต",
-    "checkout_page_promptpay": "พร้อมเพ",
+    "checkout_page_promptpay": "พร้อมเพย์",
     "checkout_page_credit_number": "หมายเลขบัตรเครดิต",
     "checkout_page_credit_please": "กรุณากรอกหมายเลขบัตรเครดิต",
     "checkout_page_credit_name": "ชื่อบนบัตรเครดิต",
@@ -156,7 +156,8 @@
     "checkout_page_expired_date": "วันหมดอายุ",
     "checkout_page_cvv": "รหัส CVC / CVV",
     "checkout_page_cvv_please": "กรุณากรอกโค้ดส่วนลด (ถ้ามี)",
-    "checkout_page_use_code": "ใช้โค้ด"
+    "checkout_page_use_code": "ใช้โค้ด",
+    "checkout_page_check_order_list": "เช็ครายการซ่อม"
   },
   "service_footer_next": "ดำเนินการต่อ",
   "service_footer_back": "ย้อนกลับ",
@@ -178,5 +179,9 @@
     "policy_security_details": "เราใช้มาตรการที่เหมาะสมเพื่อปกป้องข้อมูลส่วนบุคคลของคุณจากการเข้าถึง การเปิดเผย การเปลี่ยนแปลง หรือการทำลายโดยไม่ได้รับอนุญาต อย่างไรก็ตาม ไม่มีระบบการรับส่งข้อมูลหรือจัดเก็บข้อมูลใดที่สามารถรับประกันได้ว่าจะมีความปลอดภัย 100%",
     "policy_choice": "<strong>ทางเลือกของคุณ</strong>",
     "policy_choice_details": "คุณมีสิทธิ์เข้าถึง แก้ไข หรือลบข้อมูลส่วนบุคคลของคุณ คุณสามารถทำได้โดยติดต่อเราที่ contact@homeservices.co คุณอาจมีตัวเลือกเกี่ยวกับการรวบรวมข้อมูลบางอย่าง เช่น การปิดใช้งานคุกกี้ในเว็บเบราว์เซอร์ของคุณ"
-  }
+  },
+  "change_password": "เปลี่ยนรหัสผ่าน",
+  "please_choose_next_day": "กรุณาเลือกวันถัดไป !",
+  "checkout_processing": "กำลังดำเนินการชำระเงิน...",
+  "checkout_finished": "ชำระเงินเรียบร้อย !"
 }
