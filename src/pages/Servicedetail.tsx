@@ -168,14 +168,10 @@ function Servicedetail() {
                     thaiDate={thaiDate}
                     address={addressInfo}
                     selectedTime={selectedTime}
-<<<<<<< Updated upstream
                     //promotion
                     discount={discount}
                     orderTotalPrice={orderTotalPrice}
                     type={type}
-=======
-                    //promotion คูปอง กับ ราคาที่ลดแล้ว
->>>>>>> Stashed changes
                   />
                 </div>
               </div>

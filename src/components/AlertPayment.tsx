@@ -50,7 +50,7 @@ function AlertPayment(props) {
           details: props.detail,
           user_email: userEmail,
           status_id: 1,
-          promotion_code: "HOME0202",
+          promotion_code: null,
           sub_service_orders: props.counts,
         }
       );
