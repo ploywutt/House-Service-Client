@@ -73,31 +73,31 @@ function Servicedetail() {
     fetchUser();
   }, []);
 
-  const [clientSecret, setClientSecret] = useState("");
-  const createPaymentIntent = async () => {
-    const data = await axios.post(
-      "http://localhost:4000/create-payment-intent",
-      { price: 500000 }
-    );
-    console.log(data.data);
-    setClientSecret(data.data.clientSecret);
-  };
+  const [clientSecret, setClientSecret] = useState('');
+    const createPaymentIntent = async () => {
+      const data = await axios.post(
+        'http://localhost:4000/create-payment-intent',
+        {price:500000}
+      );
+      console.log(data.data);
+      setClientSecret(data.data.clientSecret);
+    };
+    
+    useEffect(() => {
+      createPaymentIntent();
+    }, []);
 
-  useEffect(() => {
-    createPaymentIntent();
-  }, []);
-
-  const appearance = {
-    theme: "stripe",
-    variables: {
-      colorPrimary: "#C70039",
-      colorBackground: "#fff",
-    },
-  };
-  const options = {
-    clientSecret,
-    appearance,
-  };
+    const appearance = {
+      theme: 'stripe',
+      variables: {
+        colorPrimary: '#C70039',
+        colorBackground: '#fff',
+      },
+    };
+    const options = {
+      clientSecret,
+      appearance,
+    };
 
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
   const {

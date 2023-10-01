@@ -22,6 +22,7 @@ import useFetchUserEmail from "../hook/useFetchUserEmail";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { usePayment } from "@/hook/PayContext";
 
 interface AlertPaymentProps {
   date: string;
@@ -59,9 +60,14 @@ function AlertPayment(props: AlertPaymentProps) {
   const isoDateString = dateObject.toISOString();
   const formattedDate = isoDateString.split("T")[0];
 
-  const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const { submit, setSubmit }: any = usePayment();
+
+  const handleClick = async (event) => {
     event.preventDefault();
+
     setIsLoading(true);
+    setSubmit(true);
+    console.log("Submit has arrive:", submit);
     try {
       const result = await axios.post(
         `http://localhost:4000/v1/user/orderdetails`,
@@ -251,9 +257,9 @@ function AlertPayment(props: AlertPaymentProps) {
             <AlertDialogCancel className="w-[194px] text-blue-600">
               {t("alert_payment.alert_payment_cancel")}
             </AlertDialogCancel>
+
             <AlertDialogAction className="w-[194px]" onClick={handleClick}>
               {t("alert_payment.alert_payment_confirm")}
-          
             </AlertDialogAction>
           </AlertDialogFooter>
         )}

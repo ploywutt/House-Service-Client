@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "@/components/layout/navbar";
 import ServiceFooterButton from "../components/service/servicefooterbutton";
 
+
 function ServiceFooter() {
   return (
     <div className="min-h-screen">

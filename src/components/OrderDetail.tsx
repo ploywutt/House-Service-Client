@@ -1,7 +1,6 @@
 import { Separator } from "./ui/separator";
 import { createContext } from "react";
 import { useTranslation } from "react-i18next";
-
 export const OrderContext = createContext({});
 
 interface OrderDetailProps {
