@@ -18,11 +18,11 @@ import EditProfilePage from "./pages/EditProfilePage";
 import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import CheckoutForm from "./pages/CheckoutForm";
+// import CheckoutForm from "./pages/CheckoutForm";
 // import { useEffect,useContext ,createContext } from "react";
 
 import { PayProvider } from "./hook/PayContext";
-import SuccessPage from "./components/success";
+// import SuccessPage from "./components/success";
 
 function App() {
   return (
@@ -44,10 +44,10 @@ function App() {
               <Route path="/login" element={<LoginPage />}></Route>
               <Route path="/register" element={<Registerpage />}></Route>   
               <Route path="/service/:id" element={<ServiceDetail />}></Route>
-              <Route path="/success" element={<SuccessPage />}></Route>
+              {/* <Route path="/success" element={<SuccessPage />}></Route> */}
             </Route>
             <Route element={<ServiceFooter />}>
-              <Route path="/checkout" element={<CheckoutForm/>}></Route>
+              {/* <Route path="/checkout" element={<CheckoutForm/>}></Route> */}
             </Route>
           </Routes>
         </Router>
