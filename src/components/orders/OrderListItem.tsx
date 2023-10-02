@@ -2,15 +2,8 @@ import calendar from "../../assets/icon/calendar.svg";
 import employee from "../../assets/icon/employee.svg";
 
 import { Badge } from "../ui/badge";
-// import { Button } from "../ui/button";
-
-// import { useNavigate } from "react-router-dom";
-// import usePathname from "@/hook/usePathname";
 
 function OrderListItem(props: any) {
-  // const navigate = useNavigate();
-  // const { pathname, navigate } = usePathname();
-
   return (
     <section id="order-list-column" className="flex flex-col gap-4">
       {props.fetchData.map(
@@ -149,14 +142,6 @@ function OrderListItem(props: any) {
                     )}
                   </ul>
                 </div>
-                {/* {pathname === "/history" ? null : (
-                  <Button
-                    className="px-6 py-2.5"
-                    onClick={() => navigate("/payment")}
-                  >
-                    ดูรายละเอียด
-                  </Button>
-                )} */}
               </div>
             </div>
           );
