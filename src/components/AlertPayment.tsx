@@ -58,6 +58,7 @@ function AlertPayment(props: AlertPaymentProps) {
 
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
     setIsLoading(true);
     setSubmit(true);
     console.log("Submit has arrive:", submit);

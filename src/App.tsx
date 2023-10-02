@@ -18,11 +18,19 @@ import EditProfilePage from "./pages/EditProfilePage";
 import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";
 import { ThemeProvider } from "@/components/ThemeProvider";
+<<<<<<< HEAD
 // import CheckoutForm from "./pages/CheckoutForm";
 // import { useEffect,useContext ,createContext } from "react";
 
 import { PayProvider } from "./hook/PayContext";
 // import SuccessPage from "./components/success";
+=======
+import CheckoutForm from "./pages/CheckoutForm";
+// import { useEffect,useContext ,createContext } from "react";
+
+import { PayProvider } from "./hook/PayContext";
+import SuccessPage from "./components/success";
+>>>>>>> 702ff04 (stripeFix)
 
 function App() {
   return (
@@ -44,7 +52,11 @@ function App() {
               <Route path="/login" element={<LoginPage />}></Route>
               <Route path="/register" element={<Registerpage />}></Route>   
               <Route path="/service/:id" element={<ServiceDetail />}></Route>
+<<<<<<< HEAD
               {/* <Route path="/success" element={<SuccessPage />}></Route> */}
+=======
+              <Route path="/success" element={<SuccessPage />}></Route>
+>>>>>>> 702ff04 (stripeFix)
             </Route>
             <Route element={<ServiceFooter />}>
               {/* <Route path="/checkout" element={<CheckoutForm/>}></Route> */}

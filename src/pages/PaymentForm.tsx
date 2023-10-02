@@ -30,7 +30,6 @@ export default function Paymentform(props) {
       switch (paymentIntent.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
-
           break;
         case "processing":
           setMessage("Your payment is processing.");
