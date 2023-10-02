@@ -15,7 +15,6 @@ import { useEffect } from "react";
 import supabase from "@/auth/supabaseauth";
 import CheckoutForm from "./CheckoutForm";
 
-
 function Servicedetail() {
   const { pathname, navigate } = usePathname();
 
@@ -85,102 +84,97 @@ function Servicedetail() {
 
   return (
     <>
-  
-          <div className="flex flex-col h-[1150px]">
-            <div className="relative">
-              <div className="service-detail-banner w-full h-60">
-                <section>
-                  <div
-                    id="container-1"
-                    className="z-10 relative flex flex-col gap-12 px-52 py-[5rem]"
-                  >
-                    <BreadCrumb serviceName={serviceName} />
+      <div className="flex flex-col h-[1150px]">
+        <div className="relative">
+          <div className="service-detail-banner w-full h-60">
+            <section>
+              <div
+                id="container-1"
+                className="z-10 relative flex flex-col gap-12 px-52 py-[5rem]"
+              >
+                <BreadCrumb serviceName={serviceName} />
 
-                    <div className="w-full h-[129px] bg-white  rounded-lg border border-gray-300 dark:bg-gray-800">
-                      <div>
-                        <Stepper
-                          value={steppermenu}
-                          currentStep={currentStep}
-                          className="w-[50rem]"
-                        ></Stepper>
-                      </div>
-                    </div>
-                    <div
-                      id="container-2"
-                      className="flex flex-row justify-between h-full"
-                    >
-                      {currentStep === 1 && (
-                        <Subservice
-                          subservice={subservice}
-                          counts={counts}
-                          handleDecrement={handleDecrement}
-                          handleIncrement={handleIncrement}
-                        />
-                      )}
-                      {currentStep === 2 && (
-                        <ClientInput
-                          provinces={provinces}
-                          amphures={amphures}
-                          tambons={tambons}
-                          selectedProvince={selectedProvince}
-                          setSelectedProvince={setSelectedProvince}
-                          setSelectedAmphure={setSelectedAmphure}
-                          selectedAmphure={selectedAmphure}
-                          setSelectedTambon={setSelectedTambon}
-                          selectedTambon={selectedTambon}
-                          setAddress={setAddress}
-                          hour={hour}
-                          minute={minute}
-                          handleHour={handleHour}
-                          handleMinute={handleMinute}
-                          clickHour={clickHour}
-                          clickMinute={clickMinute}
-                          selectedTime={selectedTime}
-                          setSelectedTime={setSelectedTime}
-                          date={date}
-                          setDate={setDate}
-                          thaiDate={thaiDate}
-                          setDetail={setDetail}
-                        />
-                      )}
-                      
-                      {currentStep === 3 && (
-                        
-                        <CheckoutForm totalprice={totalprice} />
-                      )}
-                      <OrderDetail
-                        totalprice={totalprice}
-                        counts={counts}
-                        date={date}
-                        thaiDate={thaiDate}
-                        address={addressInfo}
-                        selectedTime={selectedTime}
-      
-                      />
-                    </div>
+                <div className="w-full h-[129px] bg-white  rounded-lg border border-gray-300 dark:bg-gray-800">
+                  <div>
+                    <Stepper
+                      value={steppermenu}
+                      currentStep={currentStep}
+                      className="w-[50rem]"
+                    ></Stepper>
                   </div>
-                </section>
+                </div>
+                <div
+                  id="container-2"
+                  className="flex flex-row justify-between h-full"
+                >
+                  {currentStep === 1 && (
+                    <Subservice
+                      subservice={subservice}
+                      counts={counts}
+                      handleDecrement={handleDecrement}
+                      handleIncrement={handleIncrement}
+                    />
+                  )}
+                  {currentStep === 2 && (
+                    <ClientInput
+                      provinces={provinces}
+                      amphures={amphures}
+                      tambons={tambons}
+                      selectedProvince={selectedProvince}
+                      setSelectedProvince={setSelectedProvince}
+                      setSelectedAmphure={setSelectedAmphure}
+                      selectedAmphure={selectedAmphure}
+                      setSelectedTambon={setSelectedTambon}
+                      selectedTambon={selectedTambon}
+                      setAddress={setAddress}
+                      hour={hour}
+                      minute={minute}
+                      handleHour={handleHour}
+                      handleMinute={handleMinute}
+                      clickHour={clickHour}
+                      clickMinute={clickMinute}
+                      selectedTime={selectedTime}
+                      setSelectedTime={setSelectedTime}
+                      date={date}
+                      setDate={setDate}
+                      thaiDate={thaiDate}
+                      setDetail={setDetail}
+                    />
+                  )}
+
+                  {currentStep === 3 && (
+                    <CheckoutForm totalprice={totalprice} />
+                  )}
+                  <OrderDetail
+                    totalprice={totalprice}
+                    counts={counts}
+                    date={date}
+                    thaiDate={thaiDate}
+                    address={addressInfo}
+                    selectedTime={selectedTime}
+                  />
+                </div>
               </div>
-            </div>
+            </section>
           </div>
-          <div className="fixed bottom-0 z-10 w-full">
-            <ServiceFooterButton
-              handleBack={handleBack}
-              handleNext={handleNext}
-              currentStep={currentStep}
-              totalprice={totalprice}
-              counts={counts}
-              date={date}
-              thaiDate={thaiDate}
-              selectedTime={selectedTime}
-              address={addressInfo}
-              detail={detail}
-            ></ServiceFooterButton>
-          </div>
+        </div>
+      </div>
+      <div className="fixed bottom-0 z-10 w-full">
+        <ServiceFooterButton
+          handleBack={handleBack}
+          handleNext={handleNext}
+          currentStep={currentStep}
+          totalprice={totalprice}
+          counts={counts}
+          date={date}
+          thaiDate={thaiDate}
+          selectedTime={selectedTime}
+          address={addressInfo}
+          detail={detail}
+        ></ServiceFooterButton>
+      </div>
     </>
   );
 }
 
 export default Servicedetail;
-
-
