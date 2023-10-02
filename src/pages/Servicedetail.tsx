@@ -11,7 +11,7 @@ import useFetchProvince from "@/hook/useFetchProvince";
 import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
 import usePathname from "@/hook/usePathname";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import supabase from "@/auth/supabaseauth";
 import CheckoutForm from "./CheckoutForm";
 
@@ -83,23 +83,6 @@ function Servicedetail() {
     selectedProvince,
   };
 
-  const [paymentMethod, setPaymentMethod] = useState<string>("card");
-  const [formData, setFormData] = useState<FormData>({
-    creditCardNumber: "",
-    cardHolderName: "",
-    expirationDate: "",
-    cvc: "",
-    discountCode: "",
-    promptPayId: "",
-  });
-
-  console.log(formData);
-  const [errors, setErrors] = useState<Errors>({
-    creditCardNumber: "",
-    cardHolderName: "",
-    expirationDate: "",
-    cvc: "",
-  });
   const [orderTotalPrice, setOrderTotalPrice] = useState<number>();
   const [discount, setDiscount] = useState<number>();
   const [type, setType] = useState<string>();
@@ -201,7 +184,6 @@ function Servicedetail() {
           orderTotalPrice={orderTotalPrice}
           discount={discount}
           type={type}
-          formData={formData}
         ></ServiceFooterButton>
       </div>
     </>

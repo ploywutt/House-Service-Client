@@ -40,12 +40,6 @@ interface AlertPaymentProps {
   type: "Fixed" | "Percent" | string;
   totalprice: number;
   orderTotalPrice?: number;
-  formData: {
-    cardHolderName: string;
-    creditCardNumber: string;
-    expirationDate: string;
-    cvc: string;
-  };
 }
 
 function AlertPayment(props: AlertPaymentProps) {
@@ -62,12 +56,12 @@ function AlertPayment(props: AlertPaymentProps) {
 
   const { submit, setSubmit }: any = usePayment();
 
-  const handleClick = async (event) => {
+  const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-
     setIsLoading(true);
     setSubmit(true);
     console.log("Submit has arrive:", submit);
+
     try {
       const result = await axios.post(
         `http://localhost:4000/v1/user/orderdetails`,
@@ -98,15 +92,7 @@ function AlertPayment(props: AlertPaymentProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          className="w-40 h-11 dark:bg-black dark:text-white"
-          disabled={
-            props.formData.cardHolderName === "" ||
-            props.formData.creditCardNumber === "" ||
-            props.formData.expirationDate === "" ||
-            props.formData.cvc === ""
-          }
-        >
+        <Button className="w-40 h-11 dark:bg-black dark:text-white">
           <p className="mr-2 ">{t("alert_payment.alert_payment_next")}</p>
           <img src={ArrowRight} alt="ArrowRight" />
         </Button>

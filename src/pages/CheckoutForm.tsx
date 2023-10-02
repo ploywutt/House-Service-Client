@@ -6,7 +6,7 @@ import useClientSecretStripe from "@/hook/useClientsecretStripe";
 
 export default function CheckoutForm({ totalprice }) {
   const stripePromise = loadStripe(
-    "pk_test_51NoyonCDxlniS9dCBN6RYaHIX5nk6GSeZL1WWdG5ve8gDmXgivmABDRW1fyzpye5n4Bu7KOHJUWLo9dZUTwHS9nx00aaI9Z2WZ"
+    "pk_test_51NozskHa6CHfGgr1Mlek2lwtRJjpDwWxNA0gn2HOsVJpCHvdw8IU3SC49hc4w38V8tAW8i3AexxQD7PJ9JACmlt800wDbJcXNt"
   );
   const { clientSecret, createPaymentIntent } = useClientSecretStripe();
 

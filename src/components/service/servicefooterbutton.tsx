@@ -3,7 +3,6 @@ import ArrowLeft from "../../assets/icon/arrow_left.png";
 import ArrowRight from "../../assets/icon/arrow_right.png";
 import AlertPayment from "../AlertPayment";
 import { useTranslation } from "react-i18next";
-import Success from "../success";
 
 type ServiceFooter = {
   handleBack?: () => void;
@@ -24,12 +23,6 @@ type ServiceFooter = {
   orderTotalPrice: number | undefined;
   discount: number | undefined;
   type: string | undefined;
-  formData: {
-    cardHolderName: string;
-    creditCardNumber: string;
-    expirationDate: string;
-    cvc: string;
-  };
 };
 
 function ServiceFooterButton({
@@ -46,7 +39,6 @@ function ServiceFooterButton({
   orderTotalPrice,
   discount,
   type,
-  formData,
 }: ServiceFooter) {
   const { t } = useTranslation();
   return (
@@ -104,18 +96,8 @@ function ServiceFooterButton({
           orderTotalPrice={orderTotalPrice}
           discount={discount || null}
           type={type || ""}
-          formData={formData}
         />
-          
       )}
-          {/* <Success
-                  totalprice={totalprice}
-                  counts={counts}
-                  date={date}        
-                  thaiDate={thaiDate}
-                  selectedTime={selectedTime}
-                  address={address}
-                  detail={detail}/> */}
     </div>
   );
 }

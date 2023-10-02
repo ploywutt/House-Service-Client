@@ -5,26 +5,22 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { usePayment } from "@/hook/PayContext";
-import  useClientSecretStripe  from"@/hook/useClientsecretStripe"
-import { loadStripe } from "@stripe/stripe-js";
-
+import useClientSecretStripe from "@/hook/useClientsecretStripe";
 
 export default function Paymentform(props) {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { submit, setSubmit }:any = usePayment();
+  const { submit, setSubmit }: any = usePayment();
 
   useEffect(() => {
-    
     if (!stripe) {
       return;
     }
     const clientSecret = new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
     );
-    
 
     if (!clientSecret) {
       return;
@@ -34,7 +30,7 @@ export default function Paymentform(props) {
       switch (paymentIntent.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
-    
+
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -51,21 +47,19 @@ export default function Paymentform(props) {
 
   const { createPaymentIntent } = useClientSecretStripe();
 
-
   useEffect(() => {
     createPaymentIntent(props.totalprice);
   }, []);
 
   useEffect(() => {
-    if(submit) {
-      handleSubmit()
+    if (submit) {
+      handleSubmit();
     } else {
-      setSubmit(false)
+      setSubmit(false);
     }
-  }, [submit])
+  }, [submit]);
 
   const handleSubmit = async () => {
-   
     if (!stripe || !elements) {
       return;
     }
@@ -82,12 +76,11 @@ export default function Paymentform(props) {
     } else {
       setMessage("An unexpected error occurred.");
     }
-    setSubmit(false)
+    setSubmit(false);
     setIsLoading(false);
   };
 
   return (
-    
     <div className="flex flex-col w-[735px] bg-white border border-zinc-300  p-5 rounded-lg">
       <h3 className="text-gray-700">ชำระเงิน</h3>
       <form
@@ -109,12 +102,12 @@ export default function Paymentform(props) {
             },
           }}
         />
-        <div className="border-t-[1px] border-gray-300 my-14"></div>
+        <div className="border-t-[1px] border-gray-300 my-14 hidden"></div>
         <section>
           <button
             disabled={isLoading || !stripe || !elements}
             id="submit"
-            className="w-[150px] text-white flex justify-between px-[24px] mt[24px] mb-[32px] bg-blue-600 rounded-md p-3"
+            className="w-[150px] text-white flex justify-between px-[24px] mt[24px] mb-[32px] bg-blue-600 rounded-md p-3 hidden"
           >
             <span id="button-text">
               {isLoading ? (
