@@ -15,29 +15,6 @@ import { useEffect } from "react";
 import supabase from "@/auth/supabaseauth";
 import CheckoutForm from "./CheckoutForm";
 
-interface AddressInfo {
-  address: string;
-  selectedTambon: string;
-  selectedAmphure: string;
-  selectedProvince: string;
-}
-
-interface FormData {
-  creditCardNumber: string;
-  cardHolderName: string;
-  expirationDate: string;
-  cvc: string;
-  discountCode: string;
-  promptPayId: string;
-}
-
-interface Errors {
-  creditCardNumber: string;
-  cardHolderName: string;
-  expirationDate: string;
-  cvc: string;
-}
-
 function Servicedetail() {
   const { pathname, navigate } = usePathname();
 
