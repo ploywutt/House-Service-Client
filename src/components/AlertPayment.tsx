@@ -22,6 +22,7 @@ import useFetchUserEmail from "../hook/useFetchUserEmail";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { usePayment } from "@/hook/PayContext";
 
 interface AlertPaymentProps {
   date: string;
@@ -39,12 +40,6 @@ interface AlertPaymentProps {
   type: "Fixed" | "Percent" | string;
   totalprice: number;
   orderTotalPrice?: number;
-  formData: {
-    cardHolderName: string;
-    creditCardNumber: string;
-    expirationDate: string;
-    cvc: string;
-  };
 }
 
 function AlertPayment(props: AlertPaymentProps) {
@@ -59,9 +54,15 @@ function AlertPayment(props: AlertPaymentProps) {
   const isoDateString = dateObject.toISOString();
   const formattedDate = isoDateString.split("T")[0];
 
+  const { submit, setSubmit }: any = usePayment();
+
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
     setIsLoading(true);
+    setSubmit(true);
+    console.log("Submit has arrive:", submit);
+
     try {
       const result = await axios.post(
         `http://localhost:4000/v1/user/orderdetails`,
@@ -92,15 +93,7 @@ function AlertPayment(props: AlertPaymentProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          className="w-40 h-11 dark:bg-black dark:text-white"
-          disabled={
-            props.formData.cardHolderName === "" ||
-            props.formData.creditCardNumber === "" ||
-            props.formData.expirationDate === "" ||
-            props.formData.cvc === ""
-          }
-        >
+        <Button className="w-40 h-11 dark:bg-black dark:text-white">
           <p className="mr-2 ">{t("alert_payment.alert_payment_next")}</p>
           <img src={ArrowRight} alt="ArrowRight" />
         </Button>
@@ -251,11 +244,9 @@ function AlertPayment(props: AlertPaymentProps) {
             <AlertDialogCancel className="w-[194px] text-blue-600">
               {t("alert_payment.alert_payment_cancel")}
             </AlertDialogCancel>
+
             <AlertDialogAction className="w-[194px]" onClick={handleClick}>
               {t("alert_payment.alert_payment_confirm")}
-              {/* {isLoading ? (
-                <Loader2 className="mx-2 h-4 w-4 animate-spin" />
-              ) : null} */}
             </AlertDialogAction>
           </AlertDialogFooter>
         )}

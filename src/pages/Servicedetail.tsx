@@ -1,14 +1,10 @@
 import "../assets/css/servicedetailbanner.css";
-
 import BreadCrumb from "@/components/service/servicebreadcrumb";
 import Stepper from "@/components/stepper";
 import ServiceFooterButton from "@/components/service/servicefooterbutton";
-
 import Subservice from "../components/service/Subservice";
 import ClientInput from "@/components/ClientInput";
-import CheckoutPage from "./CheckoutPage";
 import OrderDetail from "../components/OrderDetail";
-
 import useStepper from "@/hook/useStepper";
 import useFetchSubservice from "@/hook/useFetchSubservice";
 import useFetchProvince from "@/hook/useFetchProvince";
@@ -16,31 +12,8 @@ import useTimePicker from "@/components/addressInput/useTimePicker";
 import useDayPicker from "@/components/addressInput/useDayPicker";
 import usePathname from "@/hook/usePathname";
 import { useEffect, useState } from "react";
-
 import supabase from "@/auth/supabaseauth";
-
-interface AddressInfo {
-  address: string;
-  selectedTambon: string;
-  selectedAmphure: string;
-  selectedProvince: string;
-}
-
-interface FormData {
-  creditCardNumber: string;
-  cardHolderName: string;
-  expirationDate: string;
-  cvc: string;
-  discountCode: string;
-  promptPayId: string;
-}
-
-interface Errors {
-  creditCardNumber: string;
-  cardHolderName: string;
-  expirationDate: string;
-  cvc: string;
-}
+import CheckoutForm from "./CheckoutForm";
 
 function Servicedetail() {
   const { pathname, navigate } = usePathname();
@@ -57,12 +30,13 @@ function Servicedetail() {
           navigate("/login");
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
     fetchUser();
   }, []);
 
+  //-------------------------------------------------------------------------//
   const { currentStep, steppermenu, handleBack, handleNext } = useStepper();
   const {
     serviceName,
@@ -109,23 +83,6 @@ function Servicedetail() {
     selectedProvince,
   };
 
-  const [paymentMethod, setPaymentMethod] = useState<string>("card");
-  const [formData, setFormData] = useState<FormData>({
-    creditCardNumber: "",
-    cardHolderName: "",
-    expirationDate: "",
-    cvc: "",
-    discountCode: "",
-    promptPayId: "",
-  });
-
-  console.log(formData);
-  const [errors, setErrors] = useState<Errors>({
-    creditCardNumber: "",
-    cardHolderName: "",
-    expirationDate: "",
-    cvc: "",
-  });
   const [orderTotalPrice, setOrderTotalPrice] = useState<number>();
   const [discount, setDiscount] = useState<number>();
   const [type, setType] = useState<string>();
@@ -191,21 +148,10 @@ function Servicedetail() {
                       detail={detail}
                     />
                   )}
-                  {currentStep === 3 && (
-                    <CheckoutPage
-                      totalprice={totalprice}
-                      setOrderTotalPrice={setOrderTotalPrice}
-                      setDiscount={setDiscount}
-                      setType={setType}
-                      paymentMethod={paymentMethod}
-                      setPaymentMethod={setPaymentMethod}
-                      formData={formData}
-                      setFormData={setFormData}
-                      errors={errors}
-                      setErrors={setErrors}
-                    />
-                  )}
 
+                  {currentStep === 3 && (
+                    <CheckoutForm totalprice={totalprice} />
+                  )}
                   <OrderDetail
                     totalprice={totalprice}
                     counts={counts}
@@ -238,7 +184,6 @@ function Servicedetail() {
           orderTotalPrice={orderTotalPrice}
           discount={discount}
           type={type}
-          formData={formData}
         ></ServiceFooterButton>
       </div>
     </>
