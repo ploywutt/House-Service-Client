@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import {
   PaymentElement,
@@ -6,16 +5,19 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { usePayment } from "@/hook/PayContext";
+import  useClientSecretStripe  from"@/hook/useClientsecretStripe"
+import { loadStripe } from "@stripe/stripe-js";
 
-export default function CheckoutForm() {
+
+export default function Paymentform(props) {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const { submit, setSubmit }:any = usePayment();
 
   useEffect(() => {
+    
     if (!stripe) {
       return;
     }
@@ -47,6 +49,13 @@ export default function CheckoutForm() {
     });
   }, [stripe]);
 
+  const { createPaymentIntent } = useClientSecretStripe();
+
+
+  useEffect(() => {
+    createPaymentIntent(props.totalprice);
+  }, []);
+
   useEffect(() => {
     if(submit) {
       handleSubmit()
@@ -64,7 +73,7 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:5173/success",
+        return_url: "http://localhost:5173/orders",
       },
     });
 
@@ -78,6 +87,7 @@ export default function CheckoutForm() {
   };
 
   return (
+    
     <div className="flex flex-col w-[735px] bg-white border border-zinc-300  p-5 rounded-lg">
       <h3 className="text-gray-700">ชำระเงิน</h3>
       <form
