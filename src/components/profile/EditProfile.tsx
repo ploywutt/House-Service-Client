@@ -69,6 +69,7 @@ function EditProfile(props: { fetchData: any }) {
   const [url, setUrl] = useState<string>(urlFromSPB);
   const [inputValues, setInputValues] = useState<InputValues>({});
   const [passwordError, setPasswordError] = useState<string>("");
+  const { newPasswordError, setNewPasswordError } = useState<string>("");
   const [rePasswordError, setRePasswordError] = useState<string>("");
 
   console.log("url:", url);
@@ -80,13 +81,13 @@ function EditProfile(props: { fetchData: any }) {
     setInputValues({ ...inputValues, [name]: value });
 
     // Password validation
-    // if (name === "newPassword") {
-    //   if (value.length < 6) {
-    //     setPasswordError("Password must be at least 6 characters long.");
-    //   } else {
-    //     setPasswordError("");
-    //   }
-    // }
+    if (name === "newPassword") {
+      if (value.length < 8) {
+        setNewPasswordError("Password must be at least 8 characters long.");
+      } else {
+        setNewPasswordError("");
+      }
+    }
   };
 
   const handleFileChange = (event: any) => {
@@ -168,6 +169,22 @@ function EditProfile(props: { fetchData: any }) {
         console.log("Get URL Error", error.message);
       }
 
+      if (inputValues.newPassword) {
+        try {
+          await supabase.auth.updateUser({
+            password: inputValues.newPassword,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      if (inputValues.email) {
+        await supabase.auth.updateUser({
+          email: inputValues.email,
+        });
+      }
+
       try {
         const { data } = await axios.put(
           `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
@@ -185,6 +202,22 @@ function EditProfile(props: { fetchData: any }) {
         setRePasswordError("");
       }
 
+      if (inputValues.newPassword) {
+        try {
+          await supabase.auth.updateUser({
+            password: inputValues.newPassword,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      if (inputValues.email) {
+        await supabase.auth.updateUser({
+          email: inputValues.email,
+        });
+      }
+
       try {
         const { data } = await axios.put(
           `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
@@ -194,11 +227,13 @@ function EditProfile(props: { fetchData: any }) {
           "Step 1 (without file): Update input change successfully",
           data
         );
+        setPasswordError("");
+        window.location.reload();
       } catch (error: any) {
-        console.log("Update error", error.message);
+        console.log("Update error", error);
+        setPasswordError("Password does not match");
       }
     }
-    window.location.reload();
   };
 
   const userInfo: UserInfo[] = [
@@ -303,8 +338,11 @@ function EditProfile(props: { fetchData: any }) {
                 onChange={handleInputChange}
                 disabled={item.varName !== "password" && !inputValues.password}
               />
-              {item.varName === "newPassword" && passwordError && (
+              {item.varName === "password" && passwordError && (
                 <p className="text-red-500">{passwordError}</p>
+              )}
+              {item.varName === "newPassword" && newPasswordError && (
+                <p className="text-red-500">{newPasswordError}</p>
               )}
               {item.varName === "reNewPassword" && rePasswordError && (
                 <p className="text-red-500">{rePasswordError}</p>
