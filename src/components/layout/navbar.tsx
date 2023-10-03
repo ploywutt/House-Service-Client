@@ -46,6 +46,18 @@ function Navbar() {
     navigate("/servicelist");
   };
 
+  const profile = () => {
+    navigate("/profile");
+  };
+
+  const orderlist = () => {
+    navigate("/orders");
+  };
+
+  const history = () => {
+    navigate("/history");
+  };
+
   const changeLanguage = (e: any) => {
     i18n.changeLanguage(e ? "en" : "th");
   };
@@ -120,21 +132,35 @@ function Navbar() {
                       {user.name}
                     </div>
                     <Avatar>
-                      <AvatarImage src={user.image} />
+                      <AvatarImage asChild src={user.image}>
+                        <img
+                          referrerPolicy="no-referrer"
+                          src={user.image}
+                        ></img>
+                      </AvatarImage>
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer dark:text-white">
+                  <DropdownMenuItem
+                    className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer dark:text-white"
+                    onClick={profile}
+                  >
                     <User2 className="pr-1 w-5" />
                     {t("user.profile")}
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer dark:text-white">
+                  <DropdownMenuItem
+                    className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer dark:text-white"
+                    onClick={orderlist}
+                  >
                     <ClipboardList className="pr-1 w-5" />
                     {t("user.order_list")}
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer dark:text-white">
+                  <DropdownMenuItem
+                    className="text-gray-800 hover:bg-gray-100 hover:text-gray-950 cursor-pointer dark:text-white"
+                    onClick={history}
+                  >
                     <History className="pr-1 w-5" />
                     {t("user.history")}
                   </DropdownMenuItem>
