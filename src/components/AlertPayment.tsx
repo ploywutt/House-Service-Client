@@ -77,6 +77,10 @@ function AlertPayment(props: AlertPaymentProps) {
           status_id: 1,
           promotion_code: null,
           sub_service_orders: props.counts,
+          totalprice:
+            props.totalprice && props.orderTotalPrice
+              ? props.orderTotalPrice
+              : props.totalprice,
         }
       );
       setIsLoading(false);

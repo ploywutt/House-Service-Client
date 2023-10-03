@@ -4,11 +4,14 @@ import { useState } from "react";
 function useClientSecretStripe() {
   const [clientSecret, setClientSecret] = useState<string>("");
 
-  const createPaymentIntent = async (totalPrice: number) => {
+  const createPaymentIntent = async (
+    totalprice: number,
+    orderTotalPrice: number
+  ) => {
     const data = await axios.post(
       "http://localhost:4000/create-payment-intent",
       {
-        price: totalPrice,
+        price: totalprice && orderTotalPrice ? orderTotalPrice : totalprice,
       }
     );
     console.log("stripe", data.data);

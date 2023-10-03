@@ -118,6 +118,13 @@ function Servicedetail() {
                       counts={counts}
                       handleDecrement={handleDecrement}
                       handleIncrement={handleIncrement}
+                      discount={discount}
+                      setDiscount={setDiscount}
+                      totalprice={totalprice}
+                      orderTotalPrice={orderTotalPrice}
+                      setOrderTotalPrice={setOrderTotalPrice}
+                      type={type}
+                      setType={setType}
                     />
                   )}
                   {currentStep === 2 && (
@@ -150,7 +157,10 @@ function Servicedetail() {
                   )}
 
                   {currentStep === 3 && (
-                    <CheckoutForm totalprice={totalprice} />
+                    <CheckoutForm
+                      totalprice={totalprice}
+                      orderTotalPrice={orderTotalPrice}
+                    />
                   )}
                   <OrderDetail
                     totalprice={totalprice}
