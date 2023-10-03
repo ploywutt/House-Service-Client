@@ -42,7 +42,7 @@ const useRegister = () => {
       navigate("/");
     } catch (error: any) {
       setIsValid(false);
-      console.error(error.response.data.message);
+      console.error(error.response?.data.message);
     }
     setIsLoading(false);
   };
