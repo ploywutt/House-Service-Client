@@ -191,8 +191,11 @@ function EditProfile(props: { fetchData: any }) {
           inputValues
         );
         console.log("Step 6: Update input change successfully", data);
+        setPasswordError("");
+        window.location.reload();
       } catch (error: any) {
         console.log("Update error", error.message);
+        setPasswordError("Password does not match");
       }
     } else {
       if (inputValues.newPassword !== inputValues.reNewPassword) {
