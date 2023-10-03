@@ -22,6 +22,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 // import { useEffect,useContext ,createContext } from "react";
 
 import { PayProvider } from "./hook/PayContext";
+import PaymentComplete from "./pages/PaymentComplete";
+// import Success from "./components/Success";
 // import SuccessPage from "./components/success";
 
 function App() {
@@ -53,7 +55,11 @@ function App() {
                 {/* <Route path="/success" element={<SuccessPage />}></Route> */}
               </Route>
               <Route element={<ServiceFooter />}>
-                {/* <Route path="/checkout" element={<CheckoutForm/>}></Route> */}
+                {/* <Route path="/success" element={<Success />}></Route> */}
+                <Route
+                  path="/successfully"
+                  element={<PaymentComplete />}
+                ></Route>
               </Route>
             </Routes>
           </Router>
