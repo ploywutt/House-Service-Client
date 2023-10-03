@@ -14,6 +14,11 @@ interface SubserviceProps {
   counts: { count: number }[];
   handleIncrement: (index: number) => void;
   handleDecrement: (index: number) => void;
+  discount: number;
+  setDiscount: (value: number) => void;
+  totalprice: number;
+  setOrderTotalPrice: (index: number) => void;
+  setType: (value: string) => void;
 }
 
 export default function Subservice(props: SubserviceProps) {
@@ -117,23 +122,6 @@ export default function Subservice(props: SubserviceProps) {
             );
           }
         )}
-        {/* <div className="pb-6 pt-16">
-          <h5 className="text-slate-900 pb-1">Promotion Code</h5>
-          <input
-            type="text"
-            name="discountCode"
-            value={codeName}
-            onChange={handlePromoChange}
-            placeholder={t("checkout_page.checkout_page_cvv_please")}
-            className="w-[331px] h-[auto] px-4 py-2.5 bg-white rounded-lg border border-gray-300 justify-start items-center gap-2.5 inline-flex focus:outline-none focus:border-blue-600 focus:border-1 placeholder:text-gray-700 hover:bg-slate-100 placeholder:hover:text-slate-900"
-          />
-          <button
-            className="ButtonPrimaryMedium w-[90px] h-11 px-6 py-2.5 ml-[24px] bg-blue-600 rounded-lg justify-center items-center gap-2 inline-flex text-white"
-            onClick={handleOnClickPromotionCode}
-          >
-            {t("checkout_page.checkout_page_use_code")}
-          </button>
-        </div> */}
       </div>
       <div className="w-[735px] h-fit px-6 pt-6 pb-8 bg-white rounded-lg border border-gray-300 dark:bg-gray-800">
         <h5 className="text-slate-900 pb-1 mb-2">Promotion Code</h5>

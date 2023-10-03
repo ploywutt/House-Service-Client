@@ -76,7 +76,7 @@ function Servicedetail() {
 
   const { thaiDate, date, setDate } = useDayPicker();
 
-  const addressInfo: AddressInfo = {
+  const addressInfo = {
     address,
     selectedTambon,
     selectedAmphure,

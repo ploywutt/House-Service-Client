@@ -8,23 +8,16 @@ import Servicelistpage from "./pages/Servicelistpage";
 import LoginPage from "./pages/LoginPage";
 import Registerpage from "./pages/Registerpage";
 import Shadcn from "./pages/shadecn-test";
-// import ClientInformation from "./pages/ClientInformation";
 import ServiceDetail from "./pages/Servicedetail";
 import OrderListPage from "./pages/OrderListPage";
-// import ServicePayment from "./pages/Servicepayment";
 import HistoryPage from "./pages/HistoryPage";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
 import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";
 import { ThemeProvider } from "@/components/ThemeProvider";
-// import CheckoutForm from "./pages/CheckoutForm";
-// import { useEffect,useContext ,createContext } from "react";
-
 import { PayProvider } from "./hook/PayContext";
 import PaymentComplete from "./pages/PaymentComplete";
-// import Success from "./components/Success";
-// import SuccessPage from "./components/success";
 
 function App() {
   return (
@@ -52,10 +45,8 @@ function App() {
                 <Route path="/login" element={<LoginPage />}></Route>
                 <Route path="/register" element={<Registerpage />}></Route>
                 <Route path="/service/:id" element={<ServiceDetail />}></Route>
-                {/* <Route path="/success" element={<SuccessPage />}></Route> */}
               </Route>
               <Route element={<ServiceFooter />}>
-                {/* <Route path="/success" element={<Success />}></Route> */}
                 <Route
                   path="/successfully"
                   element={<PaymentComplete />}

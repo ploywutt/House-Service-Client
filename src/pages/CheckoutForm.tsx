@@ -19,6 +19,9 @@ export default function CheckoutForm({ totalprice, orderTotalPrice }) {
     variables: {
       colorPrimary: "#336DF2",
       colorBackground: "#fff",
+      spacingUnit: "5px",
+      spacingGridRow: "24px",
+      fontFamily: "Prompt, sans-serif",
     },
   };
 

@@ -85,7 +85,7 @@ export default function Paymentform(props) {
       <form
         id="payment-form"
         onSubmit={handleSubmit}
-        className="flex flex-col py-8"
+        className="flex flex-col pt-6 pb-10"
       >
         <PaymentElement
           id="payment-element"
