@@ -66,7 +66,7 @@ export default function Paymentform(props) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:5173/orders",
+        return_url: "http://localhost:5173/successfully",
       },
     });
 
