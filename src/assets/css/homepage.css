@@ -1,14 +1,43 @@
 .banner {
-  background: url("/Homepage-Human.png") no-repeat;
-  background-position: right 30% bottom -12rem;
   @apply bg-blue-100;
+}
+
+@screen md {
+  .banner {
+    background: url("/Homepage-Human.png") no-repeat;
+    background-position: right 10% bottom -15rem;
+    background-size: 350px;
+    @apply bg-blue-100;
+  }
+}
+
+@screen lg {
+  .banner {
+    background: url("/Homepage-Human.png") no-repeat;
+    background-position: right 10% bottom -14rem;
+    @apply bg-blue-100;
+  }
+}
+
+@screen 2xl {
+  .banner {
+    background: url("/Homepage-Human.png") no-repeat;
+    background-position: right 18% bottom -13rem;
+    @apply bg-blue-100;
+  }
 }
 
 .footerLogo {
   @apply flex items-center bg-blue-600;
-  background-image: url("/Logo-Big.png");
-  background-repeat: no-repeat;
-  background-position: right -7.5rem bottom -4rem;
+}
+
+@screen lg {
+  .footerLogo {
+    @apply flex items-center bg-blue-600;
+    background-image: url("/Logo-Big.png");
+    background-repeat: no-repeat;
+    background-position: right -7.5rem bottom -4rem;
+  }
 }
 
 .opacity-image::before {

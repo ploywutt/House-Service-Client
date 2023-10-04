@@ -1,0 +1,44 @@
+.past {
+  .stepper-icon {
+    @apply bg-blue-500 border-blue-500;
+  }
+  .stepper-label {
+    @apply text-blue-500;
+  }
+  .stepper-progress {
+    @apply border-blue-500;
+  }
+  path {
+    @apply fill-white;
+  }
+}
+
+.current {
+  .stepper-icon {
+    @apply bg-white border-blue-500;
+  }
+  .stepper-label {
+    @apply text-blue-500;
+  }
+  .stepper-progress {
+    @apply border-gray-300;
+  }
+  path {
+    @apply fill-blue-500;
+  }
+}
+
+.future {
+  .stepper-icon {
+    @apply bg-white border-gray-300;
+  }
+  .stepper-label {
+    @apply text-gray-700;
+  }
+  .stepper-progress {
+    @apply border-gray-300;
+  }
+  path {
+    @apply fill-gray-300;
+  }
+}

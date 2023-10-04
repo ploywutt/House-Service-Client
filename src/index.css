@@ -2,6 +2,19 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+:root {
+  --color-primary-100: 231 238 255;
+  --color-primary-200: 210 223 252;
+  --color-primary-300: 166 191 250;
+  --color-primary-400: 121 159 247;
+  --color-primary-500: 76 127 244;
+  --color-primary-600: 51 109 242;
+  --color-primary-700: 24 82 214; /* #1852D6 */
+  --color-primary-800: 14 63 176;
+  --color-primary-900: 2 43 135;
+  --color-primary-950: 0 28 89;
+}
+
 @layer base {
   h1 {
     @apply text-3xl
@@ -51,4 +64,19 @@
     font-normal
     leading-none;
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  @apply w-3;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply rounded-md bg-gradient-to-b from-[#4B5160];
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply rounded-md bg-gradient-to-t from-[#4C7FF4];
 }

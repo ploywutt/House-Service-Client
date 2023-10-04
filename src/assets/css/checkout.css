@@ -1,0 +1,39 @@
+#creditcard-btn:hover .gray {
+  @apply hidden;
+}
+
+#creditcard-btn .blue {
+  @apply hidden;
+}
+
+#creditcard-btn:hover .blue {
+  @apply block;
+}
+
+#creditcard-btn:focus .blue {
+  @apply block;
+}
+
+#creditcard-btn:focus .gray {
+  @apply hidden;
+}
+
+#qrcode-btn:hover .gray {
+  @apply hidden;
+}
+
+#qrcode-btn .blue {
+  @apply hidden;
+}
+
+#qrcode-btn:hover .blue {
+  @apply block;
+}
+
+#qrcode-btn:focus .blue {
+  @apply block;
+}
+
+#qrcode-btn:focus .gray {
+  @apply hidden;
+}

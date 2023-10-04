@@ -17,6 +17,8 @@ function UserLogin() {
       password: password,
     });
 
+    console.log(data);
+
     if (data.session) {
       console.log(data.session);
       setIsValid(true);
