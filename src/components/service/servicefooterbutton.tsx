@@ -99,14 +99,6 @@ function ServiceFooterButton({
           type={type || ""}
         />
       )}
-      {/* <Success
-                  totalprice={totalprice}
-                  counts={counts}
-                  date={date}        
-                  thaiDate={thaiDate}
-                  selectedTime={selectedTime}
-                  address={address}
-                  detail={detail}/> */}
     </div>
   );
 }

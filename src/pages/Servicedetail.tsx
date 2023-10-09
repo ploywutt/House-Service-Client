@@ -121,7 +121,6 @@ function Servicedetail() {
                       discount={discount}
                       setDiscount={setDiscount}
                       totalprice={totalprice}
-                      orderTotalPrice={orderTotalPrice}
                       setOrderTotalPrice={setOrderTotalPrice}
                       type={type}
                       setType={setType}

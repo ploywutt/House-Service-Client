@@ -12,7 +12,7 @@ import {
 
 import { useTranslation } from "react-i18next";
 
-function DayPicker(props) {
+function DayPicker(props: any) {
   const { t } = useTranslation();
   return (
     <Popover>
@@ -37,9 +37,9 @@ function DayPicker(props) {
           <img src={calendaricon} className="absolute right-4 " />
         </Button>
       </PopoverTrigger>
-      {props.date && props.thaiDate === "รักของเรามันกลายเป็นอดีตไปแล้ว" && (
+      {/* {props.date && props.thaiDate === "รักของเรามันกลายเป็นอดีตไปแล้ว" && (
         <h5 className="text-utility-red px-4">กรุณาเลือกวันถัดไป !</h5>
-      )}
+      )} */}
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"

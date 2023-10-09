@@ -6,7 +6,7 @@ function useClientSecretStripe() {
 
   const createPaymentIntent = async (
     totalprice: number,
-    orderTotalPrice: number
+    orderTotalPrice: number = totalprice
   ) => {
     const data = await axios.post(
       "http://localhost:4000/create-payment-intent",

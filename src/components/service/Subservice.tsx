@@ -14,10 +14,11 @@ interface SubserviceProps {
   counts: { count: number }[];
   handleIncrement: (index: number) => void;
   handleDecrement: (index: number) => void;
-  discount: number;
+  discount?: number;
   setDiscount: (value: number) => void;
   totalprice: number;
   setOrderTotalPrice: (index: number) => void;
+  type?: string;
   setType: (value: string) => void;
 }
 

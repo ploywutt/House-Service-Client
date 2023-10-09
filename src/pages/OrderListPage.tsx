@@ -12,7 +12,7 @@ function OrderListPage() {
   const currentUserEmail = useFetchUserEmail();
   const fetchData = useFetchData(
     `http://localhost:4000/v1/user/orders?email=${currentUserEmail}`,
-    currentUserEmail
+    currentUserEmail ?? ""
   );
 
   return (

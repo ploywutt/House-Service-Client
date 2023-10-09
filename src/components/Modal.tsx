@@ -10,13 +10,14 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import React from "react";
 
 interface ModalsProps {
   variant: any;
   className?: string;
   button: any;
   title: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 export function Modals(props: ModalsProps) {

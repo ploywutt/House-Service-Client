@@ -16,21 +16,17 @@ function useTimePicker() {
 
   const hour: string[] = [];
   for (let i = 0; i <= 17; i++) {
-    if (i <= 9) {
-      i = "0" + String(i);
-    }
+    const hourStr = i <= 9 ? "0" + String(i) : String(i);
     if (i >= 8) {
-      hour.push(String(i));
+      hour.push(hourStr);
     }
   }
 
   const minute: string[] = [];
   for (let i = 0; i < 60; i++) {
-    if (i <= 9) {
-      i = "0" + String(i);
-    }
+    const minuteStr = i <= 9 ? "0" + String(i) : String(i);
     if (i % 10 === 0) {
-      minute.push(String(i));
+      minute.push(minuteStr);
     }
   }
 
