@@ -11,7 +11,7 @@ type ServiceFooter = {
   currentStep: number;
   totalprice: number;
   counts: { name: string; count: number; unit: string }[];
-  date: Date | undefined;
+  date: Date | null | undefined;
   thaiDate: string;
   selectedTime: string;
   address: {

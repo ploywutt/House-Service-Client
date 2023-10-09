@@ -82,18 +82,19 @@ export default function Paymentform() {
       >
         <PaymentElement
           id="payment-element"
-          options={{
-            style: {
-              base: {
-                fontSize: "16px",
-                color: "#323640",
-                "::placeholder": {
-                  color: "#ccc",
-                },
-              },
-            },
-          }}
+          // options={{
+          //   style: {
+          //     base: {
+          //       fontSize: "16px",
+          //       color: "#323640",
+          //       "::placeholder": {
+          //         color: "#ccc",
+          //       },
+          //     },
+          //   },
+          // }}
         />
+
         <div className="border-t-[1px] border-gray-300 my-14 hidden"></div>
         <section>
           <button

@@ -69,7 +69,7 @@ function EditProfile(props: { fetchData: any }) {
   const [url, setUrl] = useState<string>(urlFromSPB);
   const [inputValues, setInputValues] = useState<InputValues>({});
   const [passwordError, setPasswordError] = useState<string>("");
-  const { newPasswordError, setNewPasswordError } = useState<string>("");
+  const [newPasswordError, setNewPasswordError] = useState<string>("");
   const [rePasswordError, setRePasswordError] = useState<string>("");
 
   console.log("url:", url);

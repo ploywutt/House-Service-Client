@@ -12,7 +12,7 @@ interface OrderDetailProps {
     selectedProvince: string;
   };
   thaiDate: string;
-  date: Date | null;
+  date: Date | null | undefined;
   totalprice: number;
   counts: { name: string; count: number; unit: string }[];
   orderTotalPrice: number | undefined;
