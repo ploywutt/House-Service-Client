@@ -65,7 +65,7 @@ function AlertPayment(props: AlertPaymentProps) {
 
     try {
       const result = await axios.post(
-        `http://localhost:4000/v1/user/orderdetails`,
+        `https://home-service-server.onrender.com/v1/user/orderdetails`,
         {
           working_time: `${formattedDate} ${props.selectedTime}`,
           address: props.address.address,

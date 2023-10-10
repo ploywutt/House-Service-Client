@@ -9,7 +9,7 @@ function useClientSecretStripe() {
     orderTotalPrice: number = totalprice
   ) => {
     const data = await axios.post(
-      "http://localhost:4000/create-payment-intent",
+      "https://home-service-server.onrender.com/create-payment-intent",
       {
         price: totalprice && orderTotalPrice ? orderTotalPrice : totalprice,
       }

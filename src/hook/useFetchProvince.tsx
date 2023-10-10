@@ -13,7 +13,9 @@ function useFetchProvince() {
 
   const fetchProvince = async () => {
     try {
-      const data = await axios.get("http://localhost:4000/v1/user/province");
+      const data = await axios.get(
+        "https://home-service-server.onrender.com/v1/user/province"
+      );
       // console.log("provinces:", data.data);
       setProvinces(data.data);
     } catch (error) {
@@ -25,7 +27,7 @@ function useFetchProvince() {
     if (selectedProvince) {
       try {
         const data = await axios.get(
-          `http://localhost:4000/v1/user/province/amphure/${selectedProvince}`
+          `https://home-service-server.onrender.com/v1/user/province/amphure/${selectedProvince}`
         );
         // console.log("amphures:", data.data);
         setAmphures(data.data);
@@ -39,7 +41,7 @@ function useFetchProvince() {
     if (selectedAmphure) {
       try {
         const data = await axios.get(
-          `http://localhost:4000/v1/user/province/tambon/${selectedAmphure}`
+          `https://home-service-server.onrender.com/v1/user/province/tambon/${selectedAmphure}`
         );
         // console.log("tambons:", data.data);
         setTambons(data.data);

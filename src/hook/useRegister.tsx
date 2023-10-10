@@ -28,7 +28,7 @@ const useRegister = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/register",
+        "https://home-service-server.onrender.com/register",
         formData
       );
       console.log(response.data.message);

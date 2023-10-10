@@ -11,7 +11,7 @@ function OrderListPage() {
   const { t } = useTranslation();
   const currentUserEmail = useFetchUserEmail();
   const fetchData = useFetchData(
-    `http://localhost:4000/v1/user/history?email=${currentUserEmail}`,
+    `https://home-service-server.onrender.com/v1/user/history?email=${currentUserEmail}`,
     currentUserEmail ?? ""
   );
 

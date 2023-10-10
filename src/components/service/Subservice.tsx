@@ -43,7 +43,7 @@ export default function Subservice(props: SubserviceProps) {
     try {
       console.log("codeName in onCLick", codeName);
       const { data } = await axios.get(
-        `http://localhost:4000/v1/user/promotions/${codeName}`
+        `https://home-service-server.onrender.com/v1/user/promotions/${codeName}`
       );
       console.log("Promo Data fetch:", data.data);
       setPromoData(data.data);

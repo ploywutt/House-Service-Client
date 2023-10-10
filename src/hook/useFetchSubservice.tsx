@@ -28,7 +28,7 @@ export default function useFetchSubservice() {
   const fetchSubService = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/v1/user/subservices/${id}`
+        `https://home-service-server.onrender.com/v1/user/subservices/${id}`
       );
       // console.log("res", response.data.data);
       setSubservice(response.data.data);

@@ -161,7 +161,7 @@ function EditProfile(props: { fetchData: any }) {
         console.log("Step 4: Get URL successfully", data.publicUrl);
 
         const response = await axios.put(
-          `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
+          `https://home-service-server.onrender.com/v1/user/profile?email=${currentUserEmail}`,
           { avatar_url: data.publicUrl }
         );
         console.log("Step 5: Update URL successfully", response);
@@ -187,7 +187,7 @@ function EditProfile(props: { fetchData: any }) {
 
       try {
         const { data } = await axios.put(
-          `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
+          `https://home-service-server.onrender.com/v1/user/profile?email=${currentUserEmail}`,
           inputValues
         );
         console.log("Step 6: Update input change successfully", data);
@@ -223,7 +223,7 @@ function EditProfile(props: { fetchData: any }) {
 
       try {
         const { data } = await axios.put(
-          `http://localhost:4000/v1/user/profile?email=${currentUserEmail}`,
+          `https://home-service-server.onrender.com/v1/user/profile?email=${currentUserEmail}`,
           inputValues
         );
         console.log(

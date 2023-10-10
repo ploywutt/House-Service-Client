@@ -15,7 +15,7 @@ const useCreateOrder = async (data: any) => {
   };
 
   const response = await axios.post(
-    `http://localhost:4000/v1/user/orderdetails`,
+    `https://home-service-server.onrender.com/v1/user/orderdetails`,
     postData
   );
   setIsLoading(false);
