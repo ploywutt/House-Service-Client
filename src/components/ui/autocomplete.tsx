@@ -11,7 +11,7 @@ import { useState, useRef, useCallback, type KeyboardEvent } from "react";
 
 import { Skeleton } from "./skeleton";
 import { cn } from "@/lib/utils";
-import { Check, Search } from "lucide-react";
+import { Check } from "lucide-react";
 
 // export type Option = Record<"value" | "label", string> & Record<string, string>;
 

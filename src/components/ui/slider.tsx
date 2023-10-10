@@ -18,7 +18,7 @@ const Slider = React.forwardRef<
     <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-gray-300 dark:bg-slate-800">
       <SliderPrimitive.Range className="absolute h-full bg-blue-500 dark:bg-slate-50" />
     </SliderPrimitive.Track>
-    {props.defaultValue?.map((Hello, index) => {
+    {props.defaultValue?.map((index) => {
       return (
         <SliderPrimitive.Thumb
           key={index}
