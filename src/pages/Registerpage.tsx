@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import googleLogo from "../assets/icon/google_logos.svg";
+// import googleLogo from "../assets/icon/google_logos.svg";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import useRegister from "../hook/useRegister";
@@ -18,7 +18,7 @@ const Registerpage = () => {
     handleChange,
     handleSubmit,
     navigate,
-    signInWithGoogle,
+    // signInWithGoogle,
     isValid,
     isLoading,
   } = useRegister();
@@ -210,14 +210,14 @@ const Registerpage = () => {
             <div className="grow shrink basis-0 h-px bg-gray-500" />
           </div>
 
-          <Button
+          {/* <Button
             variant="secondary"
             className="w-96 h-11 hover:opacity-50 border border-gray-300 text-gray-600 hover:text-gray-600 hover:border-gray-300 active:text-gray-900 active:border-gray-800 gap-2 m-8"
             onClick={signInWithGoogle}
           >
             <img src={googleLogo} className="mr-2 h-4 w-4" />
             {t("register_page.register_google")}
-          </Button>
+          </Button> */}
 
           <Button
             variant="link"
@@ -227,7 +227,6 @@ const Registerpage = () => {
             {t("register_page.register_back_to_login")}
           </Button>
         </form>
-        
       </div>
     </div>
   );

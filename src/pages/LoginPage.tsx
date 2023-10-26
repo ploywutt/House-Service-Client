@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import googleLogo from "../assets/icon/google_logos.svg";
+// import googleLogo from "../assets/icon/google_logos.svg";
 import error from "../assets/icon/error_icon.png";
 import useLogin from "../hook/useLogin";
 
@@ -11,7 +11,7 @@ const UserLogin = () => {
   const { t } = useTranslation();
   const {
     handleLogin,
-    signInWithGoogle,
+    // signInWithGoogle,
     navigate,
     setEmail,
     setPassword,
@@ -100,7 +100,7 @@ const UserLogin = () => {
           </div>
           <div className="grow shrink basis-0 h-px bg-gray-500" />
         </div>
-        <div>
+        {/* <div>
           <Button
             variant="secondary"
             onClick={signInWithGoogle}
@@ -109,7 +109,7 @@ const UserLogin = () => {
             <img src={googleLogo} className="mr-2 h-4 w-4" />
             {t("login_page.google_login")}
           </Button>
-        </div>
+        </div> */}
         <div className="text-center text-gray-700 text-base font-normal leading-normal m-4">
           {t("login_page.to_register")}
           <Button
