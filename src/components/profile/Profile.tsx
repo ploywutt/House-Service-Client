@@ -62,8 +62,11 @@ function Profile(props: ProfileProps) {
       id="profile-box"
       className="w-[831px] h-fit bg-white border border-gray-300 p-6 flex flex-col gap-3 rounded-lg"
     >
-      <div id="profile-content" className="flex gap-44 m-24 justify-evenly">
-        <div id="avatar" className="flex flex-col gap-6 justify-center">
+      <div id="profile-content" className="flex gap-36 m-24 justify-evenly">
+        <div
+          id="avatar"
+          className="flex flex-col gap-6 justify-center w-[150px]"
+        >
           <img
             src={profileUrl}
             alt="avatar"
