@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import supabase from "@/auth/supabaseauth";
 
 function UserLogin() {
-  const [email, setEmail] = useState<string>("jilore6888@hapincy.com");
+  const [email, setEmail] = useState<string>("vefaliw528@fesgrid.com");
   const [password, setPassword] = useState<string>("87654321");
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
